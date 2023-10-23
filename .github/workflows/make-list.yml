@@ -13,7 +13,7 @@ jobs:
         run: python -c "import sys; print(sys.version)"
   
   test:
-
+    needs: lint
     runs-on: ubuntu-latest
     strategy:
       matrix:
