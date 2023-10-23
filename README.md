@@ -20,7 +20,7 @@ graphe: Mermaid = Mermaid(
                 """)
 graphe # note!! this work just in notbook that render html
 ```
-the result will be like this 
+the result will be like this
 
 ```mermaid
 graph TD;
