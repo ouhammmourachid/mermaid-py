@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mermaid-py"
-version = "0.1.1"
+version = "0.1.2"
 description = ""
 authors = ["ouhammmourachid <rachidouhammou21@gmail.com>"]
 readme = "README.md"
