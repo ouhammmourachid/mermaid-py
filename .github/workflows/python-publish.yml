@@ -26,9 +26,6 @@ jobs:
     - name: Build package
       run: python -m build
     - name: Publish package
-      env:
-        PYPI_PUBLISH_FLAGS: '--verbose'
-      uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
-      with:
-        user: __token__
-        password: ${{ secrets.PYPI_API_TOKEN }}
+      run: |
+        poetry config pypi-token.pypi ${{ secrets.PYPI_API_TOKEN }}
+        poetry publish
