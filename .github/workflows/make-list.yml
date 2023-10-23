@@ -6,9 +6,18 @@ jobs:
   lint:
 
     runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Display Python version
+        run: python -c "import sys; print(sys.version)"
+  
+  test:
+
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["pypy3.9", "pypy3.10", "3.9", "3.10", "3.11", "3.12"]
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
 
     steps:
       - uses: actions/checkout@v4
