@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "mermaid-py"
 version = "0.1.2"
-description = ""
+description = "my description of the package"
 authors = ["ouhammmourachid <rachidouhammou21@gmail.com>"]
 readme = "README.md"
 packages = [{include = "mermaid"}]
