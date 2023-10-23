@@ -32,6 +32,6 @@ jobs:
           python -m pip install --upgrade pip
           curl -sSL https://install.python-poetry.org | python3 -
       - name: Install dependecies.
-        run: make update
+        run: make install
       - name: Run test for python version ${{matrix.python-version}}
         run: make test
