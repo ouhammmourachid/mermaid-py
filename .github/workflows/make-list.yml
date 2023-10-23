@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Display Python version
         run: python -c "import sys; print(sys.version)"
-  
+
   test:
     needs: lint
     runs-on: ubuntu-latest
