@@ -34,4 +34,4 @@ jobs:
       - name: Install dependecies.
         run: make install
       - name: Run test for python version ${{matrix.python-version}}
-        run: make test
+        run: poetry run pytest
