@@ -1,6 +1,9 @@
-name: Lint Python Package
+name: Lint & Test Python Package
 
-on: [push]
+on:
+  pull_request:
+    branches:
+      - main
 
 jobs:
   lint:
@@ -10,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Display Python version
-        run: python -c "import sys; print(sys.version)"
+        run: make lint
 
   test:
     needs: lint
