@@ -18,7 +18,7 @@ graphe: Mermaid = Mermaid(
                     B-->D;
                     C-->D;
                 """)
-graphe # note!! this work just in notbook that render html
+graphe # !! note this work just in notbooke that render html.
 ```
 the result will be like this
 
@@ -39,7 +39,7 @@ graph TD;
 
 If you'd like to contribute to this open source project folow this steps:
 
-1. Clone the repository: `git clone https://github.com/ouhammmourachid/mermaid-py.git`.
+1. Forke the repo and then clone it.
 2. Navigate to the project directory: `cd mermaid-py`.
 3. create a local enviroment `python3 -m venv env`.
 4. activate the env `source env/bin/activate`.

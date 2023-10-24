@@ -6,6 +6,19 @@ import requests
 
 class Mermaid:
     def __init__(self, diagram: str):
+        """this is methode for creating an Mermaid object
+        Parameters
+        ----------
+        diagram : str
+            a string that contains the text of the diagrame like this one
+            ```mermaid
+            graph TD;
+                A-->B;
+                A-->C;
+                B-->D;
+                C-->D;
+            ```
+        """
         self._diagram = self._process_diagram(diagram)
         self._uid = uuid.uuid4()
 

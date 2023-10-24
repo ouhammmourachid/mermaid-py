@@ -1,6 +1,9 @@
-name: Lint Python Package
+name: Lint & Test Python Package
 
-on: [push]
+on:
+  pull_request:
+    branches:
+      - main
 
 jobs:
   lint:
@@ -9,8 +12,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Display Python version
-        run: python -c "import sys; print(sys.version)"
+      - name: Install poetry and upgrade pip.
+        run: |
+          python -m pip install --upgrade pip
+          curl -sSL https://install.python-poetry.org | python3 -
+      - name: Install dependecies.
+        run: make install
+      - name: Make lint operation.
+        run: |
+          make install-pre-commit
+          make lint
 
   test:
     needs: lint
