@@ -18,7 +18,7 @@ graphe: Mermaid = Mermaid(
                     B-->D;
                     C-->D;
                 """)
-graphe # note!! this work just in notbook that render html
+graphe # !! note this work just in notbooke that render html.
 ```
 the result will be like this
 
