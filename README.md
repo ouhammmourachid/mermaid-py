@@ -10,14 +10,14 @@ Briefly describe your project here. Explain what it does and what makes it speci
 first install ``mermaid-py` by `pip install mermaid-py`.
 ```python
 import mermaid as md
-graphe: Mermaid = Mermaid(
-                """
-                graph TD;
-                    A-->B;
-                    A-->C;
-                    B-->D;
-                    C-->D;
-                """)
+from mermaid.graph import Graph
+
+graph: Graph = Graph('first-graph',"""graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;""")
+graphe: Mermaid = Mermaid(graph)
 graphe # !! note this work just in notbooke that render html.
 ```
 the result will be like this

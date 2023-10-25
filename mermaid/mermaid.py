@@ -1,26 +1,15 @@
 import base64
-import uuid
 
 import requests
+from requests import Response
+
+from .graph import Graph
 
 
 class Mermaid:
-    def __init__(self, diagram: str):
-        """this is methode for creating an Mermaid object
-        Parameters
-        ----------
-        diagram : str
-            a string that contains the text of the diagrame like this one
-            ```mermaid
-            graph TD;
-                A-->B;
-                A-->C;
-                B-->D;
-                C-->D;
-            ```
-        """
-        self._diagram = self._process_diagram(diagram)
-        self._uid = uuid.uuid4()
+    def __init__(self, graph: Graph):
+        self._diagram = self._process_diagram(graph.script)
+        self._make_request_to_mermaid()
 
     @staticmethod
     def _process_diagram(diagram: str) -> str:
@@ -30,6 +19,8 @@ class Mermaid:
         return diagram
 
     def _repr_html_(self) -> str:
+        return self.response.text
 
-        response = requests.get('https://mermaid.ink/svg/' + self._diagram)
-        return response.text
+    def _make_request_to_mermaid(self) -> None:
+        self.response: Response = requests.get('https://mermaid.ink/svg/' +
+                                               self._diagram)
