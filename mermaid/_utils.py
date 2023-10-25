@@ -5,7 +5,7 @@ from typing import Optional
 from .graph import Graph
 
 
-def read_file(path: Path) -> Graph:
+def load(path: Path) -> Graph:
     script: Optional[str] = None
     name: Optional[str] = None
 
