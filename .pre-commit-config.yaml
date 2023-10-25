@@ -29,8 +29,8 @@ repos:
           - flake8-import-order
           - flake8-polyfill
           - flake8-quotes
-  # - repo: https://github.com/pre-commit/mirrors-mypy
-  #  rev: 'v0.910'
-  #  hooks:
-  #    - id: mypy
-  #      additional_dependencies: [types-requests, types-PyYAML, types-toml]
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: 'v0.910'
+    hooks:
+      - id: mypy
+        additional_dependencies: [types-requests, types-PyYAML, types-toml]

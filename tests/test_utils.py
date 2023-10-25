@@ -16,6 +16,6 @@ class TestUtils(unittest.TestCase):
     A-->B;
     A-->C;
     B-->D;
-    C-->D;"""
+    C-->D;\n"""
         self.assertEqual(graph.name, expect_name)
         self.assertEqual(graph.script, expect_script)

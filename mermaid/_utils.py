@@ -1,12 +1,13 @@
 import os
 from pathlib import Path
+from typing import Optional
 
 from .graph import Graph
 
 
 def read_file(path: Path) -> Graph:
-    script: str = None
-    name: str = None
+    script: Optional[str] = None
+    name: Optional[str] = None
 
     if os.path.exists(path):
         with open(path, 'r') as file:
