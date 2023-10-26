@@ -38,10 +38,10 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install poetry and upgrade pip.
+      - name: Upgrade pip & Install Poetry.
         run: |
           python -m pip install --upgrade pip
-          curl -sSL https://install.python-poetry.org | python3 -
+          pip install poetry
       - name: Install dependecies.
         run: make install
       - name: Run test for python version ${{matrix.python-version}}
