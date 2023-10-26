@@ -7,7 +7,7 @@ this package works as an interface for the famous mermaid-js library that uses s
 Briefly describe your project here. Explain what it does and what makes it special.
 
 ## Examples
-first install ``mermaid-py` by `pip install mermaid-py`.
+first install `mermaid-py` by `pip install mermaid-py`.
 ```python
 import mermaid as md
 from mermaid.graph import Graph
