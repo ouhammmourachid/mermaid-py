@@ -53,4 +53,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
 
-If you have any questions or want to get in touch, you can reach out to me at [rachidouhammou21@gmail.com].
+If you have any questions or want to get in touch, you can reach out to me at [rachidouhammou21@gmail.com](rachidouhammou21@gmail.com).
