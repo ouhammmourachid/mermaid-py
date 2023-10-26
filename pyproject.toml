@@ -5,10 +5,10 @@ description = "A simple interface for the the famous lib mermaid-js to create di
 authors = ["ouhammmourachid <rachidouhammou21@gmail.com>"]
 readme = "README.md"
 packages = [{include = "mermaid"}]
+exclude = ["mermaid/tests/*.py"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-uuid = "^1.30"
 requests = "^2.31.0"
 
 
