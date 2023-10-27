@@ -3,7 +3,7 @@ import unittest
 from pathlib import Path
 
 from mermaid.graph import Graph
-from mermaid.graph.flowchart import Node
+from mermaid.graph.flowchart import Link, Node
 from mermaid.graph.flowchart.node import NodeShape
 
 
@@ -73,3 +73,35 @@ class TestNode(unittest.TestCase):
 \tsecond_node["Second Node"]
 end"""
         self.assertEqual(expect_string, str(node))
+
+
+class TestLink(unittest.TestCase):
+    def setUp(self) -> None:
+        self.node_1: Node = Node('First Node')
+        self.node_2: Node = Node('Second Node')
+        return super().setUp()
+
+    def test_str_link_without_message(self):
+
+        link: Link = Link(self.node_1, self.node_2)
+        expect_string: str = 'first_node ------> second_node'
+        self.assertEqual(expect_string, str(link))
+
+    def test_str_link_with_message(self):
+        message: str = 'this is my message'
+        link: Link = Link(self.node_1, self.node_2, message=message)
+        expect_string: str = f'first_node ---|{message}|---> second_node'
+        self.assertEqual(expect_string, str(link))
+        self.assertEqual(expect_string, str(link))
+
+    def test_str_link_with_no_default_value(self):
+        message: str = 'this is my message'
+        link: Link = Link(self.node_1,
+                          self.node_2,
+                          shape='dotted',
+                          head_left='bullet',
+                          head_right='cross',
+                          message=message)
+        expect_string: str = f'first_node o-.-|{message}|-.-x second_node'
+        self.assertEqual(expect_string, str(link))
+        self.assertEqual(expect_string, str(link))
