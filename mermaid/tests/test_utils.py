@@ -22,13 +22,13 @@ class TestUtils(unittest.TestCase):
 
     def test_read_file(self):
         graph: Graph = md.load(self.file_test)
-        expect_name: str = 'test-graph'
+        expect_title: str = 'test-graph'
         expect_script: str = """graph TD;
     A-->B;
     A-->C;
     B-->D;
     C-->D;"""
-        self.assertEqual(graph.name, expect_name)
+        self.assertEqual(graph.title, expect_title)
         self.assertEqual(graph.script, expect_script)
 
     def test_convert_text_to_snake_case(self):
