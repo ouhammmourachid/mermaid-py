@@ -3,4 +3,4 @@
 from ._main import Mermaid
 from ._utils import load
 
-__version__: str = '0.1.6'
+__version__: str = '0.1.7'

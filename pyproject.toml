@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mermaid-py"
-version = "0.1.6"
+version = "0.1.7"
 description = "A simple interface for the the famous lib mermaid-js to create diagrams."
 authors = ["ouhammmourachid <rachidouhammou21@gmail.com>"]
 readme = "README.md"
