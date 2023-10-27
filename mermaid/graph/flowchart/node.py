@@ -34,12 +34,12 @@ class Node:
                  content: str = '',
                  shape: str = 'normal',
                  sub_nodes: List['Node'] = None) -> None:
-        if sub_nodes is None:
-            sub_nodes = []
+
         self.id_: str = text_to_snake_case(id_)
         self.content: str = content if content else id_
         self.shape: NodeShape = NODE_SHAPES[shape]
-        self.sub_nodes: List['Node'] = sub_nodes
+        self.sub_nodes: List[
+            'Node'] = sub_nodes if sub_nodes is not None else []
 
     def __str__(self) -> str:
         string: str = ''

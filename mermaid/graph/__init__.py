@@ -6,11 +6,11 @@ from typing import Optional
 
 @dataclass
 class Graph:
-    name: str
+    title: str
     script: str
 
     def save(self, path: Optional[Path] = None) -> None:
-        file_path: Path = path if path else Path(f'./{self.name}.txt')
+        file_path: Path = path if path else Path(f'./{self.title}.txt')
 
         with open(file_path, 'w') as file:
             file.write(self.script)
