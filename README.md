@@ -47,23 +47,23 @@ If you'd like to contribute to this open source project folow this steps:
 6. happy coding :) .
 
 ## List of Diagrames
-- [x] FlowChart
-- [ ] Sequence Diagram
-- [ ] Class Diagram
-- [ ] State Diagram
-- [ ] Entity Relationship Diagram
-- [ ] User Journey
-- [ ] Gantt
-- [ ] Pie Chart
-- [ ] Quadrant Chart
-- [ ] Requirement Diagram
-- [ ] Gitgraph (Git) Diagram 🔥
-- [ ] C4 Diagram 🦺⚠️
-- [ ] Mindmaps 🔥
-- [ ] Timeline 🔥
-- [ ] Zenuml 🔥
-- [ ] Sankey 🔥
-- [ ] XYChart 🔥
+- [x] [FlowChart](https://mermaid.js.org/syntax/flowchart.html)
+- [ ] [Sequence Diagram](https://mermaid.js.org/syntax/sequenceDiagram.html)
+- [ ] [Class Diagram](https://mermaid.js.org/syntax/classDiagram.html)
+- [ ] [State Diagram](https://mermaid.js.org/syntax/stateDiagram.html)
+- [ ] [Entity Relationship Diagram](https://mermaid.js.org/syntax/entityRelationshipDiagram.html)
+- [ ] [User Journey](https://mermaid.js.org/syntax/userJourney.html)
+- [ ] [Gantt](https://mermaid.js.org/syntax/gantt.html)
+- [ ] [Pie Chart](https://mermaid.js.org/syntax/pie.html)
+- [ ] [Quadrant Chart](https://mermaid.js.org/syntax/quadrantChart.html)
+- [ ] [Requirement Diagram](https://mermaid.js.org/syntax/requirementDiagram.html)
+- [ ] [Gitgraph (Git) Diagram 🔥](https://mermaid.js.org/syntax/gitgraph.html)
+- [ ] [C4 Diagram 🦺⚠️](https://mermaid.js.org/syntax/c4.html)
+- [ ] [Mindmaps 🔥](https://mermaid.js.org/syntax/mindmap.html)
+- [ ] [Timeline 🔥](https://mermaid.js.org/syntax/timeline.html)
+- [ ] [Zenuml 🔥](https://mermaid.js.org/syntax/zenuml.html)
+- [ ] [Sankey 🔥](https://mermaid.js.org/syntax/sankey.html)
+- [ ] [XYChart 🔥](https://mermaid.js.org/syntax/xychart.html)
 
 ## License
 
