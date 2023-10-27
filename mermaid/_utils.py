@@ -1,4 +1,5 @@
 import os
+import re
 from pathlib import Path
 from typing import Optional
 
@@ -19,3 +20,13 @@ def load(path: Path) -> Graph:
     name, _ = os.path.splitext(file_name)
 
     return Graph(name, script)
+
+
+def text_to_snake_case(text: str) -> str:
+    # Remove non-alphanumeric characters except underscores and replace spaces with underscores
+    out: str = re.sub(r'[^a-zA-Z0-9_]', '_', text)
+
+    # Convert the text to lowercase
+    out = out.lower()
+
+    return out
