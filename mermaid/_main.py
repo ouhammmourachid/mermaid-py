@@ -1,5 +1,6 @@
 import base64
 from pathlib import Path
+from typing import Union
 
 import requests
 from requests import Response
@@ -28,10 +29,10 @@ class Mermaid:
         self.img_response: Response = requests.get('https://mermaid.ink/img/' +
                                                    self._diagram)
 
-    def to_svg(self, path: str | Path) -> None:
+    def to_svg(self, path: Union[str, Path]) -> None:
         with open(path, 'w') as file:
             file.write(self.svg_response.text)
 
-    def to_png(self, path: str | Path) -> None:
+    def to_png(self, path: Union[str, Path]) -> None:
         with open(path, 'w') as file:
             file.write(self.img_response.text)
