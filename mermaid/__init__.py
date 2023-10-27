@@ -1,6 +1,6 @@
 """ a beter docs sttrings
 """
+from ._main import Mermaid
 from ._utils import load
-from .mermaid import *
 
 __version__: str = '0.1.6'
