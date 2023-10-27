@@ -1,6 +1,3 @@
-from collections.abc import Iterable
-from typing import List
-
 from mermaid.graph import Graph
 
 from .link import Link
@@ -10,11 +7,11 @@ from .node import Node
 class FlowChart(Graph):
     def __init__(self,
                  title: str,
-                 nodes: List[Node] = None,
-                 links: List[Link] = None) -> None:
+                 nodes: list[Node] = None,
+                 links: list[Link] = None) -> None:
         super().__init__(title, '')
-        self.nodes: List[Node] = nodes if nodes is not None else []
-        self.links: List[Link] = links if links is not None else []
+        self.nodes: list[Node] = nodes if nodes is not None else []
+        self.links: list[Link] = links if links is not None else []
         self._build_script()
 
     def _build_script(self) -> None:

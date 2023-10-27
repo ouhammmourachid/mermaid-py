@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Dict, List
 
 from mermaid import text_to_snake_case
 
@@ -10,7 +9,7 @@ class NodeShape:
     end: str
 
 
-NODE_SHAPES: Dict[str, NodeShape] = {
+NODE_SHAPES: dict[str, NodeShape] = {
     'normal': NodeShape('[', ']'),
     'round-edge': NodeShape('(', ')'),
     'stadium-shape': NodeShape('([', '])'),
@@ -33,12 +32,12 @@ class Node:
                  id_: str,
                  content: str = '',
                  shape: str = 'normal',
-                 sub_nodes: List['Node'] = None) -> None:
+                 sub_nodes: list['Node'] = None) -> None:
 
         self.id_: str = text_to_snake_case(id_)
         self.content: str = content if content else id_
         self.shape: NodeShape = NODE_SHAPES[shape]
-        self.sub_nodes: List[
+        self.sub_nodes: list[
             'Node'] = sub_nodes if sub_nodes is not None else []
 
     def __str__(self) -> str:

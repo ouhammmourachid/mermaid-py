@@ -1,15 +1,13 @@
-from typing import Dict, List
-
 from .node import Node
 
-LINK_SHAPES: Dict[str, str] = {
+LINK_SHAPES: dict[str, str] = {
     'normal': '--',
     'dotted': '-.-',
     'thick': '==',
     'hiden': '~~~'
 }
 
-LINK_HEADS: Dict[str, str] = {
+LINK_HEADS: dict[str, str] = {
     'none': '',
     'arrow': '>',
     'left-arrow': '<',
@@ -35,7 +33,7 @@ class Link:
 
     def __str__(self) -> str:
         if self.message:
-            element: List[str] = [
+            element: list[str] = [
                 self.oigin.id_,
                 ' ',
                 self.head_left,
