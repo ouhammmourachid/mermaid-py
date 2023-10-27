@@ -30,9 +30,9 @@ class Mermaid:
                                                    self._diagram)
 
     def to_svg(self, path: Union[str, Path]) -> None:
-        with open(path, 'w') as file:
+        with open(path, 'w', encoding='utf-8') as file:
             file.write(self.svg_response.text)
 
     def to_png(self, path: Union[str, Path]) -> None:
-        with open(path, 'w') as file:
+        with open(path, 'w', encoding='utf-8') as file:
             file.write(self.img_response.text)
