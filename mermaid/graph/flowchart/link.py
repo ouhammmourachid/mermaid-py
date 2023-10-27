@@ -3,9 +3,10 @@ from typing import Dict, List
 from .node import Node
 
 LINK_SHAPES: Dict[str, str] = {
-    'normal': '---',
+    'normal': '--',
     'dotted': '-.-',
-    'thick': '===',
+    'thick': '==',
+    'hiden': '~~~'
 }
 
 LINK_HEADS: Dict[str, str] = {
@@ -33,15 +34,25 @@ class Link:
         self.message = f'|{message}|' if message else message
 
     def __str__(self) -> str:
-        element: List[str] = [
-            self.oigin.id_,
-            ' ',
-            self.head_left,
-            self.shape,
-            self.message,
-            self.shape,
-            self.head_right,
-            ' ',
-            self.end.id_,
-        ]
+        if self.message:
+            element: List[str] = [
+                self.oigin.id_,
+                ' ',
+                self.head_left,
+                self.shape,
+                self.head_right,
+                self.message,
+                ' ',
+                self.end.id_,
+            ]
+        else:
+            element = [
+                self.oigin.id_,
+                ' ',
+                self.head_left,
+                self.shape,
+                self.head_right,
+                ' ',
+                self.end.id_,
+            ]
         return ''.join(element)

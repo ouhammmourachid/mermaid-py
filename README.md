@@ -46,6 +46,24 @@ If you'd like to contribute to this open source project folow this steps:
 5. install the dependecies `poetry install`.
 6. happy coding :) .
 
+## List of Diagrames
+- [x] FlowChart
+- [ ] Sequence Diagram
+- [ ] Class Diagram
+- [ ] State Diagram
+- [ ] Entity Relationship Diagram
+- [ ] User Journey
+- [ ] Gantt
+- [ ] Pie Chart
+- [ ] Quadrant Chart
+- [ ] Requirement Diagram
+- [ ] Gitgraph (Git) Diagram 🔥
+- [ ] C4 Diagram 🦺⚠️
+- [ ] Mindmaps 🔥
+- [ ] Timeline 🔥
+- [ ] Zenuml 🔥
+- [ ] Sankey 🔥
+- [ ] XYChart 🔥
 
 ## License
 
