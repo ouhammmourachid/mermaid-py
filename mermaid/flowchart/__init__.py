@@ -2,8 +2,9 @@ from collections.abc import Iterable
 from typing import List
 
 from mermaid.graph import Graph
-from mermaid.graph.flowchart.link import Link
-from mermaid.graph.flowchart.node import Node
+
+from .link import Link
+from .node import Node
 
 
 class FlowChart(Graph):
@@ -17,10 +18,10 @@ class FlowChart(Graph):
         self._build_script()
 
     def _build_script(self) -> None:
-        script: str = f'---\ntitle: {self.title}\n---'
-        script += '\nflowchart'
+        super()._build_script()
+        script: str = '\nflowchart'
         for node in self.nodes:
             script += f'\n\t{node}'
         for link in self.links:
             script += f'\n\t{link}'
-        self.script = script + '\n'
+        self.script += script + '\n'
