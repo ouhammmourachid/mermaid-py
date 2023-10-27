@@ -12,11 +12,19 @@ first install `mermaid-py` by `pip install mermaid-py`.
 import mermaid as md
 from mermaid.graph import Graph
 
-graph: Graph = Graph('first-graph',"""graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;""")
+graph: Graph = Graph('first-graph',"""
+graph TD;
+    mer(Mermaid)
+    flow(FlowChart);
+    clas(ClassDiagram)
+    gra(Graph)
+    flow-link(Link)
+    node(Node)
+    mer --> flow
+    mer --> clas
+    mer --> gra
+    flow --> node & flow-link
+""")
 graphe: Mermaid = Mermaid(graph)
 graphe # !! note this work just in notbooke that render html.
 ```
@@ -24,10 +32,16 @@ the result will be like this
 
 ```mermaid
 graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
+    mer(Mermaid)
+    flow(FlowChart);
+    clas(ClassDiagram)
+    gra(Graph)
+    flow-link(Link)
+    node(Node)
+    mer --> flow
+    mer --> clas
+    mer --> gra
+    flow --> node & flow-link
 ```
 
 ## Technologies Used
