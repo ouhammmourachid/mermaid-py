@@ -31,6 +31,12 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(graph.name, expect_name)
         self.assertEqual(graph.script, expect_script)
 
+    def test_convert_text_to_snake_case(self):
+        input_text: str = 'This is my Input'
+        out: str = md.text_to_snake_case(input_text)
+        expect_out: str = 'this_is_my_input'
+        self.assertEqual(expect_out, out)
+
     def tearDown(self) -> None:
         if os.path.exists(self.file_test):
             os.remove(self.file_test)
