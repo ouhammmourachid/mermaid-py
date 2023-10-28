@@ -30,13 +30,10 @@ jobs:
       env:
         GITHUB_TOKEN: ${{github.token}}
 
-    - name: Upgrade pip & Install Poetry.
+    - name: Upgrade pip & Install bumpversion.
       run: |
         python -m pip install --upgrade pip
-        pip install poetry
-
-    - name: Install dependecies.
-      run: make install
+        pip install bumpversion
 
     - name: Bump version.
       run: bumpversion ${{ github.event.inputs.version }}
