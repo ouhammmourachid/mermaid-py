@@ -38,7 +38,9 @@ jobs:
         cat mermaid/__init__.py
 
     - name: Bump version.
-      run: bumpversion ${{ github.event.inputs.version }}
+      run: |
+        bumpversion ${{ github.event.inputs.version }}
+        cat mermaid/__init__.py
 
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
