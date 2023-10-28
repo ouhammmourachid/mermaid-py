@@ -1,7 +1,7 @@
 import unittest
 
-from mermaid.graph.flowchart import FlowChart, Link, Node
-from mermaid.graph.flowchart.node import NodeShape
+from mermaid.flowchart import FlowChart, Link, Node
+from mermaid.flowchart.node import NodeShape
 
 
 class TestNode(unittest.TestCase):

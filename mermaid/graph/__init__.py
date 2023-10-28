@@ -14,3 +14,7 @@ class Graph:
 
         with open(file_path, 'w') as file:
             file.write(self.script)
+
+    def _build_script(self) -> None:
+        script: str = f'---\ntitle: {self.title}\n---' + self.script
+        self.script = script
