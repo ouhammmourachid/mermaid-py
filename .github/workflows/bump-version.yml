@@ -39,7 +39,4 @@ jobs:
     - name: Bump version.
       run: bumpversion ${{ github.event.inputs.version }}
 
-    - name: Push latest version.
-      run: git push origin main --follow-tags
-      env:
-        GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+    - uses: stefanzweifel/git-auto-commit-action@v4
