@@ -29,7 +29,12 @@ jobs:
       uses: actions/checkout@v3
       env:
         GITHUB_TOKEN: ${{github.token}}
-
+    
+    - name: Setup Git
+      run: |
+        git config user.name 'ouhammmourachid'
+        git config user.email 'rachidouhammou21@gmail.com'
+    
     - name: Upgrade pip & Install bumpversion.
       run: |
         python -m pip install --upgrade pip
