@@ -42,4 +42,4 @@ jobs:
     - name: Push latest version.
       run: git push origin main --follow-tags
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
