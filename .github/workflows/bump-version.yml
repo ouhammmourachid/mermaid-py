@@ -40,6 +40,6 @@ jobs:
       run: bumpversion ${{ github.event.inputs.version }}
 
     - name: Push latest version.
-      env:
-        GITHUB_TOKEN: ${{github.token}}
       run: git push origin main --follow-tags
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
