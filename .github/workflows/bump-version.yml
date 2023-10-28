@@ -22,27 +22,15 @@ jobs:
   bump-version:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
-    - name: Check out source
-      uses: actions/checkout@v3
-    - name: Setup Git
-      run: |
-        git config user.name 'ouhammmourachid'
-        git config user.email 'rachidouhammou21@gmail.com'
-    - name: Upgrade pip & Install bumpversion.
-      run: |
-        python -m pip install --upgrade pip
-        pip install bumpversion
-
-    - name: Bump version.
-      run: |
-        bumpversion ${{ github.event.inputs.version }}
-        git add -A
-    - name: debuging!!!
-      run:  cat mermaid/__init__.py
-    - uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        push_options: '--follow-tags'
+      - uses: actions/checkout@v2
+      - name: Bump version and push tag
+        uses: jasonamyers/github-bumpversion-action@v1.0.5
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.ACCESS_TOKEN }}
+          tags: true
       
