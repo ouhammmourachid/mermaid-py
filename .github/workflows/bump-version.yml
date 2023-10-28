@@ -27,8 +27,6 @@ jobs:
     steps:
     - name: Check out source
       uses: actions/checkout@v3
-      env:
-        GITHUB_TOKEN: ${{github.token}}
     - name: Setup Git
       run: |
         git config user.name 'ouhammmourachid'
@@ -42,4 +40,6 @@ jobs:
       run: bumpversion ${{ github.event.inputs.version }}
 
     - name: Push latest version.
+      env:
+        GITHUB_TOKEN: ${{github.token}}
       run: git push origin main --follow-tags
