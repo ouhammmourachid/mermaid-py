@@ -9,7 +9,7 @@ class Graph:
     title: str
     script: str
 
-    def save(self, path: Path | None = None) -> None:
+    def save(self, path: Optional[Path] = None) -> None:
         file_path: Path = path if path else Path(f'./{self.title}.txt')
 
         with open(file_path, 'w') as file:
