@@ -27,4 +27,6 @@ jobs:
       - name: Bump version and push tag
         uses: ouhammmourachid/bumpversion-action@main
       - run: cat mermaid/__init__.py
-      
+      - uses: hisasann/simple-github-auto-push@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
