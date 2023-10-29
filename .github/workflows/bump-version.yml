@@ -26,7 +26,6 @@ jobs:
       - uses: actions/checkout@v2
       - name: Bump version and push tag
         uses: ouhammmourachid/bumpversion-action@main
+        id: bump
       - run: cat mermaid/__init__.py
-      - uses: hisasann/simple-github-auto-push@main
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      - run: echo "the new version is ${{ steps.bump.outputs.new_version }}
