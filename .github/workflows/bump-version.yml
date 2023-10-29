@@ -28,4 +28,4 @@ jobs:
         uses: ouhammmourachid/bumpversion-action@main
         id: bump
       - run: cat mermaid/__init__.py
-      - run: echo "the new version is ${{ steps.bump.outputs.new_version }}
+      - run: echo "the new version is ${{ steps.bump.outputs.new_version }} "
