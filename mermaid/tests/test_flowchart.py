@@ -85,7 +85,7 @@ class TestLink(unittest.TestCase):
 
 
 class TestFlowChart(unittest.TestCase):
-    def test_make_flowchart_script(self):
+    def test_make_flowchart_script_with_default_orientation(self):
 
         nodes = [Node('First Node'), Node('Second Node'), Node('Third Node')]
         links = [
@@ -96,7 +96,30 @@ class TestFlowChart(unittest.TestCase):
         expect_script: str = f"""---
 title: simple flowchart
 ---
-flowchart
+flowchart TB
+\t{nodes[0]}
+\t{nodes[1]}
+\t{nodes[2]}
+\t{links[0]}
+\t{links[1]}
+"""
+        self.assertEqual(expect_script, flowchart.script)
+
+    def test_make_flowchart_script_without_default_orientation(self):
+
+        nodes = [Node('First Node'), Node('Second Node'), Node('Third Node')]
+        links = [
+            Link(nodes[0], nodes[1], head_left='cross'),
+            Link(nodes[1], nodes[2], head_right='bullet')
+        ]
+        flowchart: FlowChart = FlowChart('simple flowchart',
+                                         nodes,
+                                         links,
+                                         orientation='LR')
+        expect_script: str = f"""---
+title: simple flowchart
+---
+flowchart LR
 \t{nodes[0]}
 \t{nodes[1]}
 \t{nodes[2]}
