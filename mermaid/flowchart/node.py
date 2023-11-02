@@ -26,17 +26,28 @@ NODE_SHAPES: dict[str, NodeShape] = {
     'double-circle': NodeShape('(((', ')))'),
 }
 
+HREF_TYPES: dict[str, str] = {
+    'blank': '_blank',
+    'self': '_self',
+    'parent': '_parent',
+    'top': '_top'
+}
+
 
 class Node:
     def __init__(self,
                  id_: str,
                  content: str = '',
                  shape: str = 'normal',
-                 sub_nodes: list['Node'] = None) -> None:
+                 sub_nodes: list['Node'] = None,
+                 href: str = None,
+                 href_type: str = 'blank') -> None:
 
         self.id_: str = text_to_snake_case(id_)
         self.content: str = content if content else id_
         self.shape: NodeShape = NODE_SHAPES[shape]
+        self.href: str = href if href is not None else '#'
+        self.href_type: str = HREF_TYPES[href_type]
         self.sub_nodes: list[
             'Node'] = sub_nodes if sub_nodes is not None else []
 
@@ -51,4 +62,9 @@ class Node:
             string = ''.join([
                 self.id_, self.shape.start, f'"{self.content}"', self.shape.end
             ])
+            if self.href != '#':
+                string = ''.join([
+                    string, '\n',
+                    f'click {self.id_} "{self.href}" {self.href_type}'
+                ])
         return string
