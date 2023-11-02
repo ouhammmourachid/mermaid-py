@@ -38,6 +38,20 @@ class TestNode(unittest.TestCase):
 end"""
         self.assertEqual(expect_string, str(node))
 
+    def test_string_node_with_href_type_deafult(self):
+        node: Node = Node('Node Name', href='www.github.com')
+        expect_string: str = """node_name["Node Name"]
+click node_name "www.github.com" _blank"""
+
+        self.assertEqual(expect_string, str(node))
+
+    def test_string_node_without_href_type_deafult(self):
+        node: Node = Node('Node Name', href='www.github.com', href_type='top')
+        expect_string: str = """node_name["Node Name"]
+click node_name "www.github.com" _top"""
+
+        self.assertEqual(expect_string, str(node))
+
 
 class TestLink(unittest.TestCase):
     def setUp(self) -> None:
