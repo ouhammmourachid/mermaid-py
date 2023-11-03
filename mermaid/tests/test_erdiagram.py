@@ -1,6 +1,6 @@
 import unittest
 
-from mermaid.erdiagram import Entity, Link
+from mermaid.erdiagram import Entity, ERDiagram, Link  # noqa: I101
 
 
 class TestEnity(unittest.TestCase):
@@ -79,3 +79,39 @@ class TestLink(unittest.TestCase):
                     label='has')
         expect_string = 'User||--o{Tag : "has"'
         self.assertEqual(expect_string, str(link))
+
+    def test_dotted_link(self):
+        link = Link(self.enity_1,
+                    self.enity_2,
+                    'exactly-one',
+                    'zero-or-more',
+                    dotted=True)
+        expect_string = 'User||..o{Tag : ""'
+        self.assertEqual(expect_string, str(link))
+
+
+class TestERDiagram(unittest.TestCase):
+    def test_script_erdiagram(self):
+        entity_1 = Entity('User', {
+            'id': ['int', 'PK'],
+            'name': ['string', 'the name']
+        })
+        entity_2 = Entity('Tag', {'id': ['int', 'PK'], 'name': 'string'})
+        entities = [entity_1, entity_2]
+        links = [
+            Link(entity_1,
+                 entity_2,
+                 'exactly-one',
+                 'zero-or-more',
+                 dotted=True)
+        ]
+        diagram = ERDiagram('e-commerce website', entities, links)
+        expect_str = f"""---
+title: e-commerce website
+---
+erDiagram
+\t{entities[0]}
+\t{entities[1]}
+\t{links[0]}
+"""
+        self.assertEqual(expect_str, diagram.script)
