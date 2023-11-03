@@ -65,7 +65,7 @@ If you'd like to contribute to this open source project folow this steps:
 - [ ] [Sequence Diagram](https://mermaid.js.org/syntax/sequenceDiagram.html)
 - [ ] [Class Diagram](https://mermaid.js.org/syntax/classDiagram.html)
 - [ ] [State Diagram](https://mermaid.js.org/syntax/stateDiagram.html)
-- [ ] [Entity Relationship Diagram](https://mermaid.js.org/syntax/entityRelationshipDiagram.html)
+- [x] [Entity Relationship Diagram](https://mermaid.js.org/syntax/entityRelationshipDiagram.html)
 - [ ] [User Journey](https://mermaid.js.org/syntax/userJourney.html)
 - [ ] [Gantt](https://mermaid.js.org/syntax/gantt.html)
 - [ ] [Pie Chart](https://mermaid.js.org/syntax/pie.html)
