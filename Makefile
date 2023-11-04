@@ -25,3 +25,7 @@ install-pre-commit:
 .PHONY: lint
 lint:
 	poetry run pre-commit run --all-files
+
+.PHONY: build-docs
+build-docs:
+	poetry run mkdocs build
