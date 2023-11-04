@@ -18,12 +18,17 @@ graph TD;
     flow(FlowChart);
     clas(ClassDiagram)
     gra(Graph)
+    erDigram(ERDiagram)
+    erdiagram-link(Link)
+    entity(Entity)
     flow-link(Link)
     node(Node)
     mer --> flow
     mer --> clas
     mer --> gra
+    mer --> erDigram
     flow --> node & flow-link
+    erDigram --> entity & erdiagram-link
 """)
 graphe: Mermaid = Mermaid(graph)
 graphe # !! note this work just in notbooke that render html.
@@ -36,12 +41,17 @@ graph TD;
     flow(FlowChart);
     clas(ClassDiagram)
     gra(Graph)
+    erDigram(ERDiagram)
+    erdiagram-link(Link)
+    entity(Entity)
     flow-link(Link)
     node(Node)
     mer --> flow
     mer --> clas
     mer --> gra
+    mer --> erDigram
     flow --> node & flow-link
+    erDigram --> entity & erdiagram-link
 ```
 
 ## Technologies Used
