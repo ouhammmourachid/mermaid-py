@@ -1,17 +1,26 @@
-# Welcome to MkDocs
+# Welcome to Mermaid-Py
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+A simple interface for the the famous lib mermaid-js to create diagrams.[mermaid.js.org](https://mermaid.js.org/).
 
-## Commands
+## Get started
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+* install memaid-py using pypi `pip install mermaid-py`.
 
-## Project layout
+```python
+from mermaid import Mermaid
+from mermaid.graph import Graph
+graph = """
+graph TD;
+    A --> B
+    A --> C
+"""
+Memaid(graph)
+```
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+the result in `notebook`
+
+```mermaid
+graph TD;
+    A --> B
+    A --> C
+```
