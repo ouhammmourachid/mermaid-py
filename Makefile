@@ -29,3 +29,7 @@ lint:
 .PHONY: build-docs
 build-docs:
 	poetry run mkdocs build
+
+.PHONY: serve-docs
+serve-docs:
+	poetry run mkdocs serve
