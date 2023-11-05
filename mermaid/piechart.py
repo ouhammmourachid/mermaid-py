@@ -15,8 +15,8 @@ class PieChart(Graph):
         super()._build_script()
         print(self.title)
         print(self.script)
-        showData: str = 'showData' if self.show_data else ''
-        script: str = f'\npie {showData}'
+        showData: str = ' showData' if self.show_data else ''
+        script: str = f'\npie{showData}'
 
         for key, value in self.data.items():
             script += f'\n\t"{key}" : {value}'

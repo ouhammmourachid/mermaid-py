@@ -21,9 +21,6 @@ pie
 \t"Magnesium" : 10.01
 \t"Iron" : 5
 """
-        print(expect_str)
-        print('----')
-        print(pie.script)
         self.assertEqual(expect_str, pie.script)
 
     def test_piechart_with_showdata(self):
@@ -43,7 +40,4 @@ pie showData
 \t"Magnesium" : 10.01
 \t"Iron" : 5
 """
-        print(expect_str)
-        print('----')
-        print(pie.script)
         self.assertEqual(expect_str, pie.script)
