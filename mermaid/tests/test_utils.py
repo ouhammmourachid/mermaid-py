@@ -7,7 +7,7 @@ from mermaid.graph import Graph
 
 class TestUtils(unittest.TestCase):
     def setUp(self) -> None:
-        self.file_test: str = './test-graph.txt'
+        self.file_test: str = './test-graph.mmd'
         with open(self.file_test, 'w') as file:
             file.write("""graph TD;
     A-->B;
@@ -18,7 +18,7 @@ class TestUtils(unittest.TestCase):
 
     def test_read_file_should_raise_error(self):
         with self.assertRaises(FileNotFoundError):
-            md.load('./file.txt')
+            md.load('./file.mmd')
 
     def test_read_file(self):
         graph: Graph = md.load(self.file_test)
