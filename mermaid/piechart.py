@@ -13,8 +13,6 @@ class PieChart(Graph):
 
     def _build_script(self) -> None:
         super()._build_script()
-        print(self.title)
-        print(self.script)
         showData: str = ' showData' if self.show_data else ''
         script: str = f'\npie{showData}'
 
