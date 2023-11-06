@@ -78,7 +78,7 @@ If you'd like to contribute to this open source project folow this steps:
 - [x] [Entity Relationship Diagram](https://mermaid.js.org/syntax/entityRelationshipDiagram.html)
 - [ ] [User Journey](https://mermaid.js.org/syntax/userJourney.html)
 - [ ] [Gantt](https://mermaid.js.org/syntax/gantt.html)
-- [ ] [Pie Chart](https://mermaid.js.org/syntax/pie.html)
+- [x] [Pie Chart](https://mermaid.js.org/syntax/pie.html)
 - [ ] [Quadrant Chart](https://mermaid.js.org/syntax/quadrantChart.html)
 - [ ] [Requirement Diagram](https://mermaid.js.org/syntax/requirementDiagram.html)
 - [ ] [Gitgraph (Git) Diagram 🔥](https://mermaid.js.org/syntax/gitgraph.html)
