@@ -10,6 +10,7 @@ exclude = ["mermaid/tests/*.py"]
 [tool.poetry.dependencies]
 python = "^3.9"
 requests = "^2.31.0"
+ipython = "^8.17.2"
 
 
 [tool.poetry.group.dev.dependencies]

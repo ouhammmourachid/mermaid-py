@@ -36,3 +36,21 @@ class Mermaid:
     def to_png(self, path: Union[str, Path]) -> None:
         with open(path, 'wb') as file:
             file.write(self.img_response.content)
+
+
+try:
+    from IPython import get_ipython
+    if get_ipython() is not None:
+        from IPython.core.magic import register_cell_magic
+        from IPython.display import display
+
+        @register_cell_magic
+        def mermaidjs(line, cell):
+            script: str = cell.strip()
+            graph: Graph = Graph('mermaid diagram', script)
+            display(Mermaid(graph))
+
+        get_ipython().register_magic_function(mermaidjs, magic_kind='cell')
+except ImportError:
+    # TODO: add a suitible handler for exception.
+    print('Error acured while importing mermaidjs .')
