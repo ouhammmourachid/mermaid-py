@@ -42,13 +42,18 @@ try:
     from IPython import get_ipython
     if get_ipython() is not None:
         from IPython.core.magic import register_cell_magic
-        from IPython.display import display
+        from IPython.display import Image, display
 
         @register_cell_magic
         def mermaidjs(line, cell):
+            options = line.strip().split()
             script: str = cell.strip()
             graph: Graph = Graph('mermaid diagram', script)
-            display(Mermaid(graph))
+            mermaid: Mermaid = Mermaid(graph)
+            if '--img' in options:
+                display(Image(mermaid.img_response.content))
+            else:
+                display(Mermaid(graph))
 
         get_ipython().register_magic_function(mermaidjs, magic_kind='cell')
 except ImportError:
