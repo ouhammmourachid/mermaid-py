@@ -15,16 +15,14 @@ class Graph:
     examples:
     >>> from mermaid.graph import Graph
     >>> grph = Graph("title","...")
-    >>> # save the script in txt file for other uses
-    >>> graph.save() # save in file with name of title and extention .txt.
-    >>> graph.svae('./file-name.txt') # save in specific file.
     """
     title: str
     script: str
 
     def save(self, path: Optional[Path] = None) -> None:
-        file_path: Path = path if path else Path(f'./{self.title}.txt')
-
+        file_path: Path = path if path else Path(f'./{self.title}.mmd')
+        if file_path.suffix not in ['.mmd', '.mermaid']:
+            raise ValueError("File extension must be '.mmd' or '.mermaid'")
         with open(file_path, 'w') as file:
             file.write(self.script)
 
