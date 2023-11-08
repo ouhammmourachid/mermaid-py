@@ -42,16 +42,23 @@ graph TD;
     clas(ClassDiagram)
     gra(Graph)
     erDigram(ERDiagram)
+    pie(PieDiagram)
+    reqDiagram(RequiremntDiagram)
     erdiagram-link(Link)
     entity(Entity)
     flow-link(Link)
     node(Node)
+    requiremnt(Requiremnt)
+    element(Element)
     mer --> flow
     mer --> clas
     mer --> gra
     mer --> erDigram
+    mer --> pie
+    mer --> reqDiagram
     flow --> node & flow-link
     erDigram --> entity & erdiagram-link
+    reqDiagram --> requiremnt & element
 ```
 
 ## Technologies Used

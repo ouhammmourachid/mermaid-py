@@ -1,6 +1,6 @@
 import unittest
 
-from mermaid.reqdiagram import Requirement, Risk, Type, VerifyMethod
+from mermaid.reqdiagram import Element, Requirement, Risk, Type, VerifyMethod
 
 
 class TestRequirement(unittest.TestCase):
@@ -28,3 +28,22 @@ class TestRequirement(unittest.TestCase):
 }
 """
         self.assertEqual(expect_str, str(requirement))
+
+
+class TestElement(unittest.TestCase):
+    def test_element_with_docref(self):
+        element = Element('test_entity', 'simulation', '/test/test_....py')
+        expect_str = """element test_entity {
+\ttype: "simulation"
+\tdocRef: /test/test_....py
+}
+"""
+        self.assertEqual(expect_str, str(element))
+
+    def test_element_without_docref(self):
+        element = Element('test_entity', 'simulation')
+        expect_str = """element test_entity {
+\ttype: "simulation"
+}
+"""
+        self.assertEqual(expect_str, str(element))
