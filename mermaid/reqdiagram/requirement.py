@@ -25,10 +25,10 @@ class Type(Enum):
 
 
 class Requirement:
-    def __init__(self, id_: int, name: str, text: str, type_: Union[str, Type],
+    def __init__(self, id_: str, name: str, text: str, type_: Union[str, Type],
                  risk: Union[str, Risk],
                  verifymethod: Union[str, VerifyMethod]) -> None:
-        self.id_: int = id_
+        self.id_: str = id_
         self.name: str = name
         self.text: str = text
         self.type_: str = type_ if isinstance(type_, str) else type_.value
