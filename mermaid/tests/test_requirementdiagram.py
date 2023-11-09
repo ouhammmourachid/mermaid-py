@@ -1,6 +1,7 @@
 import unittest
+from unittest import mock
 
-from mermaid.reqdiagram import Element, Requirement, Risk, Type, VerifyMethod
+from mermaid.reqdiagram import Element, Link, Requirement, Risk, Type, VerifyMethod
 
 
 class TestRequirement(unittest.TestCase):
@@ -47,3 +48,25 @@ class TestElement(unittest.TestCase):
 }
 """
         self.assertEqual(expect_str, str(element))
+
+
+class TestLink(unittest.TestCase):
+    def test_string_link_with_element_requirement(self):
+        element = mock.Mock()
+        element.name = 'test_entity'
+        requirement = mock.Mock()
+        requirement.name = 'test_req'
+        link = Link(element, requirement, 'traces')
+        expect_str = 'test_entity - traces -> test_req'
+
+        self.assertEqual(expect_str, str(link))
+
+    def test_string_link_with_requirements(self):
+        requirement_1 = mock.Mock()
+        requirement_1.name = 'test_req'
+        requirement_2 = mock.Mock()
+        requirement_2.name = 'test_req2'
+        link = Link(requirement_1, requirement_2, 'contains')
+        expect_str = 'test_req - contains -> test_req2'
+
+        self.assertEqual(expect_str, str(link))
