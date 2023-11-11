@@ -1,6 +1,6 @@
 from mermaid.graph import Graph
 
-from .link import Link
+from .link import Link, LinkHead, LinkShape
 from .node import Node
 
 
