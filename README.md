@@ -87,7 +87,7 @@ If you'd like to contribute to this open source project folow this steps:
 - [ ] [Gantt](https://mermaid.js.org/syntax/gantt.html)
 - [x] [Pie Chart](https://mermaid.js.org/syntax/pie.html)
 - [ ] [Quadrant Chart](https://mermaid.js.org/syntax/quadrantChart.html)
-- [ ] [Requirement Diagram](https://mermaid.js.org/syntax/requirementDiagram.html)
+- [x] [Requirement Diagram](https://mermaid.js.org/syntax/requirementDiagram.html)
 - [ ] [Gitgraph (Git) Diagram 🔥](https://mermaid.js.org/syntax/gitgraph.html)
 - [ ] [C4 Diagram 🦺⚠️](https://mermaid.js.org/syntax/c4.html)
 - [ ] [Mindmaps 🔥](https://mermaid.js.org/syntax/mindmap.html)
