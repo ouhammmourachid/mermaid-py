@@ -1,6 +1,6 @@
 import unittest
 
-from mermaid.flowchart import FlowChart, Link, Node
+from mermaid.flowchart import FlowChart, Link, LinkHead, LinkShape, Node
 from mermaid.flowchart.node import NodeShape
 
 
@@ -81,6 +81,18 @@ class TestLink(unittest.TestCase):
                           message=message)
         expect_string: str = f'first_node o-.-x|{message}| second_node'
         self.assertEqual(expect_string, str(link))
+
+    def test_str_link_with_enum_shape(self):
+        link: Link = Link(self.node_1, self.node_2, shape=LinkShape.DOTTED)
+        expect_string: str = 'first_node -.-> second_node'
+        self.assertEqual(expect_string, str(link))
+
+    def test_str_link_with_enum_link_head(self):
+        link: Link = Link(self.node_1,
+                          self.node_2,
+                          head_left=LinkHead.BULLET,
+                          head_right=LinkHead.CROSS)
+        expect_string: str = 'first_node o--x second_node'
         self.assertEqual(expect_string, str(link))
 
 
