@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock
 
-from mermaid.userjourney import Actor, Section, Task
+from mermaid.userjourney import Actor, Section, Task, UserJourney
 
 
 class TestTask(unittest.TestCase):
@@ -30,3 +30,51 @@ class TestSection(unittest.TestCase):
 \t\tMake tea2: 5 : Me, Cat
 """
         self.assertEqual(expect_string, str(section))
+
+
+class TestUserJourney(unittest.TestCase):
+    def test_script_with_task(self):
+        task_mock_1 = MagicMock(spec=Task)
+        task_mock_2 = MagicMock(spec=Task)
+        task_mock_1.__str__.return_value = '\tMake tea1: 5 : Me, Cat'
+        task_mock_2.__str__.return_value = '\tMake tea2: 5 : Me, Cat'
+        userjourney = UserJourney('simple user journey',
+                                  [task_mock_1, task_mock_2])
+        expect_string = """---
+title: simple user journey
+---
+journey
+\ttitle simple user journey
+\tMake tea1: 5 : Me, Cat
+\tMake tea2: 5 : Me, Cat
+"""
+        self.assertEqual(expect_string, userjourney.script)
+
+    def test_script_with_section(self):
+        section_mock_1 = MagicMock(spec=Section)
+        section_mock_2 = MagicMock(spec=Section)
+        section_mock_1.__str__.return_value = """\tsection section-1
+\t\tMake tea1: 5 : Me, Cat
+\t\tMake tea2: 5 : Me, Cat
+"""
+        section_mock_2.__str__.return_value = """\tsection section-2
+\t\tMake tea1: 5 : Me, Cat
+\t\tMake tea2: 5 : Me, Cat
+"""
+        userjourney = UserJourney('simple user journey',
+                                  [section_mock_1, section_mock_2])
+        expect_string = """---
+title: simple user journey
+---
+journey
+\ttitle simple user journey
+\tsection section-1
+\t\tMake tea1: 5 : Me, Cat
+\t\tMake tea2: 5 : Me, Cat
+
+\tsection section-2
+\t\tMake tea1: 5 : Me, Cat
+\t\tMake tea2: 5 : Me, Cat
+
+"""
+        self.assertEqual(expect_string, userjourney.script)
