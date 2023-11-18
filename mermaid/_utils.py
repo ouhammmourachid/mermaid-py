@@ -7,6 +7,15 @@ from .graph import Graph
 
 
 def load(path: Path) -> Graph:
+    """
+    Load a Mermaid diagram script from a file and return a Graph object.
+
+    Parameters:
+        path (Path): The path of the file to load from.
+
+    Returns:
+        Graph: The Graph object containing the Mermaid diagram script and the name of the file.
+    """
     script: Optional[str] = None
     name: Optional[str] = None
 
@@ -23,6 +32,15 @@ def load(path: Path) -> Graph:
 
 
 def text_to_snake_case(text: str) -> str:
+    """
+    Convert a string to snake_case.
+
+    Parameters:
+        text (str): The string to convert.
+
+    Returns:
+        str: The converted string.
+    """
     # Remove non-alphanumeric characters except underscores and replace spaces with underscores
     out: str = re.sub(r'[^a-zA-Z0-9_]', '_', text)
 
