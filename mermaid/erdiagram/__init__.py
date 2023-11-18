@@ -1,20 +1,46 @@
-from mermaid.graph import Graph
+"""ERDiagram module.
 
-from .entity import Entity
-from .link import Link
+This module provides the ERDiagram class for creating and manipulating ER diagrams.
+It also provides utility classes for representing entities and links in an ER diagram.
+
+Classes:
+    ERDiagram: Represents an ER diagram.
+    Entity: Represents an entity in an ER diagram.
+    Link: Represents a link between entities in an ER diagram.
+"""
+from mermaid.erdiagram.entity import Entity
+from mermaid.erdiagram.link import Link
+from mermaid.graph import Graph
 
 
 class ERDiagram(Graph):
+    """ERDiagram class.
+
+    This class represents an ER diagram.
+
+    Attributes:
+        title (str): The title of the ER diagram.
+        entities (list[Entity]): The entities of the ER diagram.
+        links (list[Link]): The links of the ER diagram.
+    """
     def __init__(self,
                  title: str,
                  entities: list[Entity] = None,
                  links: list[Link] = None) -> None:
+        """Initialize a new ERDiagram.
+
+        Args:
+            title (str): The title of the ER diagram.
+            entities (list[Entity]): The entities of the ER diagram.
+            links (list[Link]): The links of the ER diagram.
+        """
         super().__init__(title, '')
         self.entities: list[Entity] = entities if entities is not None else []
         self.links: list[Link] = links if links is not None else []
         self._build_script()
 
     def _build_script(self) -> None:
+        """Build the script of the ER diagram."""
         super()._build_script()
         script: str = '\nerDiagram'
         for entity in self.entities:
