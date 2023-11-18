@@ -44,21 +44,21 @@ graph TD;
     erDigram(ERDiagram)
     pie(PieDiagram)
     reqDiagram(RequiremntDiagram)
+    userj(UserJourney)
     erdiagram-link(Link)
     entity(Entity)
     flow-link(Link)
     node(Node)
     requiremnt(Requiremnt)
     element(Element)
-    mer --> flow
-    mer --> clas
-    mer --> gra
-    mer --> erDigram
-    mer --> pie
-    mer --> reqDiagram
+    actor(Actor)
+    section(Section)
+    task(Task)
+    mer --> flow & clas & gra & erDigram & pie & reqDiagram & userj
     flow --> node & flow-link
     erDigram --> entity & erdiagram-link
     reqDiagram --> requiremnt & element
+    userj --> actor & section & task
 ```
 
 ## Technologies Used
