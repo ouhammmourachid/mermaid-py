@@ -20,6 +20,10 @@ LINK_HEADS: dict[str, str] = {
 
 
 class LinkShape(Enum):
+    """LinkShape Enum.
+
+    This enum represents the different shapes a link can have in a flowchart.
+    """
     NORMAL = 'normal'
     DOTTED = 'dotted'
     THICK = 'thick'
@@ -27,6 +31,10 @@ class LinkShape(Enum):
 
 
 class LinkHead(Enum):
+    """LinkHead Enum.
+
+    This enum represents the different types of heads a link can have in a flowchart.
+    """
     NONE = 'none'
     ARROW = 'arrow'
     LEFT_ARROW = 'left-arrow'
@@ -35,6 +43,18 @@ class LinkHead(Enum):
 
 
 class Link:
+    """Link class.
+
+    This class represents a link between nodes in a flowchart.
+
+    Attributes:
+        origin (Node): The origin node of the link.
+        end (Node): The end node of the link.
+        shape (Union[str, LinkShape]): The shape of the link.
+        head_left (Union[str, LinkHead]): The head of the link at the origin node.
+        head_right (Union[str, LinkHead]): The head of the link at the end node.
+        message (str): The message of the link.
+    """
     def __init__(self,
                  origin: Node,
                  end: Node,
@@ -42,6 +62,16 @@ class Link:
                  head_left: Union[str, LinkHead] = 'none',
                  head_right: Union[str, LinkHead] = 'arrow',
                  message: str = '') -> None:
+        """Initialize a new Link.
+
+        Args:
+            origin (Node): The origin node of the link.
+            end (Node): The end node of the link.
+            shape (Union[str, LinkShape]): The shape of the link.
+            head_left (Union[str, LinkHead]): The head of the link at the origin node.
+            head_right (Union[str, LinkHead]): The head of the link at the end node.
+            message (str): The message of the link.
+        """
         self.oigin: Node = origin
         self.end: Node = end
         self.head_left: str = LINK_HEADS[
@@ -53,6 +83,14 @@ class Link:
         self.message: str = f'|{message}|' if message else message
 
     def __str__(self) -> str:
+        """Return a string representation of the link.
+
+        If the link has a message, it includes the message in the string representation.
+        Otherwise, it returns a string representation of a link without a message.
+
+        Returns:
+            str: A string representation of the link.
+        """
         if self.message:
             element: list[str] = [
                 self.oigin.id_,
