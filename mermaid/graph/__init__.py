@@ -1,3 +1,11 @@
+"""Graph module.
+
+This module provides the Graph base class for creating and manipulating
+different types of diagrams such as flowcharts, ER diagrams, etc.
+
+Classes:
+    Graph: Represents a base class for different types of diagrams.
+"""
 import os
 from dataclasses import dataclass
 from pathlib import Path
@@ -6,15 +14,14 @@ from typing import Optional
 
 @dataclass
 class Graph:
-    """Graph is Base Class witch the other class inhirite from like `flowcahrt` , `erDiagram` , etc..
+    """Graph base class.
 
-    Graph has two attribure:
-    - title: string represent the title of the digrame.
-    - script: string that store the main script to create the digram.
+    This class serves as a base for other classes representing different
+    types of diagrams like `Flowchart`, `ERDiagram`, etc.
 
-    examples:
-    >>> from mermaid.graph import Graph
-    >>> grph = Graph("title","...")
+    Attributes:
+        title (str): The title of the diagram.
+        script (str): The main script to create the diagram.
     """
     title: str
     script: str

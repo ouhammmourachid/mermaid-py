@@ -5,6 +5,14 @@ from mermaid import text_to_snake_case
 
 @dataclass
 class NodeShape:
+    """NodeShape class.
+
+    This class represents the shape of a node in a flowchart.
+
+    Attributes:
+        start (str): The start character of the node shape.
+        end (str): The end character of the node shape.
+    """
     start: str
     end: str
 
@@ -35,6 +43,18 @@ HREF_TYPES: dict[str, str] = {
 
 
 class Node:
+    """Node class.
+
+    This class represents a node in a flowchart.
+
+    Attributes:
+        id_ (str): The ID of the node.
+        content (str): The content of the node.
+        shape (str): The shape of the node.
+        sub_nodes (list[Node]): The sub-nodes of the node.
+        href (str): The hyperlink reference of the node.
+        href_type (str): The type of the hyperlink reference of the node.
+    """
     def __init__(self,
                  id_: str,
                  content: str = '',
@@ -42,7 +62,16 @@ class Node:
                  sub_nodes: list['Node'] = None,
                  href: str = None,
                  href_type: str = 'blank') -> None:
+        """Initialize a new Node.
 
+        Args:
+            id_ (str): The ID of the node.
+            content (str): The content of the node.
+            shape (str): The shape of the node.
+            sub_nodes (list[Node]): The sub-nodes of the node.
+            href (str): The hyperlink reference of the node.
+            href_type (str): The type of the hyperlink reference of the node.
+        """
         self.id_: str = text_to_snake_case(id_)
         self.content: str = content if content else id_
         self.shape: NodeShape = NODE_SHAPES[shape]
@@ -52,6 +81,14 @@ class Node:
             'Node'] = sub_nodes if sub_nodes is not None else []
 
     def __str__(self) -> str:
+        """Return a string representation of the node.
+
+        If the node has sub-nodes, it returns a string representation of a subgraph.
+        Otherwise, it returns a string representation of a single node.
+
+        Returns:
+            str: A string representation of the node.
+        """
         string: str = ''
         if len(self.sub_nodes):
             string = '\n'.join([

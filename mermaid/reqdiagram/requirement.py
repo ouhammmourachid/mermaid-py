@@ -3,12 +3,20 @@ from typing import Union
 
 
 class Risk(Enum):
+    """Risk Enum.
+
+    This enum represents the different levels of risk associated with a requirement in a requirement diagram.
+    """
     LOW = 'Low'
     MEDIUM = 'Medium'
     HIGH = 'High'
 
 
 class VerifyMethod(Enum):
+    """VerifyMethod Enum.
+
+    This enum represents the different methods of verifying a requirement in a requirement diagram.
+    """
     ANALYSIS = 'Analysis'
     INSPECTION = 'Inspection'
     TEST = 'Test'
@@ -16,6 +24,11 @@ class VerifyMethod(Enum):
 
 
 class Type(Enum):
+    """Return a string representation of the link.
+
+        Returns:
+            str: A string representation of the link.
+    """
     REQUIREMENT = 'requirement'
     FUNCTIONAL = 'functionalRequirement'
     INTERFACE = 'interfaceRequirement'
@@ -25,9 +38,31 @@ class Type(Enum):
 
 
 class Requirement:
+    """Requirement class.
+
+    This class represents a requirement in a requirement diagram.
+
+    Attributes:
+        id_ (str): The ID of the requirement.
+        name (str): The name of the requirement.
+        text (str): The text of the requirement.
+        type_ (Union[str, Type]): The type of the requirement.
+        risk (Union[str, Risk]): The risk of the requirement.
+        verifymethod (Union[str, VerifyMethod]): The verification method of the requirement.
+    """
     def __init__(self, id_: str, name: str, text: str, type_: Union[str, Type],
                  risk: Union[str, Risk],
                  verifymethod: Union[str, VerifyMethod]) -> None:
+        """Initialize a new Requirement.
+
+        Args:
+            id_ (str): The ID of the requirement.
+            name (str): The name of the requirement.
+            text (str): The text of the requirement.
+            type_ (Union[str, Type]): The type of the requirement.
+            risk (Union[str, Risk]): The risk of the requirement.
+            verifymethod (Union[str, VerifyMethod]): The verification method of the requirement.
+        """
         self.id_: str = id_
         self.name: str = name
         self.text: str = text

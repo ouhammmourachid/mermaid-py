@@ -2,9 +2,23 @@ from typing import Optional, Union
 
 
 class Entity:
+    """Entity class.
+
+    This class represents an entity in an ER diagram.
+
+    Attributes:
+        name (str): The name of the entity.
+        attributes (list[str]): The attributes of the entity.
+    """
     def __init__(self,
                  name: str,
                  attributes: dict[str, Union[list[str], str]] = None) -> None:
+        """Initialize a new Entity.
+
+        Args:
+            name (str): The name of the entity.
+            attributes (dict[str, Union[list[str], str]]): The attributes of the entity.
+        """
         self.name: str = name
         self.attributes: dict[str, Union[
             list[str], str]] = attributes if attributes is not None else {}
@@ -15,6 +29,11 @@ class Entity:
         return string
 
     def update_attributes(self, attributes: dict[str, str]) -> None:
+        """Update the attributes of the entity.
+
+        Args:
+            attributes (dict[str, Union[list[str], str]]): The new attributes of the entity.
+        """
         self.attributes.update(attributes)
 
     def add_attribute(self,
@@ -22,6 +41,12 @@ class Entity:
                       type_: str,
                       constrint: Optional[str] = None,
                       comment: Optional[str] = None) -> None:
+        """Add an attribute to the entity.
+
+        Args:
+            name (str): The name of the attribute.
+            attribute_def (Union[list[str], str]): The definition of the attribute.
+        """
         attribute_def: list[str] = [type_]
         if constrint is not None:
             attribute_def.append(constrint)
@@ -30,6 +55,11 @@ class Entity:
         self.attributes[name] = attribute_def
 
     def build_attributes(self) -> str:
+        """Build the string representation of the attributes.
+
+        Returns:
+            str: The string representation of the attributes.
+        """
         string_attributes: str = ''
         for att_name, att_def in self.attributes.items():
             string: str = ''
