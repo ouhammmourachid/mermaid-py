@@ -170,3 +170,16 @@ class Critical(Logic):
                 [str(statement) for statement in statements])
         critical_str += '\tend\n'
         return critical_str
+
+
+class Break(Logic):
+    def __init__(self, condition: str, statements: list[Union[Link,
+                                                              Logic]]) -> None:
+        self.condition = condition
+        self.statements = statements
+
+    def __str__(self) -> str:
+        break_str = f'\tbreak {self.condition}\n' + ''.join(
+            [str(statement) for statement in self.statements])
+        break_str += '\tend\n'
+        return break_str

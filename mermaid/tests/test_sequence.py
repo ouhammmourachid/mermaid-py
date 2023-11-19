@@ -3,7 +3,7 @@ from unittest import mock
 
 from mermaid.sequence.element import Actor, Box, Note, NotePosition, Participant
 from mermaid.sequence.link import ArrowTypes, Link
-from mermaid.sequence.logic import Alt, Critical, Loop, Optional, Parallel
+from mermaid.sequence.logic import Alt, Break, Critical, Loop, Optional, Parallel
 
 
 class TestActor(unittest.TestCase):
@@ -206,3 +206,19 @@ class TestCritical(unittest.TestCase):
         expected_str += '\toption condition-2\n\tA-->B: message\n'
         expected_str += '\toption condition-3\n\tA-->B: message\n\tend\n'
         self.assertEqual(str(critical), expected_str)
+
+
+class TestBreak(unittest.TestCase):
+    def setUp(self) -> None:
+        self.link = mock.MagicMock(spec=Link)
+        self.link.configure_mock(__str__=lambda _: '\tA-->B: message\n')
+
+    def test_str_with_one_statement(self):
+        break_ = Break('condition', [self.link])
+        expected_str = '\tbreak condition\n\tA-->B: message\n\tend\n'
+        self.assertEqual(str(break_), expected_str)
+
+    def test_str_with_multiple_statements(self):
+        break_ = Break('condition', [self.link, self.link])
+        expected_str = '\tbreak condition\n\tA-->B: message\n\tA-->B: message\n\tend\n'
+        self.assertEqual(str(break_), expected_str)
