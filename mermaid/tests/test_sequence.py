@@ -1,7 +1,7 @@
 import unittest
 from unittest import mock
 
-from mermaid.sequence import Actor, ArrowTypes, Box, Link, Loop, Note, NotePosition, Participant
+from mermaid.sequence import Actor, ArrowTypes, Box, Link, Loop, Note, NotePosition, Participant,Alt
 
 
 class TestActor(unittest.TestCase):
@@ -115,3 +115,21 @@ class TestLoop(unittest.TestCase):
         loop = Loop('condition', [link])
         self.assertEqual(
             str(loop), '\tloop condition\n\tJohn->Alice: Hello World\n\tend\n')
+
+
+class TestAlt(unittest.TestCase):
+    def setUp(self):
+        self.link_1 = mock.MagicMock(spec=Link)
+        self.link_1.configure_mock(__str__=lambda _: '\tA-->B: message\n')
+        self.link_2 = mock.MagicMock(spec=Link)
+        self.link_2.configure_mock(__str__=lambda _: '\tA-->B: message\n')
+
+    def test_str_one_condition(self):
+        alt = Alt({'condition': [self.link_1]})
+        excepted_str = '\talt condition\n\tA-->B: message\n\tend\n'
+        self.assertEqual(str(alt), excepted_str)
+    
+    def test_str_multiple_condition(self):
+        alt = Alt({'condition-1': [self.link_1], 'condition-2': [self.link_2]})
+        except_str = '\talt condition-1\n\tA-->B: message\n\telse condition-2\n\tA-->B: message\n\tend\n'
+        self.assertEqual(str(alt), except_str)
