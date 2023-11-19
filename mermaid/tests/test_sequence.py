@@ -1,7 +1,7 @@
 import unittest
 from unittest import mock
 
-from mermaid.sequence import Actor, ArrowTypes, Box, Link, Note, NotePosition, Participant
+from mermaid.sequence import Actor, ArrowTypes, Box, Link, Loop, Note, NotePosition, Participant
 
 
 class TestActor(unittest.TestCase):
@@ -109,10 +109,9 @@ class TestNote(unittest.TestCase):
 
 
 class TestLoop(unittest.TestCase):
-    pass
-    # def test_loop_str(self) -> None:
-    #     link = mock.MagicMock(spec=Link)
-    #     link.__str__ = mock.Mock(return_value='\tJohn->Alice: Hello World\n')
-    #     loop = Loop('condition', [link])
-    #     self.assertEqual(
-    #         str(loop), '\tloop condition\n\tJohn->Alice: Hello World\n\tend\n')
+    def test_loop_str(self) -> None:
+        link = mock.MagicMock(spec=Link)
+        link.configure_mock(__str__=lambda _: '\tJohn->Alice: Hello World\n')
+        loop = Loop('condition', [link])
+        self.assertEqual(
+            str(loop), '\tloop condition\n\tJohn->Alice: Hello World\n\tend\n')
