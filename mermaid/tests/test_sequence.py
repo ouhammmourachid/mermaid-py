@@ -1,8 +1,9 @@
 import unittest
 from unittest import mock
 
-from mermaid.sequence import (Actor, Alt, ArrowTypes, Box, Link, Loop, Note,
-                              NotePosition, Optional, Parallel, Participant)
+from mermaid.sequence.element import Actor, Box, Note, NotePosition, Participant
+from mermaid.sequence.link import ArrowTypes, Link
+from mermaid.sequence.logic import Alt, Loop, Optional, Parallel
 
 
 class TestActor(unittest.TestCase):
