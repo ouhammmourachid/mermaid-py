@@ -1,6 +1,7 @@
 import unittest
 from unittest import mock
 
+from mermaid.sequence import SequenceDiagram
 from mermaid.sequence.element import Actor, Box, Note, NotePosition, Participant, Rect
 from mermaid.sequence.link import ArrowTypes, Link
 from mermaid.sequence.logic import Alt, Break, Critical, Loop, Optional, Parallel
@@ -9,8 +10,9 @@ from mermaid.sequence.logic import Alt, Break, Critical, Loop, Optional, Paralle
 class TestActor(unittest.TestCase):
     def test_str(self):
         actor = Actor('John')
-        expect_str = '\tActor John\n'
+        expect_str = '\tactor John\n'
         self.assertEqual(str(actor), expect_str)
+        self.assertEqual(actor.id_, 'John')
 
 
 class TestParticipant(unittest.TestCase):
@@ -244,3 +246,47 @@ class TestRect(unittest.TestCase):
             Rect([self.link, self.link], (257, 3, 4, 4))
         with self.assertRaises(ValueError):
             Rect([self.link, self.link], (257, 3, -4))
+
+
+class TestSequenceDiagram(unittest.TestCase):
+    def setUp(self) -> None:
+        self.actor_1 = mock.MagicMock(spec=Actor)
+        self.actor_1.configure_mock(__str__=lambda _: '\tactor A\n')
+        self.actor_2 = mock.MagicMock(spec=Actor)
+        self.actor_2.configure_mock(__str__=lambda _: '\tactor B\n')
+        self.link_1 = mock.MagicMock(spec=Link)
+        self.link_1.configure_mock(__str__=lambda _: '\tA-->B: message\n')
+        self.link_2 = mock.MagicMock(spec=Link)
+        self.link_2.configure_mock(__str__=lambda _: '\tA-->B: message\n')
+
+    def test_str_without_auto_number(self):
+        diagram = SequenceDiagram(
+            'Test Diagram',
+            [self.actor_1, self.actor_2, self.link_1, self.link_2])
+        expected_str = """---
+title: Test Diagram
+---
+sequenceDiagram
+\tactor A
+\tactor B
+\tA-->B: message
+\tA-->B: message
+"""
+        self.assertEqual(diagram.script, expected_str)
+
+    def test_str_with_auto_number(self):
+        diagram = SequenceDiagram(
+            'Test Diagram',
+            [self.actor_1, self.actor_2, self.link_1, self.link_2],
+            auto_number=True)
+        expected_str = """---
+title: Test Diagram
+---
+sequenceDiagram
+\tautonumber
+\tactor A
+\tactor B
+\tA-->B: message
+\tA-->B: message
+"""
+        self.assertEqual(diagram.script, expected_str)

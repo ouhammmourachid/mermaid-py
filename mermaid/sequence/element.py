@@ -18,7 +18,7 @@ class Actor:
             name (str): Name of the actor.
         """
         self.name: str = name
-        self.id_: str = text_to_snake_case(self.name)
+        self.id_: str = name
 
     def __str__(self):
         """Return actor string.
@@ -26,7 +26,7 @@ class Actor:
         Returns:
             str: Actor string.
         """
-        return f'\tActor {self.name}\n'
+        return f'\tactor {self.name}\n'
 
 
 class Participant:
