@@ -10,7 +10,7 @@ class Loop:
     """
     def __init__(self, condition: str, link: list[Link]):
         """Initialize loop.
-        
+
         Args:
             condition (str): Condition of the loop.
             link (List[Link]): List of Link objects.
@@ -52,10 +52,39 @@ class Alt:
         n = 1
         for condition, links in self.condition_links.items():
             if n == 1:
-                alt_str += f'\talt {condition}\n'+ ''.join([str(link) for link in links])
+                alt_str += f'\talt {condition}\n' + ''.join(
+                    [str(link) for link in links])
                 n += 1
             else:
-                alt_str += f'\telse {condition}\n'+ ''.join([str(link) for link in links])
+                alt_str += f'\telse {condition}\n' + ''.join(
+                    [str(link) for link in links])
 
         alt_str += '\tend\n'
         return alt_str
+
+
+class Optional:
+    """Optional class for mermaid sequence diagram.
+
+    Args:
+        condition (str): Condition of the loop.
+        link (List[Link]): List of Link objects.
+    """
+    def __init__(self, condition: str, links: list[Link]) -> None:
+        """Initialize loop.
+
+        Args:
+            condition (str): Condition of the loop.
+            link (List[Link]): List of Link objects.
+        """
+        self.condition = condition
+        self.links = links
+
+    def __str__(self) -> str:
+        """Return loop string.
+
+        Returns:
+            str: Loop string.
+        """
+        return f'\topt {self.condition}\n' + ''.join(
+            [str(link) for link in self.links]) + '\tend\n'

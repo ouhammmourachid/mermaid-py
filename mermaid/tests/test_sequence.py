@@ -1,7 +1,7 @@
 import unittest
 from unittest import mock
 
-from mermaid.sequence import Actor, ArrowTypes, Box, Link, Loop, Note, NotePosition, Participant,Alt
+from mermaid.sequence import Actor, Alt, ArrowTypes, Box, Link, Loop, Note, NotePosition, Optional, Participant
 
 
 class TestActor(unittest.TestCase):
@@ -128,8 +128,24 @@ class TestAlt(unittest.TestCase):
         alt = Alt({'condition': [self.link_1]})
         excepted_str = '\talt condition\n\tA-->B: message\n\tend\n'
         self.assertEqual(str(alt), excepted_str)
-    
+
     def test_str_multiple_condition(self):
         alt = Alt({'condition-1': [self.link_1], 'condition-2': [self.link_2]})
         except_str = '\talt condition-1\n\tA-->B: message\n\telse condition-2\n\tA-->B: message\n\tend\n'
         self.assertEqual(str(alt), except_str)
+
+
+class TestOptional(unittest.TestCase):
+    def setUp(self):
+        self.link = mock.MagicMock(spec=Link)
+        self.link.configure_mock(__str__=lambda _: '\tA-->B: message\n')
+
+    def test_str_with_one_link(self):
+        excepted_str = '\topt condition\n\tA-->B: message\n\tend\n'
+        opt = Optional('condition', [self.link])
+        self.assertEqual(str(opt), excepted_str)
+
+    def test_str_with_multiple_links(self):
+        opt = Optional('condition', [self.link, self.link])
+        excepted_str = '\topt condition\n\tA-->B: message\n\tA-->B: message\n\tend\n'
+        self.assertEqual(str(opt), excepted_str)
