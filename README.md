@@ -79,7 +79,7 @@ If you'd like to contribute to this open source project folow this steps:
 
 ## List of Diagrames
 - [x] [FlowChart](https://mermaid.js.org/syntax/flowchart.html)
-- [ ] [Sequence Diagram](https://mermaid.js.org/syntax/sequenceDiagram.html)
+- [x] [Sequence Diagram](https://mermaid.js.org/syntax/sequenceDiagram.html)
 - [ ] [Class Diagram](https://mermaid.js.org/syntax/classDiagram.html)
 - [ ] [State Diagram](https://mermaid.js.org/syntax/stateDiagram.html)
 - [x] [Entity Relationship Diagram](https://mermaid.js.org/syntax/entityRelationshipDiagram.html)

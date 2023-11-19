@@ -14,12 +14,12 @@ Note:
     - To build the documentation, run `mkdocs build`.
 
 Example:
-    ```python
-    import flowchart
+```python
+import flowchart
 
-    chart = flowchart.Flowchart()
-    chart.add_node("Start")
-    chart.add_node("End")
-    chart.add_connection("Start", "End")
-    chart.render()
-    ```
+chart = flowchart.Flowchart()
+chart.add_node("Start")
+chart.add_node("End")
+chart.add_connection("Start", "End")
+chart.render()
+```
