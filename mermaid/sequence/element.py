@@ -1,18 +1,23 @@
 """Sequence diagram elements."""
-from dataclasses import dataclass
 from typing import Union
 
 from mermaid._utils import text_to_snake_case
 
 
-@dataclass
 class Actor:
     """Actor class for mermaid sequence diagram.
 
     Args:
         name (str): Name of the actor.
     """
-    name: str
+    def __init__(self, name: str):
+        """Initialize actor.
+
+        Args:
+            name (str): Name of the actor.
+        """
+        self.name: str = name
+        self.id_: str = text_to_snake_case(self.name)
 
     def __str__(self):
         """Return actor string.
@@ -23,14 +28,20 @@ class Actor:
         return f'\tActor {self.name}\n'
 
 
-@dataclass
 class Participant:
     """Participant class for mermaid sequence diagram.
 
     Args:
         name (str): Name of the participant.
     """
-    name: str
+    def __init__(self, name: str):
+        """Initialize participant.
+
+        Args:
+            name (str): Name of the participant.
+        """
+        self.name: str = name
+        self.id_: str = text_to_snake_case(self.name)
 
     def __str__(self):
         """Return participant string.
@@ -38,8 +49,7 @@ class Participant:
         Returns:
             str: Participant string.
         """
-        self.id = text_to_snake_case(self.name)
-        return f'\tparticipant {self.id} as {self.name}\n'
+        return f'\tparticipant {self.id_} as {self.name}\n'
 
 
 class Box:
