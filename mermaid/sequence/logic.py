@@ -77,17 +77,17 @@ class Optional(Logic):
 
     Args:
         condition (str): Condition of the loop.
-        link (List[Link]): List of Link objects.
+        statements (List[Link]): List of Link objects.
     """
-    def __init__(self, condition: str, links: list[Link]) -> None:
+    def __init__(self, condition: str, statements: list[Link]) -> None:
         """Initialize loop.
 
         Args:
             condition (str): Condition of the loop.
-            link (List[Link]): List of Link objects.
+            statements (List[Link]): List of Link objects.
         """
         self.condition = condition
-        self.links = links
+        self.statements = statements
 
     def __str__(self) -> str:
         """Return loop string.
@@ -96,7 +96,7 @@ class Optional(Logic):
             str: Loop string.
         """
         return f'\topt {self.condition}\n' + ''.join(
-            [str(link) for link in self.links]) + '\tend\n'
+            [str(statement) for statement in self.statements]) + '\tend\n'
 
 
 class Parallel:
@@ -173,12 +173,29 @@ class Critical(Logic):
 
 
 class Break(Logic):
+    """Break class for mermaid sequence diagram.
+
+    Args:
+        condition (str): Condition of the loop.
+        link (List[Link]): List of Link objects.
+    """
     def __init__(self, condition: str, statements: list[Union[Link,
                                                               Logic]]) -> None:
+        """Initialize loop.
+
+        Args:
+            condition (str): Condition of the loop.
+            link (List[Link]): List of Link objects.
+        """
         self.condition = condition
         self.statements = statements
 
     def __str__(self) -> str:
+        """Return loop string.
+
+        Returns:
+            str: Loop string.
+        """
         break_str = f'\tbreak {self.condition}\n' + ''.join(
             [str(statement) for statement in self.statements])
         break_str += '\tend\n'

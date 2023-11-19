@@ -128,3 +128,38 @@ class Note:
             return note_str
         else:
             return f'\tNote {self.position} {self.element.id_}: {self.note}\n'
+
+
+class Rect:
+    """Rect class for mermaid sequence diagram.
+
+    Args:
+        elements (List[Union[Link, Logic, Rect]]): List of Link, Logic or Rect objects.
+        color (tuple[int, ...]): RGB color tuple.
+    """
+    def __init__(self, elements: list['Rect'], color: tuple[int, ...]) -> None:
+        # FIXME: Add type hints for Link and Logic to include links annd Logics
+        # and avoid the circular import
+        """Initialize rect.
+
+        Args:
+            elements (List[Union[Link, Logic, Rect]]): List of Link, Logic or Rect objects.
+            color (tuple[int, ...]): RGB color tuple.
+        """
+        self.elements = elements
+        self.color = color
+        if len(color) != 3 or not all((x >= 0 and x <= 255) for x in color):
+            raise ValueError(
+                'color must be a tuple of 3 integers between 0 and 255')
+
+    def __str__(self) -> str:
+        """Return rect string.
+
+        Returns:
+            str: Rect string.
+        """
+        rect_str = f'\trect rgb({self.color[0]},{self.color[1]},{self.color[2]})\n'
+        for element in self.elements:
+            rect_str += str(element)
+        rect_str += '\tend\n'
+        return rect_str
