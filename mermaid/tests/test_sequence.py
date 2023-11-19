@@ -22,9 +22,10 @@ class TestBox(unittest.TestCase):
     def test_str(self):
         # use mocks to create an actor and a participant element
         actor = mock.MagicMock(spec=Actor)
-        actor.__str__.return_value = '\tActor John\n'
+        actor.__str__ = mock.Mock(return_value='\tActor John\n')
         participant = mock.MagicMock(spec=Participant)
-        participant.__str__.return_value = '\tparticipant alice as Alice\n'
+        participant.__str__ = mock.Mock(
+            return_value='\tparticipant alice as Alice\n')
 
         box = Box('Test Box', [actor, participant])
         expect_str = """\tbox Test Box
@@ -105,3 +106,13 @@ class TestNote(unittest.TestCase):
         with self.assertRaises(ValueError):
             Note(self.note, [self.actor, self.participant],
                  NotePosition.RIGHT_OF)
+
+
+class TestLoop(unittest.TestCase):
+    pass
+    # def test_loop_str(self) -> None:
+    #     link = mock.MagicMock(spec=Link)
+    #     link.__str__ = mock.Mock(return_value='\tJohn->Alice: Hello World\n')
+    #     loop = Loop('condition', [link])
+    #     self.assertEqual(
+    #         str(loop), '\tloop condition\n\tJohn->Alice: Hello World\n\tend\n')
