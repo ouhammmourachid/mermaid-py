@@ -1,7 +1,14 @@
+from typing import Union
+
 from mermaid.sequence.link import Link
 
 
-class Loop:
+class Logic:
+    """Logic class for mermaid sequence diagram."""
+    pass
+
+
+class Loop(Logic):
     """Loop class for mermaid sequence diagram.
 
     Args:
@@ -28,17 +35,19 @@ class Loop:
             [str(link) for link in self.link]) + '\tend\n'
 
 
-class Alt:
+class Alt(Logic):
     """Alt class for mermaid sequence diagram.
 
     Args:
-        condition_links (dict[str, List[Link]]): Dictionary of condition and list of Link objects.
+        condition_links (dict[str, List[Link]]): Dictionary of condition
+        and list of Link objects.
     """
     def __init__(self, condition_links: dict[str, list[Link]]):
         """Initialize alt.
 
         Args:
-            condition_links (dict[str, List[Link]]): Dictionary of condition and list of Link objects.
+            condition_links (dict[str, List[Link]]): Dictionary of condition
+            and list of Link objects.
         """
         self.condition_links = condition_links
 
@@ -63,7 +72,7 @@ class Alt:
         return alt_str
 
 
-class Optional:
+class Optional(Logic):
     """Optional class for mermaid sequence diagram.
 
     Args:
@@ -88,3 +97,41 @@ class Optional:
         """
         return f'\topt {self.condition}\n' + ''.join(
             [str(link) for link in self.links]) + '\tend\n'
+
+
+class Parallel:
+    """Parallel class for mermaid sequence diagram.
+
+    Args:
+        condition_elements (dict[str, list[Union[Link, Logic]]]): Dictionary of
+        condition and Link or Logic objects.
+    """
+    def __init__(
+            self, condition_elements: dict[str, list[Union[Link,
+                                                           Logic]]]) -> None:
+        """Initialize parallel.
+
+        Args:
+            condition_elements (dict[str, list[Union[Link, Logic]]]): Dictionary of
+            condition and Link or Logic objects.
+        """
+        self.condition_elements = condition_elements
+
+    def __str__(self) -> str:
+        """Return parallel string.
+
+        Returns:
+            str: Parallel string.
+        """
+        parallel_str = ''
+        n = 1
+        for condition, elements in self.condition_elements.items():
+            if n == 1:
+                parallel_str += f'\tpar {condition}\n' + ''.join(
+                    [str(element) for element in elements])
+                n += 1
+            else:
+                parallel_str += f'\tand {condition}\n' + ''.join(
+                    [str(element) for element in elements])
+        parallel_str += '\tend\n'
+        return parallel_str

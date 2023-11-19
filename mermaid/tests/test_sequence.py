@@ -1,7 +1,8 @@
 import unittest
 from unittest import mock
 
-from mermaid.sequence import Actor, Alt, ArrowTypes, Box, Link, Loop, Note, NotePosition, Optional, Participant
+from mermaid.sequence import (Actor, Alt, ArrowTypes, Box, Link, Loop, Note,
+                              NotePosition, Optional, Parallel, Participant)
 
 
 class TestActor(unittest.TestCase):
@@ -140,12 +141,43 @@ class TestOptional(unittest.TestCase):
         self.link = mock.MagicMock(spec=Link)
         self.link.configure_mock(__str__=lambda _: '\tA-->B: message\n')
 
-    def test_str_with_one_link(self):
+    def test_str_with_one_condition(self):
+        optional = Optional('condition', [self.link])
         excepted_str = '\topt condition\n\tA-->B: message\n\tend\n'
-        opt = Optional('condition', [self.link])
-        self.assertEqual(str(opt), excepted_str)
+        self.assertEqual(str(optional), excepted_str)
 
-    def test_str_with_multiple_links(self):
-        opt = Optional('condition', [self.link, self.link])
-        excepted_str = '\topt condition\n\tA-->B: message\n\tA-->B: message\n\tend\n'
-        self.assertEqual(str(opt), excepted_str)
+    def test_str_with_multiple_condition(self):
+        optional = Optional('condition-1', [self.link, self.link])
+        excepted_str = '\topt condition-1\n\tA-->B: message\n\tA-->B: message\n\tend\n'
+        self.assertEqual(str(optional), excepted_str)
+
+
+class TestParallel(unittest.TestCase):
+    def setUp(self):
+        self.link = mock.MagicMock(spec=Link)
+        self.link.configure_mock(__str__=lambda _: '\tA-->B: message\n')
+
+    def test_str_with_one_condition(self):
+        parallel = Parallel({'condition': [self.link]})
+        excepted_str = '\tpar condition\n\tA-->B: message\n\tend\n'
+        self.assertEqual(str(parallel), excepted_str)
+
+    def test_str_with_multiple_condition(self):
+        parallel = Parallel({
+            'condition-1': [self.link],
+            'condition-2': [self.link]
+        })
+        excepted_str = '\tpar condition-1\n\tA-->B: message\n\tand condition-2\n\tA-->B: message\n\tend\n'
+        self.assertEqual(str(parallel), excepted_str)
+
+    def test_str_with_multiple_condition_and_logic(self):
+        loop = mock.MagicMock(spec=Loop)
+        loop.configure_mock(
+            __str__=lambda _: '\tloop condition\n\tA-->B: message\n\tend\n')
+        parallel = Parallel({
+            'condition-1': [self.link],
+            'condition-2': [loop]
+        })
+        excepted_str = '\tpar condition-1\n\tA-->B: message\n\tand condition-2\n\tloop '
+        excepted_str += 'condition\n\tA-->B: message\n\tend\n\tend\n'
+        self.assertEqual(str(parallel), excepted_str)
