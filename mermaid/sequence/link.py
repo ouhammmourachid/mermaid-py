@@ -1,20 +1,18 @@
-from mermaid.sequence.element import Actor, Participant
+from enum import Enum
 from typing import Union
 
-from enum import Enum
+from mermaid.sequence.element import Actor, Participant
 
-
-ARROW_TYPES: dict[str,str] = {
-    'Solid-line':'->',
-    'Dotted-line':'-->',
-    'Solid-arrow':'->>',
-    'Dotted-arrow':'-->>',
-    'Solid-cross':'-x',
-    'Dotted-cross':'--x',
-    'Solid-async':'-)',
-    'Dotted-async':'--)'
+ARROW_TYPES: dict[str, str] = {
+    'Solid-line': '->',
+    'Dotted-line': '-->',
+    'Solid-arrow': '->>',
+    'Dotted-arrow': '-->>',
+    'Solid-cross': '-x',
+    'Dotted-cross': '--x',
+    'Solid-async': '-)',
+    'Dotted-async': '--)'
 }
-
 
 
 class ArrowTypes(Enum):
@@ -27,9 +25,10 @@ class ArrowTypes(Enum):
     SOLID_ASYNC = '-)'
     DOTTED_ASYNC = '--)'
 
+
 class Link:
     """Link class for mermaid sequence diagram.
-    
+
     Args:
         source (ActorParticipant): Source of the link.
         target (ActorParticipant): Target of the link.
@@ -37,23 +36,24 @@ class Link:
         activate_target (bool, optional): Activate the target. Defaults to False.
         deactivate_target (bool, optional): Deactivate the target. Defaults to False.
     """
-    def __init__(self, 
-                 source: Union[Actor, Participant], 
+    def __init__(self,
+                 source: Union[Actor, Participant],
                  target: Union[Actor, Participant],
-                 type_: Union[str,ArrowTypes],
+                 type_: Union[str, ArrowTypes],
                  activate_target: bool = False,
-                 deactivate_target: bool = False)-> None:
-        self.source:Union[Actor, Participant] = source
-        self.target:Union[Actor, Participant] = target
-        self.type_:Union[str,ArrowTypes] = ARROW_TYPES[type_] if isinstance(type_,str) else type_.value
+                 deactivate_target: bool = False) -> None:
+        self.source: Union[Actor, Participant] = source
+        self.target: Union[Actor, Participant] = target
+        self.type_: Union[str, ArrowTypes] = ARROW_TYPES[type_] if isinstance(
+            type_, str) else type_.value
         self.activate_target: bool = activate_target
         self.deactivate_target: bool = deactivate_target
-    
-    def __str__(self)-> str:
-        string:str = f'\t{self.source.id_}{self.type_}{self.target.id_}\n'
+
+    def __str__(self) -> str:
+        string: str = f'\t{self.source.id_}{self.type_}{self.target.id_}\n'
         if self.activate_target:
             string += f'activate {self.target.id_}\n'
         if self.deactivate_target:
             string += f'deactivate {self.target.id_}\n'
-        
+
         return string
