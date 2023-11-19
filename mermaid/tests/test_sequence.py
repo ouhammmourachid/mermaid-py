@@ -3,7 +3,7 @@ from unittest import mock
 
 from mermaid.sequence.element import Actor, Box, Note, NotePosition, Participant
 from mermaid.sequence.link import ArrowTypes, Link
-from mermaid.sequence.logic import Alt, Loop, Optional, Parallel
+from mermaid.sequence.logic import Alt, Critical, Loop, Optional, Parallel
 
 
 class TestActor(unittest.TestCase):
@@ -182,3 +182,27 @@ class TestParallel(unittest.TestCase):
         excepted_str = '\tpar condition-1\n\tA-->B: message\n\tand condition-2\n\tloop '
         excepted_str += 'condition\n\tA-->B: message\n\tend\n\tend\n'
         self.assertEqual(str(parallel), excepted_str)
+
+
+class TestCritical(unittest.TestCase):
+    def setUp(self):
+        self.link = mock.MagicMock(spec=Link)
+        self.link.configure_mock(__str__=lambda _: '\tA-->B: message\n')
+
+    def test_str_with_one_condition(self):
+        critical = Critical('condition-1', [self.link],
+                            {'condition-2': [self.link]})
+        expected_str = '\tcritical condition-1\n\tA-->B: message\n'
+        expected_str += '\toption condition-2\n\tA-->B: message\n\tend\n'
+        self.assertEqual(str(critical), expected_str)
+
+    def test_str_with_multiple_condition(self):
+        critical = Critical('condition-1', [self.link, self.link], {
+            'condition-2': [self.link],
+            'condition-3': [self.link]
+        })
+        expected_str = '\tcritical condition-1\n\tA-->B: message\n'
+        expected_str += '\tA-->B: message\n'
+        expected_str += '\toption condition-2\n\tA-->B: message\n'
+        expected_str += '\toption condition-3\n\tA-->B: message\n\tend\n'
+        self.assertEqual(str(critical), expected_str)

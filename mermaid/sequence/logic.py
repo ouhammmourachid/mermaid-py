@@ -135,3 +135,38 @@ class Parallel:
                     [str(element) for element in elements])
         parallel_str += '\tend\n'
         return parallel_str
+
+
+class Critical(Logic):
+    """Critical class for mermaid sequence diagram.
+
+    Args:
+        condition (str): Condition of the loop.
+        link (List[Link]): List of Link objects.
+    """
+    def __init__(
+            self, condition: str, statements: list[Union[Link, Logic]],
+            optional_statements: dict[str, list[Union[Link, Logic]]]) -> None:
+        """Initialize loop.
+
+        Args:
+            condition (str): Condition of the loop.
+            link (List[Link]): List of Link objects.
+        """
+        self.condition = condition
+        self.statements = statements
+        self.optional_statements = optional_statements
+
+    def __str__(self) -> str:
+        """Return loop string.
+
+        Returns:
+            str: Loop string.
+        """
+        critical_str = f'\tcritical {self.condition}\n' + ''.join(
+            [str(statement) for statement in self.statements])
+        for condition, statements in self.optional_statements.items():
+            critical_str += f'\toption {condition}\n' + ''.join(
+                [str(statement) for statement in statements])
+        critical_str += '\tend\n'
+        return critical_str
