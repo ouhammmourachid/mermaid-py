@@ -1,1 +1,1 @@
-from mermaid.sequence.element import Actor, Participant
+from mermaid.sequence.element import Actor, Box, Participant
