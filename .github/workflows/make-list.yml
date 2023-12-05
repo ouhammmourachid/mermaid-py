@@ -48,7 +48,7 @@ jobs:
       - name: Run test for python version ${{matrix.python-version}}
         run: make test
   codecov:
-    needs: test
+    # needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -59,8 +59,11 @@ jobs:
       - name: Install dependecies.
         run: make install
       - name: create test coverage.
-        run: poetry run pytest --cov ./mermaid/tests/
+        run: poetry run pytest --cov ./mermaid
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4-beta
+        with:
+          flags: smart-tests
+          verbose: true
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
