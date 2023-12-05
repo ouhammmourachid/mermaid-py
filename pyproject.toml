@@ -20,6 +20,7 @@ bumpversion = "^0.6.0"
 mkdocs = "^1.5.3"
 mkdocstrings = {extras = ["python"], version = ">=0.23,<0.25"}
 mkdocs-material = "^9.4.7"
+pytest-cov = "^4.1.0"
 
 [build-system]
 requires = ["poetry-core"]
