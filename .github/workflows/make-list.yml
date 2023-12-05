@@ -48,7 +48,7 @@ jobs:
       - name: Run test for python version ${{matrix.python-version}}
         run: make test
   codecov:
-    # needs: test
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
