@@ -2,6 +2,7 @@
 
 this package works as an interface for the famous mermaid-js library that uses scripts to create diagrams.
 
+[![codecov](https://codecov.io/gh/ouhammmourachid/mermaid-py/graph/badge.svg?token=732C2PA73Z)](https://codecov.io/gh/ouhammmourachid/mermaid-py)
 ## Description
 
 Briefly describe your project here. Explain what it does and what makes it special.
