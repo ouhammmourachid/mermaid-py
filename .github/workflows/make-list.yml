@@ -60,10 +60,5 @@ jobs:
         run: make install
       - name: create test coverage.
         run: poetry run pytest --cov ./mermaid
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4-beta
-        with:
-          flags: smart-tests
-          verbose: true
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      - name: Upload coverage reports to Codecov.
+        run: poetry run codecov --token=${{secrets.CODECOV_TOKEN}}
