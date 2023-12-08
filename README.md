@@ -7,9 +7,9 @@ this package works as an interface for the famous mermaid-js library that uses s
         <img src="https://codecov.io/gh/ouhammmourachid/mermaid-py/graph/badge.svg?token=732C2PA73Z"
             alt="Code Coverage"></a>
     <a href="https://github.com/ouhammmourachid/mermaid-py/blob/main/LICENSE" >
-        <img src="https://img.shields.io/github/license/ouhammmourachid/mermaid-py" 
+        <img src="https://img.shields.io/github/license/ouhammmourachid/mermaid-py"
             alt="GitHub LICENSE" /></a>
-    <img src="https://img.shields.io/pypi/dm/mermaid-py" 
+    <img src="https://img.shields.io/pypi/dm/mermaid-py"
         alt="Contributors" />
 </p>
 
