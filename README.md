@@ -41,7 +41,7 @@ graph TD;
     flow --> node & flow-link
     erDigram --> entity & erdiagram-link
 """)
-graphe: Mermaid = Mermaid(graph)
+graphe: md.Mermaid = md.Mermaid(graph)
 graphe # !! note this work just in notbooke that render html.
 ```
 the result will be like this
