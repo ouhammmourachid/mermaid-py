@@ -55,13 +55,17 @@ class Node:
         href (str): The hyperlink reference of the node.
         href_type (str): The type of the hyperlink reference of the node.
     """
-    def __init__(self,
-                 id_: str,
-                 content: str = '',
-                 shape: str = 'normal',
-                 sub_nodes: list['Node'] = None,
-                 href: str = None,
-                 href_type: str = 'blank') -> None:
+    def __init__(
+        self,
+        id_: str,
+        content: str = '',
+        shape: str = 'normal',
+        sub_nodes: list['Node'] = None,
+        href: str = None,
+        href_type: str = 'blank',
+        *,
+        snake_case_id: bool = True,
+    ) -> None:
         """Initialize a new Node.
 
         Args:
@@ -71,8 +75,13 @@ class Node:
             sub_nodes (list[Node]): The sub-nodes of the node.
             href (str): The hyperlink reference of the node.
             href_type (str): The type of the hyperlink reference of the node.
+            snake_case_id (bool): Whether to convert the ID to snake_case (can only be accesed as a keyword argument).
         """
         self.id_: str = text_to_snake_case(id_)
+
+        if not snake_case_id:
+            self.id_ = id_
+
         self.content: str = content if content else id_
         self.shape: NodeShape = NODE_SHAPES[shape]
         self.href: str = href if href is not None else '#'
