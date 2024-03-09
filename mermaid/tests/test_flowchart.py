@@ -23,6 +23,15 @@ class TestNode(unittest.TestCase):
         self.assertEqual(expect_content, node.content)
         self.assertEqual(expect_shape, node.shape)
 
+    def test_creating_node_with_out_underscored_id(self):
+        node: Node = Node('.First_Node-1', 'this is my content', 'hexagon')
+        expect_id: str = '.First_Node-1'
+        expect_content: str = 'this is my content'
+        expect_shape: NodeShape = NodeShape('{{', '}}')
+        self.assertEqual(expect_id, node.id_)
+        self.assertEqual(expect_content, node.content)
+        self.assertEqual(expect_shape, node.shape)
+
     def test_string_repr_for_node(self):
         node: Node = Node('First Node', 'this is my content', 'hexagon')
         expect_string: str = 'first_node{{' + '"this is my content"' + '}}'
