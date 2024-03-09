@@ -24,7 +24,12 @@ class TestNode(unittest.TestCase):
         self.assertEqual(expect_shape, node.shape)
 
     def test_creating_node_with_out_underscored_id(self):
-        node: Node = Node('.First_Node-1', 'this is my content', 'hexagon')
+        node: Node = Node(
+            '.First_Node-1',
+            'this is my content',
+            'hexagon',
+            snake_case_id=False,
+        )
         expect_id: str = '.First_Node-1'
         expect_content: str = 'this is my content'
         expect_shape: NodeShape = NodeShape('{{', '}}')
