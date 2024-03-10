@@ -1,5 +1,6 @@
 import os
 import unittest
+from typing import List, Tuple
 
 import mermaid as md
 from mermaid.graph import Graph
@@ -32,10 +33,18 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(graph.script, expect_script)
 
     def test_convert_text_to_snake_case(self):
-        input_text: str = 'This is my Input'
-        out: str = md.text_to_snake_case(input_text)
-        expect_out: str = 'this_is_my_input'
-        self.assertEqual(expect_out, out)
+        test_cases: List[Tuple[str, str]] = [
+            ('This is my Input', 'this_is_my_input'),
+            ('Some_Underscores_in_Input_', 'some_underscores_in_input_'),
+            ('.Some.dots in Input.', '.some.dots_in_input.'),
+            ('Some-dashes-in Input', 'some-dashes-in_input'),
+            ('dots.and-dashes input', 'dots.and-dashes_input'),
+            ('other |chars*in input#', 'other__chars_in_input#'),
+        ]
+
+        for input_id, expected_out in test_cases:
+            out = md.text_to_snake_case(input_id)
+            self.assertEqual(expected_out, out)
 
     def tearDown(self) -> None:
         if os.path.exists(self.file_test):
