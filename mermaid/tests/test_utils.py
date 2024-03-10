@@ -39,7 +39,7 @@ class TestUtils(unittest.TestCase):
             ('.Some.dots in Input.', '.some.dots_in_input.'),
             ('Some-dashes-in Input', 'some-dashes-in_input'),
             ('dots.and-dashes input', 'dots.and-dashes_input'),
-            ('other |chars*in input#', 'other__chars_in_input#'),
+            ('other |chars*in input#', 'other__chars_in_input_'),
         ]
 
         for input_id, expected_out in test_cases:
