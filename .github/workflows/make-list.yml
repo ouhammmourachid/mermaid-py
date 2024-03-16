@@ -12,12 +12,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Upgrade pip & Install Poetry.
-        run: |
-          python -m pip install --upgrade pip
-          pip install poetry
-      - name: Install dependecies.
-        run: make install
+      - name: install dependencies
+        uses: ./.github/actions/install
       - name: Make lint operation.
         run: |
           make install-pre-commit
@@ -39,12 +35,8 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Upgrade pip & Install Poetry.
-        run: |
-          python -m pip install --upgrade pip
-          pip install poetry
-      - name: Install dependecies.
-        run: make install
+      - name: install dependencies
+        uses: ./.github/actions/install
       - name: Run test for python version ${{matrix.python-version}}
         run: make test
   codecov:
@@ -52,12 +44,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Upgrade pip & Install Poetry.
-        run: |
-          python -m pip install --upgrade pip
-          pip install poetry
-      - name: Install dependecies.
-        run: make install
+      - name: install dependencies
+        uses: ./.github/actions/install
       - name: create test coverage.
         run: poetry run pytest --cov ./mermaid
       - name: Upload coverage reports to Codecov.
