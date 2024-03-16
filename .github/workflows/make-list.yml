@@ -29,24 +29,17 @@ jobs:
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+      - name: Test on Python ${{ matrix.python-version }} on ${{matrix.os}}
+        uses: ./.github/actions/test
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: install dependencies
-        uses: ./.github/actions/install
-      - name: Run test for python version ${{matrix.python-version}}
-        run: make test
   codecov:
     needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: install dependencies
-        uses: ./.github/actions/install
-      - name: create test coverage.
-        run: poetry run pytest --cov ./mermaid
-      - name: Upload coverage reports to Codecov.
-        run: poetry run codecov --token=${{secrets.CODECOV_TOKEN}}
+      - name: upload coverage reports to Codecov
+        uses: ./.github/actions/codecov
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
