@@ -6,6 +6,9 @@ authors = ["ouhammmourachid <rachidouhammou21@gmail.com>"]
 readme = "README.md"
 packages = [{include = "mermaid"}]
 exclude = ["mermaid/tests/*.py"]
+repository = "https://github.com/ouhammmourachid/mermaid-py"
+license = "MIT"
+homepage = "https://mermaidpy.vercel.app"
 
 [tool.poetry.dependencies]
 python = "^3.9"

@@ -1,7 +1,7 @@
 {
   "index": "Introduction",
   "get-started": "Get Started",
-  "advanced": "Advanced (A Folder)",
+  "mermaid": "mermaid",
   "about": {
     "title": "About",
     "type": "page"

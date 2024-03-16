@@ -10,14 +10,16 @@ class Entity:
         name (str): The name of the entity.
         attributes (list[str]): The attributes of the entity.
     """
-    def __init__(self,
-                 name: str,
-                 attributes: dict[str, Union[list[str], str]] = None) -> None:
+    def __init__(
+            self,
+            name: str,
+            attributes: Optional[dict[str, Union[list[str],
+                                                 str]]] = None) -> None:
         """Initialize a new Entity.
 
         Args:
             name (str): The name of the entity.
-            attributes (dict[str, Union[list[str], str]]): The attributes of the entity.
+            attributes (Optional[dict[str, Union[list[str], str]]]): The attributes of the entity.
         """
         self.name: str = name
         self.attributes: dict[str, Union[

@@ -1,0 +1,68 @@
+# Graph module
+
+This module provides the `Graph` base class for creating and manipulating different types of diagrams such as flowcharts, ER diagrams, etc.
+
+## Classes
+
+### Graph
+
+Represents a base class for different types of diagrams.
+
+#### Attributes
+
+- `title` (str): The title of the diagram.
+- `script` (str): The main script to create the diagram.
+
+#### Methods
+
+- `save(path: Optional[Path] = None) -> None`: Saves the diagram to a file. If `path` is not provided, the diagram will be saved in the current directory with the title as the filename. The file extension must be either `.mmd` or `.mermaid`.
+- `_build_script() -> None`: Builds the script for the diagram by adding a YAML front matter with the title.
+
+## How to Use
+
+To use the `Graph` class, follow these steps:
+
+1. create a Graph object :
+
+```python
+from mermaid.graph import Graph
+
+graph = Graph(
+    title='simple graph',
+    script="""
+        flowchart TD
+            A[Christmas] -->|Get money| B(Go shopping)
+            B --> C{Let me think}
+            C -->|One| D[Laptop]
+            C -->|Two| E[iPhone]
+            C -->|Three| F[fa:fa-car Car]
+        """
+)
+
+graph # render the graph in notebook
+```
+the result will be
+
+```mermaid
+flowchart TD
+    A[Christmas] -->|Get money| B(Go shopping)
+    B --> C{Let me think}
+    C -->|One| D[Laptop]
+    C -->|Two| E[iPhone]
+    C -->|Three| F[fa:fa-car Car]
+```
+
+2. save the graph in file :
+
+```python
+from mermaid.graph import Graph
+
+graph = Graph(...)
+
+graph.save() # save without a path
+graph.save('/path/to/file.mmd') # using Path
+
+```
+
+- `save()` with a path will create a file in working directory and the file name will be the `graph.title`.
+- `save(...)` with path will check if the path and the file name is valid (ends with `.mmd` or `.mermaid`) and create the file.

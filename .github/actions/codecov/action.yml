@@ -1,0 +1,19 @@
+name: 'Codecov'
+description:  'Upload coverage reports to Codecov.'
+inputs:
+  token:
+    description: 'Codecov token'
+    required: true
+
+
+runs:
+    using: 'composite'
+    steps:
+      - name: install dependencies
+        uses: ./.github/actions/install
+      - name: create test coverage.
+        run: make coverage
+        shell: bash
+      - name: Upload coverage reports to Codecov.
+        run: poetry run codecov --token=${{inputs.token}}
+        shell: bash

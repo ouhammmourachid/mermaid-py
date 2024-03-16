@@ -8,6 +8,8 @@ Classes:
     Node: Represents a node in a flowchart.
     Link: Represents a link between nodes in a flowchart.
 """
+from typing import Optional
+
 from mermaid.graph import Graph
 
 from .link import Link, LinkHead, LinkShape
@@ -26,15 +28,15 @@ class FlowChart(Graph):
     """
     def __init__(self,
                  title: str,
-                 nodes: list[Node] = None,
-                 links: list[Link] = None,
+                 nodes: Optional[list[Node]] = None,
+                 links: Optional[list[Link]] = None,
                  orientation: str = 'TB') -> None:
         """Initialize a new FlowChart.
 
         Args:
             title (str): The title of the flowchart.
-            nodes (list[Node]): The nodes in the flowchart.
-            links (list[Link]): The links between nodes in the flowchart.
+            nodes (Optional[list[Node]]): The nodes in the flowchart.
+            links (Optional[list[Link]]): The links between nodes in the flowchart.
             orientation (str): The orientation of the flowchart.
         """
         super().__init__(title, '')
