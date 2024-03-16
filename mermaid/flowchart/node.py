@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Optional
 
 from mermaid import text_to_snake_case
 
@@ -59,8 +60,8 @@ class Node:
                  id_: str,
                  content: str = '',
                  shape: str = 'normal',
-                 sub_nodes: list['Node'] = None,
-                 href: str = None,
+                 sub_nodes: Optional[list['Node']] = None,
+                 href: Optional[str] = None,
                  href_type: str = 'blank') -> None:
         """Initialize a new Node.
 
@@ -68,8 +69,8 @@ class Node:
             id_ (str): The ID of the node.
             content (str): The content of the node.
             shape (str): The shape of the node.
-            sub_nodes (list[Node]): The sub-nodes of the node.
-            href (str): The hyperlink reference of the node.
+            sub_nodes (Optional[list[Node]]): The sub-nodes of the node.
+            href (Optional[str]): The hyperlink reference of the node.
             href_type (str): The type of the hyperlink reference of the node.
         """
         self.id_: str = text_to_snake_case(id_)
