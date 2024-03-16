@@ -91,4 +91,5 @@ local_settings.py
 db.sqlite3
 /local/
 /site/
-/.vscode/settings.json
+.vscode/*
+.vscode/

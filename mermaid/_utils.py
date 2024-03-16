@@ -41,8 +41,9 @@ def text_to_snake_case(text: str) -> str:
     Returns:
         str: The converted string.
     """
-    # Remove non-alphanumeric characters except underscores and replace spaces with underscores
-    out: str = re.sub(r'[^a-zA-Z0-9_]', '_', text)
+    # Remove non-alphanumeric characters except underscores, dots and dashes
+    #  and replace everything else with underscores
+    out: str = re.sub(r'[^a-zA-Z0-9_\.-]', '_', text)
 
     # Convert the text to lowercase
     out = out.lower()
