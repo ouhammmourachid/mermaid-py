@@ -27,6 +27,15 @@ class Graph:
     script: str
 
     def save(self, path: Optional[Path] = None) -> None:
+        """Save the diagram to a file.
+
+        Args:
+            path (Optional[Path]): The path to save the diagram. If not
+                provided, the diagram will be saved in the current directory
+                with the title as the filename.
+        Raises:
+            ValueError: If the file extension is not '.mmd' or '.mermaid'.
+        """
         file_path: Path = path if path else Path(f'./{self.title}.mmd')
         if file_path.suffix not in ['.mmd', '.mermaid']:
             raise ValueError("File extension must be '.mmd' or '.mermaid'")

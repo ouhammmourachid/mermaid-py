@@ -23,3 +23,46 @@ Represents a base class for different types of diagrams.
 To use the `Graph` class, follow these steps:
 
 1. create a Graph object :
+
+```python
+from mermaid.graph import Graph
+
+graph = Graph(
+    title='simple graph',
+    script="""
+        flowchart TD
+            A[Christmas] -->|Get money| B(Go shopping)
+            B --> C{Let me think}
+            C -->|One| D[Laptop]
+            C -->|Two| E[iPhone]
+            C -->|Three| F[fa:fa-car Car]
+        """
+)
+
+graph # render the graph in notebook
+```
+the result will be
+
+```mermaid
+flowchart TD
+    A[Christmas] -->|Get money| B(Go shopping)
+    B --> C{Let me think}
+    C -->|One| D[Laptop]
+    C -->|Two| E[iPhone]
+    C -->|Three| F[fa:fa-car Car]
+```
+
+2. save the graph in file :
+
+```python
+from mermaid.graph import Graph
+
+graph = Graph(...)
+
+graph.save() # save without a path
+graph.save('/path/to/file.mmd') # using Path
+
+```
+
+`save()` with a path will create a file in working directory and the file name will be the `graph.title`.
+`save(...)` with path will check if the path and the file name is valid (ends with `.mmd` or `.mermaid`) and create the file.
