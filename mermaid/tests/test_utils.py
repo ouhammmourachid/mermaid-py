@@ -50,4 +50,3 @@ class TestUtils(unittest.TestCase):
         if os.path.exists(self.file_test):
             os.remove(self.file_test)
         return super().tearDown()
- 
