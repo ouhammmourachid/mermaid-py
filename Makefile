@@ -26,10 +26,7 @@ install-pre-commit:
 lint:
 	poetry run pre-commit run --all-files
 
-.PHONY: build-docs
-build-docs:
-	poetry run mkdocs build
 
-.PHONY: serve-docs
-serve-docs:
-	poetry run mkdocs serve
+.PHONY: coverage
+coverage:
+	poetry run pytest --cov ./mermaid
