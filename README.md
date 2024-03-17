@@ -15,7 +15,11 @@ this package works as an interface for the famous mermaid-js library that uses s
 
 ## Description
 
-Briefly describe your project here. Explain what it does and what makes it special.
+mermaid-py is a dynamic Python library designed to serve as a seamless interface for
+the renowned Mermaid library. Built upon the powerful capabilities of Python, mermaid-py
+empowers developers and data enthusiasts to effortlessly create stunning diagrams, flowcharts,
+and visualizations directly within their Python environments.
+
 
 ## Examples
 first install `mermaid-py` by `pip install mermaid-py`.
@@ -89,16 +93,16 @@ If you'd like to contribute to this open source project folow this steps:
 6. happy coding :) .
 
 ## List of Diagrames
-- [x] [FlowChart](https://mermaid.js.org/syntax/flowchart.html)
-- [x] [Sequence Diagram](https://mermaid.js.org/syntax/sequenceDiagram.html)
+- [x] [~~FlowChart~~](https://mermaid.js.org/syntax/flowchart.html)
+- [x] [~~Sequence Diagram~~](https://mermaid.js.org/syntax/sequenceDiagram.html)
 - [ ] [Class Diagram](https://mermaid.js.org/syntax/classDiagram.html)
-- [ ] [State Diagram](https://mermaid.js.org/syntax/stateDiagram.html)
-- [x] [Entity Relationship Diagram](https://mermaid.js.org/syntax/entityRelationshipDiagram.html)
-- [x] [User Journey](https://mermaid.js.org/syntax/userJourney.html)
+- [x] [~~State Diagram~~](https://mermaid.js.org/syntax/stateDiagram.html)
+- [x] [~~Entity Relationship Diagram~~](https://mermaid.js.org/syntax/entityRelationshipDiagram.html)
+- [x] [~~User Journey~~](https://mermaid.js.org/syntax/userJourney.html)
 - [ ] [Gantt](https://mermaid.js.org/syntax/gantt.html)
-- [x] [Pie Chart](https://mermaid.js.org/syntax/pie.html)
+- [x] [~~Pie Chart~~](https://mermaid.js.org/syntax/pie.html)
 - [ ] [Quadrant Chart](https://mermaid.js.org/syntax/quadrantChart.html)
-- [x] [Requirement Diagram](https://mermaid.js.org/syntax/requirementDiagram.html)
+- [x] [~~Requirement Diagram~~](https://mermaid.js.org/syntax/requirementDiagram.html)
 - [ ] [Gitgraph (Git) Diagram 🔥](https://mermaid.js.org/syntax/gitgraph.html)
 - [ ] [C4 Diagram 🦺⚠️](https://mermaid.js.org/syntax/c4.html)
 - [ ] [Mindmaps 🔥](https://mermaid.js.org/syntax/mindmap.html)
