@@ -3,7 +3,7 @@ install:
 	poetry install
 
 .PHONY: update
-install:
+update:
 	poetry update
 
 .PHONY: build
