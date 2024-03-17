@@ -34,7 +34,22 @@ state main_state {
         end: End = End()
         expect_string: str = '[*]'
         self.assertEqual(expect_string, str(end))
-
+    
+    def test_state_with_sub_states_and_transitions(self):
+        state_1: State = State('First State')
+        state_2: State = State('Second State')
+        transition_1: Transition = Transition(state_1, state_2, 'This is my label')
+        transition_2: Transition = Transition(to=state_1)
+        state: State = State('Main State', sub_states=[state_1, state_2],
+                             transitions=[transition_1, transition_2])
+        expect_string: str = """main_state : Main State
+state main_state {
+\tfirst_state : First State
+\tsecond_state : Second State
+\tfirst_state --> second_state : This is my label
+\t[*] --> first_state
+}"""
+        self.assertEqual(expect_string, str(state))
 
 class TestTransition(unittest.TestCase):
     def setUp(self) -> None:
@@ -52,12 +67,12 @@ class TestTransition(unittest.TestCase):
 
     def test_transition_from_start_to_state(self):
         transition: Transition = Transition(to=self.state_1)
-        expect_string: str = '[*] --> first_state : '
+        expect_string: str = '[*] --> first_state'
         self.assertEqual(expect_string, str(transition))
 
     def test_transition_from_state_to_end(self):
         transition: Transition = Transition(from_=self.state_1)
-        expect_string: str = 'first_state --> [*] : '
+        expect_string: str = 'first_state --> [*]'
         self.assertEqual(expect_string, str(transition))
 
 

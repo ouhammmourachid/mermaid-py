@@ -20,7 +20,8 @@ class State:
     def __init__(self,
                  id_: str,
                  content: str = '',
-                 sub_states: Optional[list['State']] = None) -> None:
+                 sub_states: Optional[list['State']] = None,
+                 transitions: Optional[list['BaseTransition']] = None) -> None:
         """Initialize a new State.
 
         Args:
@@ -31,6 +32,7 @@ class State:
         self.id_: str = text_to_snake_case(id_)
         self.content: str = content if content else id_
         self.sub_states: list['State'] = sub_states if sub_states else []
+        self.transitions: list['BaseTransition'] = transitions if transitions else []
 
     def __str__(self) -> str:
         """Return the string representation of the state.
@@ -41,6 +43,10 @@ class State:
             string += f'\nstate {self.id_} {{'
             for state in self.sub_states:
                 string += f'\n\t{state}'
+            
+            for transition in self.transitions:
+                string += f'\n\t{str(transition)}'
+
             string += '\n}'
 
         return string

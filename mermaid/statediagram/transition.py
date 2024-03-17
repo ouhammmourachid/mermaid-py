@@ -5,7 +5,11 @@ from mermaid import text_to_snake_case
 from .state import End, Start, State
 
 
-class Transition:
+class BaseTransition:
+    pass
+
+
+class Transition(BaseTransition):
     """Transition class.
 
     This class represents a transition in a state diagram.
@@ -37,10 +41,12 @@ class Transition:
     def __str__(self):
         """Return the string representation of the transition.
         """
+        if not self.label:
+            return f'{self.from_state.id_} --> {self.to_state.id_}'
         return f'{self.from_state.id_} --> {self.to_state.id_} : {self.label}'
 
 
-class Choice:
+class Choice(BaseTransition):
     """Choice class.
 
     This class represents a choice in a state diagram.
@@ -87,7 +93,7 @@ class Choice:
         return string
 
 
-class Fork:
+class Fork(BaseTransition):
     """Fork class.
 
     This class represents a fork in a state diagram.
@@ -125,7 +131,7 @@ class Fork:
         return string
 
 
-class Join:
+class Join(BaseTransition):
     """Join class.
 
     This class represents a join in a state diagram.
