@@ -30,3 +30,10 @@ lint:
 .PHONY: coverage
 coverage:
 	poetry run pytest --cov ./mermaid
+
+.PHONY: bumpversion
+bumpversion:
+	$(eval name=$(filter-out $@,$(MAKECMDGOALS)))
+	poetry run bumpver update --$(name)
+%:
+	@:
