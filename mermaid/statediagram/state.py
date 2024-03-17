@@ -50,9 +50,10 @@ class Start(State):
     """
     def __init__(self) -> None:
         super().__init__(id_ = '[*]')
+        self.id_: str = '[*]'
 
     def __str__(self) -> str:
-        return '[*]'
+        return f'{self.id_}'
 
 class End(State):
     """End class.
@@ -61,7 +62,8 @@ class End(State):
     """
     def __init__(self) -> None:
         super().__init__(id_ = '[*]')
+        self.id_: str = '[*]'
 
     def __str__(self) -> str:
-        return '[*]'
+        return f'{self.id_}'
         

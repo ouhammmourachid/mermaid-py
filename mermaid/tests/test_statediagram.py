@@ -1,6 +1,6 @@
 import unittest
 
-from mermaid.statediagram import State, Start, End
+from mermaid.statediagram import State, Start, End, Transition
 
 
 class TestState(unittest.TestCase):
@@ -35,3 +35,29 @@ state main_state {
         end: End = End()
         expect_string: str = '[*]'
         self.assertEqual(expect_string, str(end))
+
+class TestTransition(unittest.TestCase):
+
+    def setUp(self) -> None:
+        self.start: Start = Start()
+        self.end: End = End()
+        self.state_1: State = State('First State')
+        self.state_2: State = State('Second State')
+        return super().setUp()
+    
+    def test_simple_transition(self):
+        transition: Transition = Transition(self.state_1, self.state_2, 'This is my label')
+        expect_string: str = 'first_state --> second_state : This is my label'
+        self.assertEqual(expect_string, str(transition))
+    
+    def test_transition_from_start_to_state(self):
+        transition: Transition = Transition(to=self.state_1)
+        expect_string: str = '[*] --> first_state : '
+        self.assertEqual(expect_string, str(transition))
+
+    def test_transition_from_state_to_end(self):
+        transition: Transition = Transition(from_=self.state_1)
+        expect_string: str = 'first_state --> [*] : '
+        self.assertEqual(expect_string, str(transition))
+
+
