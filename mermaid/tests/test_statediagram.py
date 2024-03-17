@@ -281,6 +281,11 @@ class TestStateDiagram(unittest.TestCase):
             'Main State',
             sub_states=[self.state_1, self.state_2],
             transitions=[self.transition_1, self.transition_2])
+        self.concurrent: Concurrent = Concurrent(
+            'Main State',
+            sub_groups=[([self.state_1, self.state_2],
+                         [self.transition_1, self.transition_2]),
+                        ([self.state_1], [self.transition_2])])
 
         return super().setUp()
 
@@ -301,3 +306,56 @@ title: My State Diagram
         for i, version in enumerate(list_verions):
             expect_string = get_expected_script(list_expect[i])
             self.assertEqual(expect_string, version.script)
+
+    def test_state_diagram_with_states(self):
+        state_diagram: StateDiagram = StateDiagram(
+            'My State Diagram', [self.state_1, self.state_2], [])
+        expect_string: str = f"""---
+title: My State Diagram
+---
+stateDiagram-v2
+\t{self.state_1}
+\t{self.state_2}
+"""
+        self.assertEqual(expect_string, state_diagram.script)
+
+    def test_state_diagram_with_transitions(self):
+        state_diagram: StateDiagram = StateDiagram(
+            'My State Diagram', [self.state_1, self.state_2],
+            [self.transition_1, self.transition_2])
+        expect_string: str = f"""---
+title: My State Diagram
+---
+stateDiagram-v2
+\t{self.state_1}
+\t{self.state_2}
+\t{self.transition_1}
+\t{self.transition_2}
+"""
+        self.assertEqual(expect_string, state_diagram.script)
+
+    def test_state_diagram_with_composite(self):
+        state_diagram: StateDiagram = StateDiagram('My State Diagram',
+                                                   [self.composite])
+        expect_string: str = f"""---
+title: My State Diagram
+---
+stateDiagram-v2
+\t{self.composite}
+"""
+        self.assertEqual(expect_string, state_diagram.script)
+
+    def test_state_diagram_with_concurrent(self):
+        transition = Transition(from_=self.concurrent,
+                                label='This is my label')
+        state_diagram: StateDiagram = StateDiagram('My State Diagram',
+                                                   [self.concurrent],
+                                                   [transition])
+        expect_string: str = f"""---
+title: My State Diagram
+---
+stateDiagram-v2
+\t{self.concurrent}
+\t{transition}
+"""
+        self.assertEqual(expect_string, state_diagram.script)
