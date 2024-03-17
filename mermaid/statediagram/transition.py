@@ -2,11 +2,8 @@ from typing import Optional
 
 from mermaid import text_to_snake_case
 
+from .base import BaseTransition
 from .state import End, Start, State
-
-
-class BaseTransition:
-    pass
 
 
 class Transition(BaseTransition):

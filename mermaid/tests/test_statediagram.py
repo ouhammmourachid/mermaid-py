@@ -4,25 +4,14 @@ from mermaid.statediagram import *
 
 
 class TestState(unittest.TestCase):
-    def test_simple_state_without_content(self):
-        state: State = State('First State')
-        expect_string: str = 'first_state : First State'
+    def test_simple_state(self):
+        state: State = State('My State')
+        expect_string: str = 'my_state : My State'
         self.assertEqual(expect_string, str(state))
 
-    def test_simple_state_with_content(self):
-        state: State = State('First', 'This is my content')
-        expect_string: str = 'first : This is my content'
-        self.assertEqual(expect_string, str(state))
-
-    def test_state_with_sub_states(self):
-        state_1: State = State('First State')
-        state_2: State = State('Second State')
-        state: State = State('Main State', sub_states=[state_1, state_2])
-        expect_string: str = """main_state : Main State
-state main_state {
-\tfirst_state : First State
-\tsecond_state : Second State
-}"""
+    def test_state_with_content(self):
+        state: State = State('My State', 'This is my content')
+        expect_string: str = 'my_state : This is my content'
         self.assertEqual(expect_string, str(state))
 
     def test_start_state(self):
@@ -34,14 +23,49 @@ state main_state {
         end: End = End()
         expect_string: str = '[*]'
         self.assertEqual(expect_string, str(end))
-    
-    def test_state_with_sub_states_and_transitions(self):
-        state_1: State = State('First State')
-        state_2: State = State('Second State')
-        transition_1: Transition = Transition(state_1, state_2, 'This is my label')
-        transition_2: Transition = Transition(to=state_1)
-        state: State = State('Main State', sub_states=[state_1, state_2],
-                             transitions=[transition_1, transition_2])
+
+    def test_composite_state(self):
+        composite: Composite = Composite('Main State', 'This is my content')
+        expect_string: str = 'main_state : This is my content'
+        self.assertEqual(expect_string, str(composite))
+
+
+class TestComposite(unittest.TestCase):
+    def setUp(self) -> None:
+        self.start: Start = Start()
+        self.end: End = End()
+        self.state_1: State = State('First State')
+        self.state_2: State = State('Second State')
+        self.transition_1: Transition = Transition(self.state_1, self.state_2,
+                                                   'This is my label')
+        self.transition_2: Transition = Transition(to=self.state_1)
+        return super().setUp()
+
+    def test_simple_composite_without_content(self):
+        composite: Composite = Composite('Main State')
+        expect_string: str = 'main_state : Main State'
+        self.assertEqual(expect_string, str(composite))
+
+    def test_simple_composite_with_content(self):
+        composite: Composite = Composite('Main State', 'This is my content')
+        expect_string: str = 'main_state : This is my content'
+        self.assertEqual(expect_string, str(composite))
+
+    def test_state_with_sub_states(self):
+        composite: Composite = Composite(
+            'Main State', sub_states=[self.state_1, self.state_2])
+        expect_string: str = """main_state : Main State
+state main_state {
+\tfirst_state : First State
+\tsecond_state : Second State
+}"""
+        self.assertEqual(expect_string, str(composite))
+
+    def test_composite_with_sub_states_and_transitions(self):
+        composite: Composite = Composite(
+            'Main State',
+            sub_states=[self.state_1, self.state_2],
+            transitions=[self.transition_1, self.transition_2])
         expect_string: str = """main_state : Main State
 state main_state {
 \tfirst_state : First State
@@ -49,7 +73,8 @@ state main_state {
 \tfirst_state --> second_state : This is my label
 \t[*] --> first_state
 }"""
-        self.assertEqual(expect_string, str(state))
+        self.assertEqual(expect_string, str(composite))
+
 
 class TestTransition(unittest.TestCase):
     def setUp(self) -> None:

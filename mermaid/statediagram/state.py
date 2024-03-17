@@ -6,6 +6,8 @@ from typing import Optional
 
 from mermaid import text_to_snake_case
 
+from .base import BaseTransition
+
 
 class State:
     """State class.
@@ -13,43 +15,23 @@ class State:
     This class represents a state in a state diagram.
 
     Attributes:
-        id_ (str): The ID of the state.
+        id_ (str): The id of the state.
         content (str): The content of the state.
-        sub_states (list[State]): The sub-states of the state.
     """
-    def __init__(self,
-                 id_: str,
-                 content: str = '',
-                 sub_states: Optional[list['State']] = None,
-                 transitions: Optional[list['BaseTransition']] = None) -> None:
+    def __init__(self, id_: str, content: str = '') -> None:
         """Initialize a new State.
 
         Args:
-            id_ (str): The ID of the state.
+            id_ (str): The id of the state.
             content (str): The content of the state.
-            sub_states (Optional[list[State]]): The sub-states of the state.
         """
         self.id_: str = text_to_snake_case(id_)
         self.content: str = content if content else id_
-        self.sub_states: list['State'] = sub_states if sub_states else []
-        self.transitions: list['BaseTransition'] = transitions if transitions else []
 
     def __str__(self) -> str:
         """Return the string representation of the state.
         """
-        string: str = f'{self.id_} : {self.content}'
-
-        if len(self.sub_states):
-            string += f'\nstate {self.id_} {{'
-            for state in self.sub_states:
-                string += f'\n\t{state}'
-            
-            for transition in self.transitions:
-                string += f'\n\t{str(transition)}'
-
-            string += '\n}'
-
-        return string
+        return f'{self.id_} : {self.content}'
 
 
 class Start(State):
@@ -76,3 +58,49 @@ class End(State):
 
     def __str__(self) -> str:
         return f'{self.id_}'
+
+
+class Composite(State):
+    """Composite class.
+
+    This class represents a composite state in a state diagram.
+
+    Attributes:
+        sub_states (list[State]): The sub states of the composite state.
+        transitions (list[BaseTransition]): The transitions of the composite state.
+    """
+    def __init__(self,
+                 id_: str,
+                 content: str = '',
+                 sub_states: Optional[list[State]] = None,
+                 transitions: Optional[list[BaseTransition]] = None) -> None:
+        """Initialize a new Composite.
+
+        Args:
+            id_ (str): The id of the state.
+            content (str): The content of the state.
+            sub_states (Optional[list[State]]): The sub states of the composite state.
+            transitions (Optional[list[BaseTransition]]): The transitions of the composite state.
+        """
+        super().__init__(id_, content)
+        self.sub_states: list[
+            State] = sub_states if sub_states is not None else []
+        self.transitions: list[
+            BaseTransition] = transitions if transitions is not None else []
+
+    def __str__(self) -> str:
+        """Return the string representation of the state.
+        """
+        string: str = f'{self.id_} : {self.content}'
+
+        if len(self.sub_states):
+            string += f'\nstate {self.id_} {{'
+            for state in self.sub_states:
+                string += f'\n\t{str(state)}'
+
+            for transition in self.transitions:
+                string += f'\n\t{str(transition)}'
+
+            string += '\n}'
+
+        return string
