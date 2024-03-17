@@ -1,6 +1,6 @@
 import unittest
 
-from mermaid.statediagram import Choice, End, Start, State, Transition
+from mermaid.statediagram import *
 
 
 class TestState(unittest.TestCase):
@@ -105,3 +105,74 @@ first_state --> my_choice
 my_choice --> second_state : condition 1
 my_choice --> third_state : condition 2"""
         self.assertEqual(expect_string, str(choice))
+
+
+class TestFork(unittest.TestCase):
+    def setUp(self) -> None:
+        self.start: Start = Start()
+        self.end: End = End()
+        self.state_1: State = State('First State')
+        self.state_2: State = State('Second State')
+        self.state_3: State = State('Third State')
+        return super().setUp()
+
+    def test_without_to_and_from_state(self):
+        fork: Fork = Fork('My Fork')
+        expect_string: str = 'state my_fork <<fork>>'
+        self.assertEqual(expect_string, str(fork))
+
+    def test_without_to_and_with_from_state(self):
+        fork: Fork = Fork('My Fork', self.state_1)
+        expect_string: str = 'state my_fork <<fork>>\nfirst_state --> my_fork'
+        self.assertEqual(expect_string, str(fork))
+
+    def test_with_to_and_without_from_state(self):
+        fork: Fork = Fork('My Fork', to=[self.state_1, self.state_2])
+        expect_string: str = """state my_fork <<fork>>
+my_fork --> first_state
+my_fork --> second_state"""
+        self.assertEqual(expect_string, str(fork))
+
+    def test_with_to_and_from_state(self):
+        fork: Fork = Fork('My Fork', self.state_1,
+                          [self.state_2, self.state_3])
+        expect_string: str = """state my_fork <<fork>>
+first_state --> my_fork
+my_fork --> second_state
+my_fork --> third_state"""
+        self.assertEqual(expect_string, str(fork))
+
+
+class TestJoin(unittest.TestCase):
+    def setUp(self) -> None:
+        self.start: Start = Start()
+        self.end: End = End()
+        self.state_1: State = State('First State')
+        self.state_2: State = State('Second State')
+        self.state_3: State = State('Third State')
+        return super().setUp()
+
+    def test_without_to_and_from_state(self):
+        join: Join = Join('My Join')
+        expect_string: str = 'state my_join <<join>>'
+        self.assertEqual(expect_string, str(join))
+
+    def test_without_to_and_with_from_state(self):
+        join: Join = Join('My Join', [self.state_1])
+        expect_string: str = 'state my_join <<join>>\nfirst_state --> my_join'
+        self.assertEqual(expect_string, str(join))
+
+    def test_with_to_and_without_from_state(self):
+        join: Join = Join('My Join', to=self.state_1)
+        expect_string: str = """state my_join <<join>>
+my_join --> first_state"""
+        self.assertEqual(expect_string, str(join))
+
+    def test_with_to_and_from_state(self):
+        join: Join = Join('My Join', [self.state_1, self.state_2],
+                          self.state_3)
+        expect_string: str = """state my_join <<join>>
+first_state --> my_join
+second_state --> my_join
+my_join --> third_state"""
+        self.assertEqual(expect_string, str(join))

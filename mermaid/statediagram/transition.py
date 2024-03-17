@@ -85,3 +85,79 @@ class Choice:
                 string += f' : {self.conditions[index]}'
 
         return string
+
+
+class Fork:
+    """Fork class.
+
+    This class represents a fork in a state diagram.
+
+    Attributes:
+        from_state (State): The state from which the fork starts.
+        to_states (list[State]): The states to which the fork ends.
+    """
+    def __init__(self,
+                 id_: str,
+                 from_: Optional[State] = None,
+                 to: Optional[list[State]] = None) -> None:
+        """Initialize a new Fork.
+
+        Args:
+            id_ (str): The ID of the fork.
+            from_ (Optional[State]): The state from which the fork starts.
+            to (Optional[list[State]]): The states to which the fork ends.
+        """
+        self.id_: str = text_to_snake_case(id_)
+        self.from_state: Optional[State] = from_
+        self.to_states: list[State] = to if to is not None else []
+
+    def __str__(self) -> str:
+        """Return the string representation of the fork.
+        """
+        string: str = f'state {self.id_} <<fork>>'
+
+        if self.from_state:
+            string += f'\n{self.from_state.id_} --> {self.id_}'
+
+        for state in self.to_states:
+            string += f'\n{self.id_} --> {state.id_}'
+
+        return string
+
+
+class Join:
+    """Join class.
+
+    This class represents a join in a state diagram.
+
+    Attributes:
+        from_states (list[State]): The states from which the join starts.
+        to_state (State): The state to which the join ends.
+    """
+    def __init__(self,
+                 id_: str,
+                 from_: Optional[list[State]] = None,
+                 to: Optional[State] = None) -> None:
+        """Initialize a new Join.
+
+        Args:
+            id_ (str): The ID of the join.
+            from_ (Optional[list[State]]): The states from which the join starts.
+            to (Optional[State]): The state to which the join ends.
+        """
+        self.id_: str = text_to_snake_case(id_)
+        self.from_states: list[State] = from_ if from_ is not None else []
+        self.to_state: Optional[State] = to
+
+    def __str__(self) -> str:
+        """Return the string representation of the join.
+        """
+        string: str = f'state {self.id_} <<join>>'
+
+        for state in self.from_states:
+            string += f'\n{state.id_} --> {self.id_}'
+
+        if self.to_state:
+            string += f'\n{self.id_} --> {self.to_state.id_}'
+
+        return string
