@@ -1,2 +1,2 @@
-from .state import State, Start, End
-from .transition import Transition
+from .state import End, Start, State
+from .transition import Choice, Transition

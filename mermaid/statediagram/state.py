@@ -3,7 +3,9 @@
 This module contains the classes to represent states in a state diagram.
 """
 from typing import Optional
+
 from mermaid import text_to_snake_case
+
 
 class State:
     """State class.
@@ -28,20 +30,21 @@ class State:
         """
         self.id_: str = text_to_snake_case(id_)
         self.content: str = content if content else id_
-        self.sub_states: list["State"] = sub_states if sub_states else []
+        self.sub_states: list['State'] = sub_states if sub_states else []
 
     def __str__(self) -> str:
         """Return the string representation of the state.
         """
-        string:str = f'{self.id_} : {self.content}'
+        string: str = f'{self.id_} : {self.content}'
 
         if len(self.sub_states):
             string += f'\nstate {self.id_} {{'
             for state in self.sub_states:
                 string += f'\n\t{state}'
             string += '\n}'
-        
+
         return string
+
 
 class Start(State):
     """Start class.
@@ -49,11 +52,12 @@ class Start(State):
     This class represents the start state in a state diagram.
     """
     def __init__(self) -> None:
-        super().__init__(id_ = '[*]')
+        super().__init__(id_='[*]')
         self.id_: str = '[*]'
 
     def __str__(self) -> str:
         return f'{self.id_}'
+
 
 class End(State):
     """End class.
@@ -61,9 +65,8 @@ class End(State):
     This class represents the end state in a state diagram.
     """
     def __init__(self) -> None:
-        super().__init__(id_ = '[*]')
+        super().__init__(id_='[*]')
         self.id_: str = '[*]'
 
     def __str__(self) -> str:
         return f'{self.id_}'
-        
