@@ -1,6 +1,6 @@
 """State module.
 
-This module contains the classes to represent states in a state diagram.
+This module contains the classes to represent the states in a state diagram.
 """
 from typing import Optional
 
@@ -103,4 +103,47 @@ class Composite(State):
 
             string += '\n}'
 
+        return string
+
+
+class Concurrent(Composite):
+    """Concurrent class.
+
+    This class represents a concurrent state in a state diagram.
+
+    Attributes:
+        groups (list[tuple[list[State],list[BaseTransition]]]): The groups of the concurrent state.
+    """
+    def __init__(
+        self,
+        id_: str,
+        content: str = '',
+        sub_groups: Optional[list[tuple[list[State],
+                                        list[BaseTransition]]]] = None
+    ) -> None:
+        """Initialize a new Concurrent.
+
+        Args:
+            id_ (str): The id of the state.
+            content (str): The content of the state.
+            sub_groups (Optional[list[tuple[list[State],list[BaseTransition]]]): The groups of the concurrent state.
+        """
+        super().__init__(id_, content)
+        self.groups: list[tuple[list[State], list[
+            BaseTransition]]] = sub_groups if sub_groups is not None else []
+
+    def __str__(self) -> str:
+        """Return the string representation of the state.
+        """
+        string: str = f'{self.id_} : {self.content}'
+        if len(self.groups):
+            string += f'\nstate {self.id_} {{'
+            for states, transitions in self.groups:
+                for state in states:
+                    string += f'\n\t{str(state)}'
+                for transition in transitions:
+                    string += f'\n\t{str(transition)}'
+                string += '\n\t--'
+            string = string[:-4]
+            string += '\n}'
         return string
