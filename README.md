@@ -15,9 +15,9 @@ this package works as an interface for the famous mermaid-js library that uses s
 
 ## Description
 
-mermaid-py is a dynamic Python library designed to serve as a seamless interface for 
-the renowned Mermaid library. Built upon the powerful capabilities of Python, mermaid-py 
-empowers developers and data enthusiasts to effortlessly create stunning diagrams, flowcharts, 
+mermaid-py is a dynamic Python library designed to serve as a seamless interface for
+the renowned Mermaid library. Built upon the powerful capabilities of Python, mermaid-py
+empowers developers and data enthusiasts to effortlessly create stunning diagrams, flowcharts,
 and visualizations directly within their Python environments.
 
 
