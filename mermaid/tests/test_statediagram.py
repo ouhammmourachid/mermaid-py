@@ -1,6 +1,8 @@
 import unittest
 
+from mermaid import Direction
 from mermaid.statediagram import *
+from mermaid.style import Style
 
 
 class TestState(unittest.TestCase):
@@ -29,6 +31,15 @@ class TestState(unittest.TestCase):
         expect_string: str = 'main_state : This is my content'
         self.assertEqual(expect_string, str(composite))
 
+    def test_concurrent_state_with_style(self):
+        styles = [
+            Style(name='style1', fill='red'),
+            Style(name='style2', color='blue')
+        ]
+        state: State = State('My State', styles=styles)
+        expect_string: str = 'my_state : My State\nmy_state:::style1\nmy_state:::style2'
+        self.assertEqual(expect_string, str(state))
+
 
 class TestComposite(unittest.TestCase):
     def setUp(self) -> None:
@@ -53,9 +64,25 @@ class TestComposite(unittest.TestCase):
 
     def test_state_with_sub_states(self):
         composite: Composite = Composite(
-            'Main State', sub_states=[self.state_1, self.state_2])
+            'Main State',
+            sub_states=[self.state_1, self.state_2],
+            direction=Direction.LEFT_TO_RIGHT)
         expect_string: str = """main_state : Main State
 state main_state {
+\tdirection LR
+\tfirst_state : First State
+\tsecond_state : Second State
+}"""
+        self.assertEqual(expect_string, str(composite))
+
+    def test_state_with_sub_states_and_str_direction(self):
+        composite: Composite = Composite(
+            'Main State',
+            sub_states=[self.state_1, self.state_2],
+            direction='LR')
+        expect_string: str = """main_state : Main State
+state main_state {
+\tdirection LR
 \tfirst_state : First State
 \tsecond_state : Second State
 }"""
@@ -72,6 +99,24 @@ state main_state {
 \tsecond_state : Second State
 \tfirst_state --> second_state : This is my label
 \t[*] --> first_state
+}"""
+        self.assertEqual(expect_string, str(composite))
+
+    def test_composite_with_sub_states_and_styles(self):
+        styles = [
+            Style(name='style1', fill='red', font_weight='bold'),
+            Style(name='style2', color='blue')
+        ]
+        composite: Composite = Composite(
+            'Main State',
+            sub_states=[self.state_1, self.state_2],
+            styles=styles)
+        expect_string: str = """main_state : Main State
+main_state:::style1
+main_state:::style2
+state main_state {
+\tfirst_state : First State
+\tsecond_state : Second State
 }"""
         self.assertEqual(expect_string, str(composite))
 
@@ -115,6 +160,33 @@ state main_state {
 }"""
         print(expect_string)
         print(concurrent)
+        self.assertEqual(expect_string, str(concurrent))
+
+    def test_concurrent_with_sub_goups_and_styles(self):
+        styles = [
+            Style(name='style1', fill='red', font_weight='bold'),
+            Style(name='style2', color='blue')
+        ]
+        groups = [([self.state_1,
+                    self.state_2], [self.transition_1, self.transition_2]),
+                  ([self.state_1], [self.transition_2])]
+        concurrent: Concurrent = Concurrent('Main State',
+                                            sub_groups=groups,
+                                            styles=styles)
+
+        expect_string: str = """main_state : Main State
+main_state:::style1
+main_state:::style2
+state main_state {
+\tfirst_state : First State
+\tsecond_state : Second State
+\tfirst_state --> second_state
+\t[*] --> first_state
+\t--
+\tfirst_state : First State
+\t[*] --> first_state
+}"""
+
         self.assertEqual(expect_string, str(concurrent))
 
 
@@ -357,5 +429,50 @@ title: My State Diagram
 stateDiagram-v2
 \t{self.concurrent}
 \t{transition}
+"""
+        self.assertEqual(expect_string, state_diagram.script)
+
+    def test_state_diagram_with_styles(self):
+        styles = [
+            Style(name='style1', fill='red', font_weight='bold'),
+            Style(name='style2', color='blue')
+        ]
+
+        states = [
+            State('First State', styles=[styles[0]]),
+            State('Second State', styles=[styles[1]])
+        ]
+        styles = list(set(styles))
+        state_diagram: StateDiagram = StateDiagram('My State Diagram', states)
+        expect_string: str = f"""---
+title: My State Diagram
+---
+stateDiagram-v2
+\t{styles[0]}
+\t{styles[1]}
+\t{states[0]}
+\t{states[1]}
+"""
+        self.assertEqual(expect_string, state_diagram.script)
+
+    def test_state_diagram_with_duplicate_styles(self):
+        styles = [
+            Style(name='style1', fill='red', font_weight='bold'),
+            Style(name='style1', fill='red', font_weight='bold')
+        ]
+
+        states = [
+            State('First State', styles=[styles[0]]),
+            State('Second State', styles=[styles[1]])
+        ]
+        styles = list(set(styles))
+        state_diagram: StateDiagram = StateDiagram('My State Diagram', states)
+        expect_string: str = f"""---
+title: My State Diagram
+---
+stateDiagram-v2
+\t{styles[0]}
+\t{states[0]}
+\t{states[1]}
 """
         self.assertEqual(expect_string, state_diagram.script)

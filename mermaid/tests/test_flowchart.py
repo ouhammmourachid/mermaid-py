@@ -1,7 +1,9 @@
 import unittest
 
+from mermaid import Direction
 from mermaid.flowchart import FlowChart, Link, LinkHead, LinkShape, Node
 from mermaid.flowchart.node import NodeShape
+from mermaid.style import Style
 
 
 class TestNode(unittest.TestCase):
@@ -50,6 +52,35 @@ click node_name "www.github.com" _blank"""
         expect_string: str = """node_name["Node Name"]
 click node_name "www.github.com" _top"""
 
+        self.assertEqual(expect_string, str(node))
+
+    def test_string_node_with_styles(self):
+        styles = [
+            Style(name='firstStyle', fill='red'),
+            Style(name='secondStyle', stroke='green')
+        ]
+        node: Node = Node('Node Name', styles=styles)
+        expect_string: str = """node_name["Node Name"]
+node_name:::firstStyle
+node_name:::secondStyle"""
+        self.assertEqual(expect_string, str(node))
+
+    def test_string_sub_nodes_with_styles(self):
+        styles = [
+            Style(name='firstStyle', fill='red'),
+            Style(name='secondStyle', stroke='green')
+        ]
+        node_1: Node = Node('First Node')
+        node_2: Node = Node('Second Node')
+        node: Node = Node('Main Node',
+                          sub_nodes=[node_1, node_2],
+                          styles=styles)
+        expect_string: str = """subgraph main_node ["Main Node"]
+\tfirst_node["First Node"]
+\tsecond_node["Second Node"]
+end
+main_node:::firstStyle
+main_node:::secondStyle"""
         self.assertEqual(expect_string, str(node))
 
 
@@ -138,4 +169,88 @@ flowchart LR
 \t{links[0]}
 \t{links[1]}
 """
+        self.assertEqual(expect_script, flowchart.script)
+
+    def test_make_flowchart_script_with_enum_orientation(self):
+        nodes = [Node('First Node'), Node('Second Node'), Node('Third Node')]
+
+        links = [
+            Link(nodes[0], nodes[1], head_left='cross'),
+            Link(nodes[1], nodes[2], head_right='bullet')
+        ]
+        flowchart: FlowChart = FlowChart('simple flowchart',
+                                         nodes,
+                                         links,
+                                         orientation=Direction.LEFT_TO_RIGHT)
+        expect_script: str = f"""---
+title: simple flowchart
+---
+flowchart LR
+\t{nodes[0]}
+\t{nodes[1]}
+\t{nodes[2]}
+\t{links[0]}
+\t{links[1]}
+"""
+        self.assertEqual(expect_script, flowchart.script)
+
+    def test_make_flowchart_script_with_styles(self):
+        styles = [
+            Style(name='firstStyle', fill='red'),
+            Style(name='secondStyle', stroke='green')
+        ]
+        nodes = [
+            Node('First Node', styles=[styles[0]]),
+            Node('Second Node', styles=[styles[1]]),
+            Node('Third Node')
+        ]
+        links = [
+            Link(nodes[0], nodes[1], head_left='cross'),
+            Link(nodes[1], nodes[2], head_right='bullet')
+        ]
+        styles = list(set(styles))
+        flowchart: FlowChart = FlowChart('simple flowchart', nodes, links)
+        expect_script: str = f"""---
+title: simple flowchart
+---
+flowchart TB
+\t{styles[0]}
+\t{styles[1]}
+\t{nodes[0]}
+\t{nodes[1]}
+\t{nodes[2]}
+\t{links[0]}
+\t{links[1]}
+"""
+        self.assertEqual(expect_script, flowchart.script)
+
+    def test_make_flowchart_script_with_duplicate_styles(self):
+        styles = [
+            Style(name='firstStyle', fill='red'),
+            Style(name='secondStyle', stroke='green')
+        ]
+        nodes = [
+            Node('First Node', styles=styles),
+            Node('Second Node', styles=styles),
+            Node('Third Node')
+        ]
+        links = [
+            Link(nodes[0], nodes[1], head_left='cross'),
+            Link(nodes[1], nodes[2], head_right='bullet')
+        ]
+        styles = list(set(styles))
+        flowchart: FlowChart = FlowChart('simple flowchart', nodes, links)
+        expect_script: str = f"""---
+title: simple flowchart
+---
+flowchart TB
+\t{styles[0]}
+\t{styles[1]}
+\t{nodes[0]}
+\t{nodes[1]}
+\t{nodes[2]}
+\t{links[0]}
+\t{links[1]}
+"""
+        print(flowchart.script)
         self.assertEqual(expect_script, flowchart.script)
