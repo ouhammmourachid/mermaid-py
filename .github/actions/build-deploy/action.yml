@@ -15,4 +15,3 @@ runs:
           poetry config pypi-token.pypi ${{ inputs.pypi-token }}
           poetry publish
         shell: bash
-      
