@@ -1,0 +1,18 @@
+name: 'Build and Deploy'
+description:  'Build and Deploy'
+inputs:
+  pypi-token:
+    description: 'PyPI API token'
+    required: true
+
+runs:
+    using: 'composite'
+    steps:
+      - name: Build package
+        run: poetry build
+      - name: Publish package
+        run: |
+          poetry config pypi-token.pypi ${{ inputs.pypi-token }}
+          poetry publish
+        shell: bash
+      

@@ -1,5 +1,6 @@
 import unittest
 
+from mermaid import Direction
 from mermaid.statediagram import *
 
 
@@ -53,9 +54,25 @@ class TestComposite(unittest.TestCase):
 
     def test_state_with_sub_states(self):
         composite: Composite = Composite(
-            'Main State', sub_states=[self.state_1, self.state_2])
+            'Main State',
+            sub_states=[self.state_1, self.state_2],
+            direction=Direction.LEFT_TO_RIGHT)
         expect_string: str = """main_state : Main State
 state main_state {
+\tdirection LR
+\tfirst_state : First State
+\tsecond_state : Second State
+}"""
+        self.assertEqual(expect_string, str(composite))
+
+    def test_state_with_sub_states_and_str_direction(self):
+        composite: Composite = Composite(
+            'Main State',
+            sub_states=[self.state_1, self.state_2],
+            direction='LR')
+        expect_string: str = """main_state : Main State
+state main_state {
+\tdirection LR
 \tfirst_state : First State
 \tsecond_state : Second State
 }"""

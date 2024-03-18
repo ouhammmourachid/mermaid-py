@@ -2,9 +2,9 @@
 
 This module contains the classes to represent the states in a state diagram.
 """
-from typing import Optional
+from typing import Optional, Union
 
-from mermaid import text_to_snake_case
+from mermaid import Direction, text_to_snake_case
 
 from .base import BaseTransition
 
@@ -68,12 +68,14 @@ class Composite(State):
     Attributes:
         sub_states (list[State]): The sub states of the composite state.
         transitions (list[BaseTransition]): The transitions of the composite state.
+        direction (Union[str,Direction]): The direction of the composite state.
     """
     def __init__(self,
                  id_: str,
                  content: str = '',
                  sub_states: Optional[list[State]] = None,
-                 transitions: Optional[list[BaseTransition]] = None) -> None:
+                 transitions: Optional[list[BaseTransition]] = None,
+                 direction: Optional[Union[str, Direction]] = None) -> None:
         """Initialize a new Composite.
 
         Args:
@@ -87,6 +89,8 @@ class Composite(State):
             State] = sub_states if sub_states is not None else []
         self.transitions: list[
             BaseTransition] = transitions if transitions is not None else []
+        self.direction: Optional[str] = direction.value if isinstance(
+            direction, Direction) else direction
 
     def __str__(self) -> str:
         """Return the string representation of the state.
@@ -95,6 +99,8 @@ class Composite(State):
 
         if len(self.sub_states):
             string += f'\nstate {self.id_} {{'
+            if self.direction:
+                string += f'\n\tdirection {self.direction}'
             for state in self.sub_states:
                 string += f'\n\t{str(state)}'
 

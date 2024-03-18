@@ -1,5 +1,6 @@
 import unittest
 
+from mermaid import Direction
 from mermaid.flowchart import FlowChart, Link, LinkHead, LinkShape, Node
 from mermaid.flowchart.node import NodeShape
 
@@ -128,6 +129,29 @@ flowchart TB
                                          nodes,
                                          links,
                                          orientation='LR')
+        expect_script: str = f"""---
+title: simple flowchart
+---
+flowchart LR
+\t{nodes[0]}
+\t{nodes[1]}
+\t{nodes[2]}
+\t{links[0]}
+\t{links[1]}
+"""
+        self.assertEqual(expect_script, flowchart.script)
+
+    def test_make_flowchart_script_with_enum_orientation(self):
+        nodes = [Node('First Node'), Node('Second Node'), Node('Third Node')]
+
+        links = [
+            Link(nodes[0], nodes[1], head_left='cross'),
+            Link(nodes[1], nodes[2], head_right='bullet')
+        ]
+        flowchart: FlowChart = FlowChart('simple flowchart',
+                                         nodes,
+                                         links,
+                                         orientation=Direction.LEFT_TO_RIGHT)
         expect_script: str = f"""---
 title: simple flowchart
 ---
