@@ -5,6 +5,7 @@ This module contains the classes to represent the states in a state diagram.
 from typing import Optional, Union
 
 from mermaid import Direction, text_to_snake_case
+from mermaid.style import Style
 
 from .base import BaseTransition
 
@@ -17,21 +18,30 @@ class State:
     Attributes:
         id_ (str): The id of the state.
         content (str): The content of the state.
+        styles (list[Style]): The styles of the state.
     """
-    def __init__(self, id_: str, content: str = '') -> None:
+    def __init__(self,
+                 id_: str,
+                 content: str = '',
+                 styles: Optional[list[Style]] = None) -> None:
         """Initialize a new State.
 
         Args:
             id_ (str): The id of the state.
             content (str): The content of the state.
+            styles (Optional[list[Style]]): The styles of the state.
         """
         self.id_: str = text_to_snake_case(id_)
         self.content: str = content if content else id_
+        self.styles: list[Style] = styles if styles is not None else []
 
     def __str__(self) -> str:
         """Return the string representation of the state.
         """
-        return f'{self.id_} : {self.content}'
+        string: str = f'{self.id_} : {self.content}'
+        for style in self.styles:
+            string += f'\n{self.id_}:::{style.name}'
+        return string
 
 
 class Start(State):
@@ -69,13 +79,15 @@ class Composite(State):
         sub_states (list[State]): The sub states of the composite state.
         transitions (list[BaseTransition]): The transitions of the composite state.
         direction (Union[str,Direction]): The direction of the composite state.
+        styles (list[Style]): The styles of the composite state.
     """
     def __init__(self,
                  id_: str,
                  content: str = '',
                  sub_states: Optional[list[State]] = None,
                  transitions: Optional[list[BaseTransition]] = None,
-                 direction: Optional[Union[str, Direction]] = None) -> None:
+                 direction: Optional[Union[str, Direction]] = None,
+                 styles: Optional[list[Style]] = None) -> None:
         """Initialize a new Composite.
 
         Args:
@@ -83,8 +95,9 @@ class Composite(State):
             content (str): The content of the state.
             sub_states (Optional[list[State]]): The sub states of the composite state.
             transitions (Optional[list[BaseTransition]]): The transitions of the composite state.
+            styles (Optional[list[Style]]): The styles of the composite state.
         """
-        super().__init__(id_, content)
+        super().__init__(id_, content, styles)
         self.sub_states: list[
             State] = sub_states if sub_states is not None else []
         self.transitions: list[
@@ -95,7 +108,7 @@ class Composite(State):
     def __str__(self) -> str:
         """Return the string representation of the state.
         """
-        string: str = f'{self.id_} : {self.content}'
+        string: str = super().__str__()
 
         if len(self.sub_states):
             string += f'\nstate {self.id_} {{'
@@ -119,29 +132,30 @@ class Concurrent(Composite):
 
     Attributes:
         groups (list[tuple[list[State],list[BaseTransition]]]): The groups of the concurrent state.
+        styles (list[Style]): The styles of the concurrent state.
     """
-    def __init__(
-        self,
-        id_: str,
-        content: str = '',
-        sub_groups: Optional[list[tuple[list[State],
-                                        list[BaseTransition]]]] = None
-    ) -> None:
+    def __init__(self,
+                 id_: str,
+                 content: str = '',
+                 sub_groups: Optional[list[tuple[
+                     list[State], list[BaseTransition]]]] = None,
+                 styles: Optional[list[Style]] = None) -> None:
         """Initialize a new Concurrent.
 
         Args:
             id_ (str): The id of the state.
             content (str): The content of the state.
             sub_groups (Optional[list[tuple[list[State],list[BaseTransition]]]): The groups of the concurrent state.
+            styles (Optional[list[Style]]): The styles of the concurrent state.
         """
-        super().__init__(id_, content)
+        super().__init__(id_, content, styles=styles)
         self.groups: list[tuple[list[State], list[
             BaseTransition]]] = sub_groups if sub_groups is not None else []
 
     def __str__(self) -> str:
         """Return the string representation of the state.
         """
-        string: str = f'{self.id_} : {self.content}'
+        string: str = super().__str__()
         if len(self.groups):
             string += f'\nstate {self.id_} {{'
             for states, transitions in self.groups:

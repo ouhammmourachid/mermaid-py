@@ -2,6 +2,7 @@ import unittest
 
 from mermaid import Direction
 from mermaid.statediagram import *
+from mermaid.style import Style
 
 
 class TestState(unittest.TestCase):
@@ -29,6 +30,15 @@ class TestState(unittest.TestCase):
         composite: Composite = Composite('Main State', 'This is my content')
         expect_string: str = 'main_state : This is my content'
         self.assertEqual(expect_string, str(composite))
+
+    def test_concurrent_state_with_style(self):
+        styles = [
+            Style(name='style1', fill='red'),
+            Style(name='style2', color='blue')
+        ]
+        state: State = State('My State', styles=styles)
+        expect_string: str = 'my_state : My State\nmy_state:::style1\nmy_state:::style2'
+        self.assertEqual(expect_string, str(state))
 
 
 class TestComposite(unittest.TestCase):
@@ -92,6 +102,24 @@ state main_state {
 }"""
         self.assertEqual(expect_string, str(composite))
 
+    def test_composite_with_sub_states_and_styles(self):
+        styles = [
+            Style(name='style1', fill='red', font_weight='bold'),
+            Style(name='style2', color='blue')
+        ]
+        composite: Composite = Composite(
+            'Main State',
+            sub_states=[self.state_1, self.state_2],
+            styles=styles)
+        expect_string: str = """main_state : Main State
+main_state:::style1
+main_state:::style2
+state main_state {
+\tfirst_state : First State
+\tsecond_state : Second State
+}"""
+        self.assertEqual(expect_string, str(composite))
+
 
 class TestConcurrent(unittest.TestCase):
     def setUp(self) -> None:
@@ -132,6 +160,33 @@ state main_state {
 }"""
         print(expect_string)
         print(concurrent)
+        self.assertEqual(expect_string, str(concurrent))
+
+    def test_concurrent_with_sub_goups_and_styles(self):
+        styles = [
+            Style(name='style1', fill='red', font_weight='bold'),
+            Style(name='style2', color='blue')
+        ]
+        groups = [([self.state_1,
+                    self.state_2], [self.transition_1, self.transition_2]),
+                  ([self.state_1], [self.transition_2])]
+        concurrent: Concurrent = Concurrent('Main State',
+                                            sub_groups=groups,
+                                            styles=styles)
+
+        expect_string: str = """main_state : Main State
+main_state:::style1
+main_state:::style2
+state main_state {
+\tfirst_state : First State
+\tsecond_state : Second State
+\tfirst_state --> second_state
+\t[*] --> first_state
+\t--
+\tfirst_state : First State
+\t[*] --> first_state
+}"""
+
         self.assertEqual(expect_string, str(concurrent))
 
 

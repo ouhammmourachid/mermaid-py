@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from typing import Optional
 
+
 @dataclass
 class Style:
     """Style class.
@@ -19,16 +20,15 @@ class Style:
     name: str
     fill: Optional[str] = None
     color: Optional[str] = None
-    font_weight: Optional[str] = None 
-    stroke_width: Optional[str] = None 
+    font_weight: Optional[str] = None
+    stroke_width: Optional[str] = None
     stroke: Optional[str] = None
     other: Optional[str] = None
-
 
     def __str__(self) -> str:
         """Return the string representation of the style definition.
         """
-        string:str = f'classDef {self.name} '
+        string: str = f'classDef {self.name} '
         if self.fill:
             string += f',fill:{self.fill}'
         if self.color:
@@ -41,5 +41,5 @@ class Style:
             string += f',stroke:{self.stroke}'
         if self.other:
             string += f',{self.other}'
-        
+
         return string
