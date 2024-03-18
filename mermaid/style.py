@@ -43,3 +43,6 @@ class Style:
             string += f',{self.other}'
 
         return string
+
+    def __hash__(self) -> int:
+        return hash(self.name)

@@ -6,6 +6,7 @@ This module contains the StateDiagram class.
 from typing import Optional
 
 from mermaid.graph import Graph
+from mermaid.style import Style
 
 from .base import BaseTransition
 from .state import Composite, Concurrent, End, Start, State
@@ -39,12 +40,18 @@ class StateDiagram(Graph):
         self.transitions: list[
             BaseTransition] = transitions if transitions is not None else []
         self.version: str = version
+        self.styles: set[Style] = set()
+        for state in self.states:
+            self.styles.update(state.styles)
+
         self._build_script()
 
     def _build_script(self) -> None:
         super()._build_script()
         str_version: str = f'-{self.version}' if self.version != 'v1' else ''
         script: str = f'\nstateDiagram{str_version}'
+        for style in self.styles:
+            script += f'\n\t{style}'
         for state in self.states:
             script += f'\n\t{state}'
         for transition in self.transitions:

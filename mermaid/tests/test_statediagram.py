@@ -431,3 +431,48 @@ stateDiagram-v2
 \t{transition}
 """
         self.assertEqual(expect_string, state_diagram.script)
+
+    def test_state_diagram_with_styles(self):
+        styles = [
+            Style(name='style1', fill='red', font_weight='bold'),
+            Style(name='style2', color='blue')
+        ]
+
+        states = [
+            State('First State', styles=[styles[0]]),
+            State('Second State', styles=[styles[1]])
+        ]
+        styles = list(set(styles))
+        state_diagram: StateDiagram = StateDiagram('My State Diagram', states)
+        expect_string: str = f"""---
+title: My State Diagram
+---
+stateDiagram-v2
+\t{styles[0]}
+\t{styles[1]}
+\t{states[0]}
+\t{states[1]}
+"""
+        self.assertEqual(expect_string, state_diagram.script)
+
+    def test_state_diagram_with_duplicate_styles(self):
+        styles = [
+            Style(name='style1', fill='red', font_weight='bold'),
+            Style(name='style1', fill='red', font_weight='bold')
+        ]
+
+        states = [
+            State('First State', styles=[styles[0]]),
+            State('Second State', styles=[styles[1]])
+        ]
+        styles = list(set(styles))
+        state_diagram: StateDiagram = StateDiagram('My State Diagram', states)
+        expect_string: str = f"""---
+title: My State Diagram
+---
+stateDiagram-v2
+\t{styles[0]}
+\t{states[0]}
+\t{states[1]}
+"""
+        self.assertEqual(expect_string, state_diagram.script)
