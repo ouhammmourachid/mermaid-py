@@ -9,7 +9,9 @@ runs:
     using: 'composite'
     steps:
       - name: Build package
-        run: poetry build
+        run: |
+          poetry build
+        shell: bash
       - name: Publish package
         run: |
           poetry config pypi-token.pypi ${{ inputs.pypi-token }}
