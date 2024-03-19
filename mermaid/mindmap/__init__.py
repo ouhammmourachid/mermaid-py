@@ -35,18 +35,10 @@ class Mindmap(Graph):
     def _build_script(self) -> None:
         super()._build_script()
         script: str = '\nmindmap'
-        script += f'\n\troot{self.shape.start}{self.title}{self.shape.end}'
+        script += f'\n\t{self.shape.start}{self.title}{self.shape.end}'
         script += '\n'
         for level in self.levels:
-            script += f'{self.parse_list_str(level.list_str())}\n'
+            script += f'{level}'
 
-        self.script += script + '\n'
-
-    def parse_list_str(self, list_str: list, depth: int = 2) -> str:
-        result: str = ''
-        for item in list_str:
-            if isinstance(item, list):
-                result += self.parse_list_str(item, depth + 1)
-            else:
-                result += '\t' * depth + item + '\n'
-        return result
+        # script += '\n'
+        self.script += script

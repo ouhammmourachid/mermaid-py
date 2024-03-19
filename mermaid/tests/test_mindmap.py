@@ -1,5 +1,6 @@
 import unittest
 
+from mermaid.icon import Icon
 from mermaid.mindmap import *
 
 
@@ -36,7 +37,7 @@ class TestLevel(unittest.TestCase):
 
     def test_str(self):
         level = Level('name')
-        self.assertEqual(str(level), 'name')
+        self.assertEqual(str(level), '\t\tname\n')
 
     def test_list_str(self):
         level = Level('name')
@@ -65,6 +66,47 @@ class TestLevel(unittest.TestCase):
             ['child', ['grandchild', ['greatgrandchild'], 'grandchild2']]
         ])
 
+    def test_str_with_deapth_2(self):
+        level = Level('name')
+        level.add_child(Level('child'))
+        level.children[0].add_child(
+            Level('grandchild', shape=LevelShape.CIRCLE))
+        level.children[0].add_child(
+            Level('grandchild2', shape=LevelShape.SQUARE))
+        expected = '\t\tname\n\t\t\tchild\n\t\t\t\t((grandchild))\n\t\t\t\t[grandchild2]\n'
+        self.assertEqual(str(level), expected)
+
+    def test_str_with_deapth_3(self):
+        level = Level('name')
+        level.add_child(Level('child'))
+        level.children[0].add_child(Level('grandchild'))
+        level.children[0].children[0].add_child(Level('greatgrandchild'))
+        level.children[0].add_child(Level('grandchild2'))
+        expected = '\t\tname\n\t\t\tchild\n\t\t\t\tgrandchild\n\t\t\t\t\tgreatgrandchild\n\t\t\t\tgrandchild2\n'
+        self.assertEqual(str(level), expected)
+
+    def test_str_with_icon(self):
+        level = Level('name', icon=Icon('icon', 'fa'))
+        expected = '\t\tname\n\t\t::icon(fa icon)\n'
+        self.assertEqual(str(level), expected)
+
+    def test_str_with_icon_and_deapth_2(self):
+        level = Level('name')
+        level.add_child(Level('child'))
+        level.children[0].add_child(
+            Level('grandchild',
+                  shape=LevelShape.CIRCLE,
+                  icon=Icon('icon', 'fa')))
+        level.children[0].add_child(
+            Level('grandchild2', shape=LevelShape.SQUARE))
+        expected = """\t\tname
+\t\t\tchild
+\t\t\t\t((grandchild))
+\t\t\t\t::icon(fa icon)
+\t\t\t\t[grandchild2]
+"""
+        self.assertEqual(str(level), expected)
+
 
 class TestMindmap(unittest.TestCase):
     def setUp(self):
@@ -73,15 +115,61 @@ class TestMindmap(unittest.TestCase):
         self.level_depth_3 = Level('name 3',
                                    [Level('child', [Level('grandchild')])])
 
-    def test_parse_list_str(self):
+    def test_mindmap(self):
         mindmap = Mindmap('title')
-        list_str = [['name'], ['name 2', ['child']],
-                    ['name 3', ['child', ['grandchild']]]]
-        expect_result = [
-            '\t\tname\n', '\t\tname 2\n\t\t\tchild\n',
-            '\t\tname 3\n\t\t\tchild\n\t\t\t\tgrandchild\n'
-        ]
+        self.assertEqual(mindmap.title, 'title')
+        self.assertEqual(mindmap.levels, [])
+        self.assertEqual(mindmap.shape, LevelShape.DEFAULT)
 
-        for i in range(len(list_str)):
-            self.assertEqual(mindmap.parse_list_str(list_str[i]),
-                             expect_result[i])
+    def test_mindmap_with_levels(self):
+        mindmap = Mindmap('title', levels=[self.level_depth_1])
+
+        expecte_script = """---
+title: title
+---
+mindmap
+\ttitle
+\t\tname
+"""
+        self.assertEqual(mindmap.script, expecte_script)
+
+    def test_mindmap_with_levels_and_shape(self):
+        mindmap = Mindmap('title',
+                          levels=[self.level_depth_1],
+                          shape=LevelShape.CIRCLE)
+
+        expecte_script = """---
+title: title
+---
+mindmap
+\t((title))
+\t\tname
+"""
+        self.assertEqual(mindmap.script, expecte_script)
+
+    def test_mindmap_with_levels_depth_2(self):
+        mindmap = Mindmap('title', levels=[self.level_depth_2])
+
+        expecte_script = """---
+title: title
+---
+mindmap
+\ttitle
+\t\tname 2
+\t\t\tchild
+"""
+        self.assertEqual(mindmap.script, expecte_script)
+
+    def test_mindmap_with_levels_depth_3(self):
+        mindmap = Mindmap('title', levels=[self.level_depth_3])
+
+        expecte_script = """---
+title: title
+---
+mindmap
+\ttitle
+\t\tname 3
+\t\t\tchild
+\t\t\t\tgrandchild
+"""
+        self.assertEqual(mindmap.script, expecte_script)
