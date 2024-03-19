@@ -28,7 +28,6 @@ jobs:
         token: ${{ secrets.ACTIONS_TOKEN }}
         commit-message: "Bump version ${{env.old_version}} → ${{ env.new_version }}"
         title: "Bump version ${{env.old_version}} → ${{ env.new_version }}"
-        commit-author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
         committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
         branch: main
 
