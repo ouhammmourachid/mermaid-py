@@ -29,7 +29,7 @@ jobs:
         commit-message: "Bump version ${{env.old_version}} → ${{ env.new_version }}"
         title: "Bump version ${{env.old_version}} → ${{ env.new_version }}"
         committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
-        branch: main
+        branch: bumpver/${{env.old_version}}→${{ env.new_version }}
 
 
     # - name: Build and Deploy
