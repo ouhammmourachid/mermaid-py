@@ -15,7 +15,7 @@ from enum import Enum
 from ._main import Mermaid
 from ._utils import load, text_to_snake_case
 
-__version__: str = '0.2.8'
+__version__: str = '0.2.9'
 
 
 class Direction(Enum):
