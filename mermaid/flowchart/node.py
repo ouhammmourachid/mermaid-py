@@ -1,7 +1,7 @@
 from dataclasses import dataclass
-from typing import Optional
+from typing import Optional, Union
 
-from mermaid import text_to_snake_case
+from mermaid import Direction, text_to_snake_case
 from mermaid.style import Style
 
 
@@ -65,7 +65,8 @@ class Node:
                  sub_nodes: Optional[list['Node']] = None,
                  href: Optional[str] = None,
                  href_type: str = 'blank',
-                 styles: Optional[list[Style]] = None) -> None:
+                 styles: Optional[list[Style]] = None,
+                 direction: Union[str, Direction] = 'LR') -> None:
         """Initialize a new Node.
 
         Args:
@@ -76,6 +77,7 @@ class Node:
             href (Optional[str]): The hyperlink reference of the node.
             href_type (str): The type of the hyperlink reference of the node.
             styles (Optional[list[Style]]): The styles of the node.
+            direction (Optional[Union[str,Direction]]): The direction of the node in case of a subgraph.
         """
         self.id_: str = text_to_snake_case(id_)
         self.content: str = content if content else id_
@@ -85,6 +87,8 @@ class Node:
         self.sub_nodes: list[
             'Node'] = sub_nodes if sub_nodes is not None else []
         self.styles: list[Style] = styles if styles is not None else []
+        self.direction: str = direction if isinstance(direction,
+                                                      str) else direction.value
 
     def __str__(self) -> str:
         """Return a string representation of the node.
@@ -99,6 +103,7 @@ class Node:
         if len(self.sub_nodes):
             string = '\n'.join([
                 f'subgraph {self.id_} ["{self.content}"]',
+                f'\tdirection {self.direction}',
                 '\n'.join([str(f'\t{node}') for node in self.sub_nodes]), 'end'
             ])
         else:

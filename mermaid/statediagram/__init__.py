@@ -3,8 +3,9 @@ StateDiagram class.
 
 This module contains the StateDiagram class.
 """
-from typing import Optional
+from typing import Optional, Union
 
+from mermaid import Direction
 from mermaid.graph import Graph
 from mermaid.style import Style
 
@@ -21,12 +22,14 @@ class StateDiagram(Graph):
         states (list[State]): List of states.
         transitions (list[BaseTransition]): List of transitions.
         version (str, optional): Version of the stateDiagram. Defaults to 'v2'.
+        direction (Optional[Union[str,Direction]], optional): Direction of the stateDiagram. Defaults to None.
     """
     def __init__(self,
                  title: str,
                  states: Optional[list[State]] = None,
                  transitions: Optional[list[BaseTransition]] = None,
-                 version: str = 'v2') -> None:
+                 version: str = 'v2',
+                 direction: Optional[Union[str, Direction]] = None) -> None:
         """stateDiagram class.
 
         Args:
@@ -34,6 +37,7 @@ class StateDiagram(Graph):
             states (list[State]): List of states.
             transitions (list[BaseTransition]): List of transitions.
             version (str, optional): Version of the stateDiagram. Defaults to 'v2'.
+            direction (Optional[Union[str,Direction]], optional): Direction of the stateDiagram. Defaults to None.
         """
         super().__init__(title, '')
         self.states: list[State] = states if states is not None else []
@@ -44,12 +48,20 @@ class StateDiagram(Graph):
         for state in self.states:
             self.styles.update(state.styles)
 
+        self.direction: Optional[str] = None
+
+        if direction:
+            self.direction = direction if isinstance(direction,
+                                                     str) else direction.value
+
         self._build_script()
 
     def _build_script(self) -> None:
         super()._build_script()
         str_version: str = f'-{self.version}' if self.version != 'v1' else ''
         script: str = f'\nstateDiagram{str_version}'
+        if self.direction:
+            script += f'\n\tdirection {self.direction}'
         for style in self.styles:
             script += f'\n\t{style}'
         for state in self.states:

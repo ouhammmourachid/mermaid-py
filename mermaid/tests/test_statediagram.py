@@ -476,3 +476,17 @@ stateDiagram-v2
 \t{states[1]}
 """
         self.assertEqual(expect_string, state_diagram.script)
+
+    def test_state_diagram_with_direction(self):
+        state_diagram: StateDiagram = StateDiagram(
+            'My State Diagram', [self.state_1, self.state_2],
+            direction=Direction.LEFT_TO_RIGHT)
+        expect_string: str = f"""---
+title: My State Diagram
+---
+stateDiagram-v2
+\tdirection LR
+\t{self.state_1}
+\t{self.state_2}
+"""
+        self.assertEqual(expect_string, state_diagram.script)

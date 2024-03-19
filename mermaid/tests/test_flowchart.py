@@ -35,6 +35,7 @@ class TestNode(unittest.TestCase):
         node_2: Node = Node('Second Node')
         node: Node = Node('Main Node', sub_nodes=[node_1, node_2])
         expect_string: str = """subgraph main_node ["Main Node"]
+\tdirection LR
 \tfirst_node["First Node"]
 \tsecond_node["Second Node"]
 end"""
@@ -76,11 +77,25 @@ node_name:::secondStyle"""
                           sub_nodes=[node_1, node_2],
                           styles=styles)
         expect_string: str = """subgraph main_node ["Main Node"]
+\tdirection LR
 \tfirst_node["First Node"]
 \tsecond_node["Second Node"]
 end
 main_node:::firstStyle
 main_node:::secondStyle"""
+        self.assertEqual(expect_string, str(node))
+
+    def test_string_sub_nodes_with_non_default_direction(self):
+        node_1: Node = Node('First Node')
+        node_2: Node = Node('Second Node')
+        node: Node = Node('Main Node',
+                          sub_nodes=[node_1, node_2],
+                          direction=Direction.TOP_TO_BOTTOM)
+        expect_string: str = """subgraph main_node ["Main Node"]
+\tdirection TB
+\tfirst_node["First Node"]
+\tsecond_node["Second Node"]
+end"""
         self.assertEqual(expect_string, str(node))
 
 

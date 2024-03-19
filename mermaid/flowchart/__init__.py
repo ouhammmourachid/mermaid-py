@@ -27,6 +27,7 @@ class FlowChart(Graph):
         orientation (str): The orientation of the flowchart.
         nodes (list[Node]): The nodes in the flowchart.
         links (list[Link]): The links between nodes in the flowchart.
+        orientation (str): The orientation of the flowchart.
     """
     def __init__(self,
                  title: str,
