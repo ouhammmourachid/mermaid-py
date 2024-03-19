@@ -3,7 +3,7 @@ name: Upload Python Package
 on:
   release:
     types: [published]
-  dispatach_workflows:
+  workflow_dispatch:
 
 permissions:
   contents: write
