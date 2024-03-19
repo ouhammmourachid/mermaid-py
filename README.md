@@ -105,7 +105,7 @@ If you'd like to contribute to this open source project folow this steps:
 - [x] [~~Requirement Diagram~~](https://mermaid.js.org/syntax/requirementDiagram.html)
 - [ ] [Gitgraph (Git) Diagram 🔥](https://mermaid.js.org/syntax/gitgraph.html)
 - [ ] [C4 Diagram 🦺⚠️](https://mermaid.js.org/syntax/c4.html)
-- [ ] [Mindmaps 🔥](https://mermaid.js.org/syntax/mindmap.html)
+- [x] [~~Mindmaps~~](https://mermaid.js.org/syntax/mindmap.html)
 - [ ] [Timeline 🔥](https://mermaid.js.org/syntax/timeline.html)
 - [ ] [Zenuml 🔥](https://mermaid.js.org/syntax/zenuml.html)
 - [ ] [Sankey 🔥](https://mermaid.js.org/syntax/sankey.html)
