@@ -3,9 +3,7 @@ name: Upload Python Package
 on:
   release:
     types: [published]
-  push:
-    branches:
-      - ouhammou/test-bumpversion
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -29,10 +27,10 @@ jobs:
         commit-message: "Bump version ${{env.old_version}} → ${{ env.new_version }}"
         title: "Bump version ${{env.old_version}} → ${{ env.new_version }}"
         committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
-        branch: main
+        branch: bumpver/mermaid-py-${{env.old_version}}→${{ env.new_version }}
 
 
-    # - name: Build and Deploy
-    #   uses: ./.github/actions/build-deploy
-    #   with:
-    #     pypi-token: ${{ secrets.PYPI_API_TOKEN }}
+    - name: Build and Deploy
+      uses: ./.github/actions/build-deploy
+      with:
+        pypi-token: ${{ secrets.PYPI_API_TOKEN }}
