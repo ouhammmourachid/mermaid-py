@@ -8,7 +8,8 @@ on:
       - ouhammou/test-bumpversion
 
 permissions:
-  contents: read, write
+  contents: read
+  actions: write
 
 jobs:
   deploy:
