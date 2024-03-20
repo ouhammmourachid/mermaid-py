@@ -1,6 +1,7 @@
 import unittest
 
 from mermaid import Direction
+from mermaid.configuration import Config
 from mermaid.flowchart import FlowChart, Link, LinkHead, LinkShape, Node
 from mermaid.flowchart.node import NodeShape
 from mermaid.style import Style
@@ -267,5 +268,37 @@ flowchart TB
 \t{links[0]}
 \t{links[1]}
 """
-        print(flowchart.script)
+        self.assertEqual(expect_script, flowchart.script)
+
+    def test_str_flowchart_with_config(self):
+        nodes = [Node('First Node'), Node('Second Node'), Node('Third Node')]
+        links = [
+            Link(nodes[0], nodes[1], head_left='cross'),
+            Link(nodes[1], nodes[2], head_right='bullet')
+        ]
+        config = Config(primary_color='red')
+        flowchart: FlowChart = FlowChart('simple flowchart',
+                                         nodes,
+                                         links,
+                                         config=config)
+        sub_string = """---
+title: simple flowchart
+---
+%%{
+\tinit: {
+\t\t"theme": "default",
+\t\t"themeVariables": {
+\t\t\t"primaryColor": "red"
+\t\t}
+\t}
+}%%
+"""
+        expect_script: str = f"""{sub_string}
+flowchart TB
+\t{nodes[0]}
+\t{nodes[1]}
+\t{nodes[2]}
+\t{links[0]}
+\t{links[1]}
+"""
         self.assertEqual(expect_script, flowchart.script)

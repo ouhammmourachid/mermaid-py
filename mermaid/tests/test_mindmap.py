@@ -173,3 +173,24 @@ mindmap
 \t\t\t\tgrandchild
 """
         self.assertEqual(mindmap.script, expecte_script)
+
+    def test_mindmap_with_config(self):
+        config = Config(primary_color='red')
+        mindmap = Mindmap('title', config=config)
+
+        expecte_script = """---
+title: title
+---
+%%{
+\tinit: {
+\t\t"theme": "default",
+\t\t"themeVariables": {
+\t\t\t"primaryColor": "red"
+\t\t}
+\t}
+}%%
+
+mindmap
+\ttitle
+"""
+        self.assertEqual(mindmap.script, expecte_script)

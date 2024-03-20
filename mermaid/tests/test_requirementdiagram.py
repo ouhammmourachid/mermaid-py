@@ -1,6 +1,7 @@
 import unittest
 from unittest import mock
 
+from mermaid.configuration import Config
 from mermaid.reqdiagram import Element, Link, Requirement, RequirementDiagram, Risk, Type, VerifyMethod
 
 
@@ -94,6 +95,49 @@ class TestRequirementDiagram(unittest.TestCase):
         expect_str = f"""---
 title: simple requirement
 ---
+requirementDiagram
+{elements[0]}
+{elements[1]}
+{requirements[0]}
+{requirements[1]}
+{links[0]}
+{links[1]}
+{links[2]}
+"""
+        self.assertEqual(expect_str, diagram.script)
+
+    def test_script_diagram_with_config(self):
+        elements = [
+            Element('test_entity_1', 'simulation'),
+            Element('test_entity_2', 'simulation')
+        ]
+        requirements = [
+            Requirement('1.1', 'test_req_1', 'the test text.', 'requirement',
+                        'high', 'Test'),
+            Requirement('1.2', 'test_req_2', 'the test text.', 'requirement',
+                        'high', 'Test')
+        ]
+        links = [
+            Link(elements[0], requirements[0], 'traces'),
+            Link(elements[1], requirements[1], 'traces'),
+            Link(requirements[0], requirements[1], 'contains')
+        ]
+        config = Config(primary_color='red')
+        diagram = RequirementDiagram('simple requirement', elements,
+                                     requirements, links, config)
+        sub_string = """---
+title: simple requirement
+---
+%%{
+\tinit: {
+\t\t"theme": "default",
+\t\t"themeVariables": {
+\t\t\t"primaryColor": "red"
+\t\t}
+\t}
+}%%
+"""
+        expect_str = f"""{sub_string}
 requirementDiagram
 {elements[0]}
 {elements[1]}

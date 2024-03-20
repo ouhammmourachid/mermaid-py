@@ -1,5 +1,6 @@
 import unittest
 
+from mermaid.configuration import Config, Themes
 from mermaid.erdiagram import Entity, ERDiagram, Link  # noqa: I101
 
 
@@ -115,3 +116,39 @@ erDiagram
 \t{links[0]}
 """
         self.assertEqual(expect_str, diagram.script)
+
+    def test_script_erdiagram_with_config(self):
+        entity_1 = Entity('User', {
+            'id': ['int', 'PK'],
+            'name': ['string', 'the name']
+        })
+        entity_2 = Entity('Tag', {'id': ['int', 'PK'], 'name': 'string'})
+        entities = [entity_1, entity_2]
+        links = [
+            Link(entity_1,
+                 entity_2,
+                 'exactly-one',
+                 'zero-or-more',
+                 dotted=True)
+        ]
+        config = Config(theme=Themes.DARK, primary_color='red')
+        diagram = ERDiagram('e-commerce website', entities, links, config)
+        sub_string = """---
+title: e-commerce website
+---
+%%{
+\tinit: {
+\t\t"theme": "dark",
+\t\t"themeVariables": {
+\t\t\t"primaryColor": "red"
+\t\t}
+\t}
+}%%
+"""
+        expect_string = f"""{sub_string}
+erDiagram
+\t{entities[0]}
+\t{entities[1]}
+\t{links[0]}
+"""
+        self.assertEqual(expect_string, diagram.script)

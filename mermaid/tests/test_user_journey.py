@@ -1,6 +1,7 @@
 import unittest
 from unittest.mock import MagicMock
 
+from mermaid.configuration import Config, Themes
 from mermaid.userjourney import Actor, Section, Task, UserJourney
 
 
@@ -76,5 +77,24 @@ journey
 \t\tMake tea1: 5 : Me, Cat
 \t\tMake tea2: 5 : Me, Cat
 
+"""
+        self.assertEqual(expect_string, userjourney.script)
+
+    def test_script_wth_config(self):
+        config_mock = Config(theme=Themes.FOREST)
+        userjourney = UserJourney('simple user journey', [], config_mock)
+        expect_string = """---
+title: simple user journey
+---
+%%{
+\tinit: {
+\t\t"theme": "forest",
+\t\t"themeVariables": {
+\t\t}
+\t}
+}%%
+
+journey
+\ttitle simple user journey
 """
         self.assertEqual(expect_string, userjourney.script)

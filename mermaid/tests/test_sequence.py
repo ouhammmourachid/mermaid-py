@@ -1,6 +1,7 @@
 import unittest
 from unittest import mock
 
+from mermaid.configuration import Config
 from mermaid.sequence import SequenceDiagram
 from mermaid.sequence.element import Actor, Box, Note, NotePosition, Participant, Rect
 from mermaid.sequence.link import ArrowTypes, Link
@@ -284,6 +285,32 @@ title: Test Diagram
 ---
 sequenceDiagram
 \tautonumber
+\tactor A
+\tactor B
+\tA-->B: message
+\tA-->B: message
+"""
+        self.assertEqual(diagram.script, expected_str)
+
+    def test_str_with_config(self):
+        config = Config(primary_color='red')
+        diagram = SequenceDiagram(
+            'Test Diagram',
+            [self.actor_1, self.actor_2, self.link_1, self.link_2],
+            config=config)
+        expected_str = """---
+title: Test Diagram
+---
+%%{
+\tinit: {
+\t\t"theme": "default",
+\t\t"themeVariables": {
+\t\t\t"primaryColor": "red"
+\t\t}
+\t}
+}%%
+
+sequenceDiagram
 \tactor A
 \tactor B
 \tA-->B: message

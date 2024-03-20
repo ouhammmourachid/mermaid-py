@@ -11,6 +11,7 @@ Classes:
 from typing import Optional, Union
 
 from mermaid import Direction
+from mermaid.configuration import Config
 from mermaid.graph import Graph
 from mermaid.style import Style
 
@@ -28,12 +29,14 @@ class FlowChart(Graph):
         nodes (list[Node]): The nodes in the flowchart.
         links (list[Link]): The links between nodes in the flowchart.
         orientation (str): The orientation of the flowchart.
+        config (Config): The configuration for the flowchart.
     """
     def __init__(self,
                  title: str,
                  nodes: Optional[list[Node]] = None,
                  links: Optional[list[Link]] = None,
-                 orientation: Union[str, Direction] = 'TB') -> None:
+                 orientation: Union[str, Direction] = 'TB',
+                 config: Optional[Config] = None) -> None:
         """Initialize a new FlowChart.
 
         Args:
@@ -41,8 +44,9 @@ class FlowChart(Graph):
             nodes (Optional[list[Node]]): The nodes in the flowchart.
             links (Optional[list[Link]]): The links between nodes in the flowchart.
             orientation (str): The orientation of the flowchart.
+            config (Optional[Config]): The configuration for the flowchart.
         """
-        super().__init__(title, '')
+        super().__init__(title, '', config)
         self.orientation: str = orientation if isinstance(
             orientation, str) else orientation.value
         self.nodes: list[Node] = nodes if nodes is not None else []

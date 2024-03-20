@@ -10,6 +10,7 @@ Classes:
 """
 from typing import Optional
 
+from mermaid.configuration import Config
 from mermaid.erdiagram.entity import Entity
 from mermaid.erdiagram.link import Link
 from mermaid.graph import Graph
@@ -24,19 +25,22 @@ class ERDiagram(Graph):
         title (str): The title of the ER diagram.
         entities (list[Entity]): The entities of the ER diagram.
         links (list[Link]): The links of the ER diagram.
+        config (Optional[Config]): The configuration for the ER diagram.
     """
     def __init__(self,
                  title: str,
                  entities: Optional[list[Entity]] = None,
-                 links: Optional[list[Link]] = None) -> None:
+                 links: Optional[list[Link]] = None,
+                 config: Optional[Config] = None) -> None:
         """Initialize a new ERDiagram.
 
         Args:
             title (str): The title of the ER diagram.
             entities (Optional[list[Entity]]): The entities of the ER diagram.
             links (Optional[list[Link]]): The links of the ER diagram.
+            config (Optional[Config]): The configuration for the ER diagram.
         """
-        super().__init__(title, '')
+        super().__init__(title, '', config)
         self.entities: list[Entity] = entities if entities is not None else []
         self.links: list[Link] = links if links is not None else []
         self._build_script()

@@ -6,6 +6,7 @@ This module contains the StateDiagram class.
 from typing import Optional, Union
 
 from mermaid import Direction
+from mermaid.configuration import Config
 from mermaid.graph import Graph
 from mermaid.style import Style
 
@@ -23,13 +24,15 @@ class StateDiagram(Graph):
         transitions (list[BaseTransition]): List of transitions.
         version (str, optional): Version of the stateDiagram. Defaults to 'v2'.
         direction (Optional[Union[str,Direction]], optional): Direction of the stateDiagram. Defaults to None.
+        config (Optional[Config], optional): Configuration for the stateDiagram. Defaults to None.
     """
     def __init__(self,
                  title: str,
                  states: Optional[list[State]] = None,
                  transitions: Optional[list[BaseTransition]] = None,
                  version: str = 'v2',
-                 direction: Optional[Union[str, Direction]] = None) -> None:
+                 direction: Optional[Union[str, Direction]] = None,
+                 config: Optional[Config] = None) -> None:
         """stateDiagram class.
 
         Args:
@@ -38,8 +41,9 @@ class StateDiagram(Graph):
             transitions (list[BaseTransition]): List of transitions.
             version (str, optional): Version of the stateDiagram. Defaults to 'v2'.
             direction (Optional[Union[str,Direction]], optional): Direction of the stateDiagram. Defaults to None.
+            config (Optional[Config], optional): Configuration for the stateDiagram. Defaults to None.
         """
-        super().__init__(title, '')
+        super().__init__(title, '', config)
         self.states: list[State] = states if states is not None else []
         self.transitions: list[
             BaseTransition] = transitions if transitions is not None else []

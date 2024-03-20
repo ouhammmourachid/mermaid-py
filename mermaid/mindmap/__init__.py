@@ -8,6 +8,7 @@ Classes:
 """
 from typing import Optional
 
+from mermaid.configuration import Config
 from mermaid.graph import Graph
 
 from .level import Level, LevelShape
@@ -22,12 +23,22 @@ class Mindmap(Graph):
         title (str): The title of the mindmap.
         levels (Optional[list[Level]]): The levels of the mindmap. Defaults to None.
         shape (Optional[LevelShape]): The shape of the level. Defaults to None.
+        config (Optional[Config]): The configuration for the mindmap. Defaults to None.
     """
     def __init__(self,
                  title: str,
                  levels: Optional[list[Level]] = None,
-                 shape: Optional[LevelShape] = None) -> None:
-        super().__init__(title, '')
+                 shape: Optional[LevelShape] = None,
+                 config: Optional[Config] = None) -> None:
+        """Initialize a new Mindmap.
+
+        Args:
+            title (str): The title of the mindmap.
+            levels (Optional[list[Level]]): The levels of the mindmap. Defaults to None.
+            shape (Optional[LevelShape]): The shape of the level. Defaults to None.
+            config (Optional[Config]): The configuration for the mindmap. Defaults to None.
+        """
+        super().__init__(title, '', config)
         self.levels: list[Level] = levels if levels else []
         self.shape: LevelShape = shape if shape else LevelShape.DEFAULT
         self._build_script()

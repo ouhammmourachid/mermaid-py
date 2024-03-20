@@ -8,6 +8,9 @@ to build the Mermaid diagram script for the pie chart.
 Classes:
     PieChart: Represents a PieChart diagram.
 """
+from typing import Optional
+
+from mermaid.configuration import Config
 from mermaid.graph import Graph
 
 
@@ -18,11 +21,13 @@ class PieChart(Graph):
     Attributes:
         data (dict[str, float]): The data for the pie chart.
         show_data (bool): Whether to show data on the pie chart.
+        config (Config): The configuration for the pie chart.
     """
     def __init__(self,
                  title: str,
                  data: dict[str, float],
-                 show_data: bool = False):
+                 show_data: bool = False,
+                 config: Optional[Config] = None) -> None:
         """
         The constructor for the PieChart class.
 
@@ -30,8 +35,9 @@ class PieChart(Graph):
             title (str): The title of the pie chart.
             data (dict[str, float]): The data for the pie chart.
             show_data (bool): Whether to show data on the pie chart. Defaults to False.
+            config (Optional[Config]): The configuration for the pie chart. Defaults to None.
         """
-        super().__init__(title, '')
+        super().__init__(title, '', config)
         self.data: dict[str, float] = data
         self.show_data: bool = show_data
         self._build_script()
