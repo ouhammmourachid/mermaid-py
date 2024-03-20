@@ -1,8 +1,12 @@
-"""Module for the level class
+"""Module for the Level class
 
-Classes:
-    Level
-    LevelShape
+This module contains the Level class which represents a level in a mindmap.
+
+Example:
+    >>> # Create a level with the name 'Level 1' and a circle shape
+    >>> Level('Level 1', LevelShape.CIRCLE)])
+    >>> # Create a level with the name 'Level 1' and a circle shape with an icon
+    >>> Level('Level 1', LevelShape.CIRCLE, Icon('fa', 'fa-book'))
 """
 from enum import Enum
 from typing import Optional
@@ -12,14 +16,12 @@ from mermaid.icon import Icon
 
 
 class LevelShape(Enum):
-    """Enum for the shape of the level
+    """Enum for the shape of a level
 
     Args:
-        Enum (str): The shape of the level
-
-    Returns:
-        Tuple[str, str]: The start and end of the shape
-        """
+        start (str): The start of the shape
+        end (str): The end of the shape
+    """
     SQUARE = ('[', ']')
     ROUNDED_SQUARE = ('(', ')')
     CIRCLE = ('((', '))')
@@ -29,19 +31,18 @@ class LevelShape(Enum):
     DEFAULT = ('', '')
 
     def __init__(self, start: str, end: str) -> None:
-        """Constructor for the LevelShape enum"""
+        """Constructor for the LevelShape class
+
+        Args:
+            start (str): the start of the shape.
+            end (str): the end of the shape.
+        """
         self.end: str = end
         self.start: str = start
 
 
 class Level:
-    """Class to represent a level in a mindmap
-
-    Args:
-        name (str): The name of the level
-        children (Optional['Level'], optional): The children of the level. Defaults to None.
-        shape (Optional[LevelShape], optional): The shape of the level. Defaults to None.
-        icon (Optional[Icon], optional): The icon of the level. Defaults to None.
+    """Class for a level in a mindmap
     """
     def __init__(self,
                  name: str,
@@ -52,9 +53,16 @@ class Level:
 
         Args:
             name (str): The name of the level
-            children (Optional['Level'], optional): The children of the level. Defaults to None.
+            children (Optional[list[Level]], optional): The children of the level. Defaults to None.
             shape (Optional[LevelShape], optional): The shape of the level. Defaults to None.
             icon (Optional[Icon], optional): The icon of the level. Defaults to None.
+
+        example:
+        >>> # Create a level with the name 'Level 1' and a circle shape
+        >>> Level('Level 1', LevelShape.CIRCLE)])
+        >>> # Create a level with the name 'Level 1' and a circle shape with an icon
+        >>> Level('Level 1', LevelShape.CIRCLE, Icon('fa', 'fa-book'))
+
         """
         self.id_: str = text_to_snake_case(name)
         self.name: str = name
@@ -96,6 +104,15 @@ class Level:
         return [string, list_str]
 
     def list_str_to_str(self, list_str: list, depth: int = 2) -> str:
+        """Convert a list representation of a level to a string
+
+        Args:
+            list_str (list): The list representation of the level
+            depth (int, optional): The depth of the level. Defaults to 2.
+
+        Returns:
+            str: [description]
+        """
         result: str = ''
         for item in list_str:
             if isinstance(item, list):
