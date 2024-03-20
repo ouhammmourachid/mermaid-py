@@ -39,7 +39,7 @@ class UserJourney(Graph):
             sections (list[Union[Section, Task]]): The sections in the user's journey.
             config (Optional[Config]): The configuration for the user's journey. Defaults to None.
         """
-        super().__init__(title, '',config)
+        super().__init__(title, '', config)
         self.title: str = title
         self.sections: list[Union[Section, Task]] = sections
         self._build_script()

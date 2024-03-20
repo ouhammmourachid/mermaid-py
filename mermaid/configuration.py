@@ -1,13 +1,13 @@
-from typing import Optional
 from enum import Enum
+from typing import Optional
 
 
 class Themes(Enum):
     """Enum class for themes
-    
+
     args:
         Enum: Enum class
-    
+
     methods:
         value: returns the value of the Enum class
     """
@@ -29,19 +29,19 @@ class Config:
         line_color: Optional[str] = None
         secondary_color: Optional[str] = None
         tertiary_color: Optional[str] = None
-    
+
     methods:
         __init__: initializes the class
         __str__: returns the string representation of the class
     """
-    def __init__(self, 
-                theme: Themes = Themes.DEFAULT,
-                primary_color: Optional[str] = None,
-                primary_text_color: Optional[str] = None,
-                primary_border_color: Optional[str] = None,
-                line_color: Optional[str] = None,
-                secondary_color: Optional[str] = None,
-                tertiary_color: Optional[str] = None) -> None:
+    def __init__(self,
+                 theme: Themes = Themes.DEFAULT,
+                 primary_color: Optional[str] = None,
+                 primary_text_color: Optional[str] = None,
+                 primary_border_color: Optional[str] = None,
+                 line_color: Optional[str] = None,
+                 secondary_color: Optional[str] = None,
+                 tertiary_color: Optional[str] = None) -> None:
         """Initializes the class
 
         args:
@@ -61,7 +61,6 @@ class Config:
         self.secondary_color: Optional[str] = secondary_color
         self.tertiary_color: Optional[str] = tertiary_color
 
-    
     def __str__(self) -> str:
         """Returns the string representation of the class
 
@@ -70,7 +69,7 @@ class Config:
         """
         string: str = '%%{\n\tinit: {\n'
 
-        string += f'\t\t"theme": "{self.theme.value}",\n\t\t"themeVariables": '+'{\n'
+        string += f'\t\t"theme": "{self.theme.value}",\n\t\t"themeVariables": ' + '{\n'
         if self.primary_color:
             string += f'\t\t\t"primaryColor": "{self.primary_color}",\n'
         if self.primary_text_color:
