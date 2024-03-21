@@ -12,7 +12,7 @@ from typing import Optional
 
 from mermaid.configuration import Config
 from mermaid.erdiagram.entity import Entity
-from mermaid.erdiagram.link import Link
+from mermaid.erdiagram.link import LIST_CARDINALITIES, Link
 from mermaid.graph import Graph
 
 
@@ -54,3 +54,6 @@ class ERDiagram(Graph):
         for link in self.links:
             script += f'\n\t{link}'
         self.script += script + '\n'
+
+
+__all__ = ['ERDiagram', 'Entity', 'Link', 'LIST_CARDINALITIES']

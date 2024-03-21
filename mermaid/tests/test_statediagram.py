@@ -1,6 +1,6 @@
 import unittest
 
-from mermaid import Direction
+from mermaid import Config, Direction
 from mermaid.statediagram import *
 from mermaid.statediagram import Transition
 from mermaid.style import Style

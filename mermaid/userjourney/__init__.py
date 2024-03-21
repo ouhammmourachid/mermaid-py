@@ -51,3 +51,6 @@ class UserJourney(Graph):
         for section in self.sections:
             script += f'{section}\n'
         self.script += script
+
+
+__all__ = ['UserJourney', 'Section', 'Task']

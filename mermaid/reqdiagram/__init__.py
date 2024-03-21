@@ -62,3 +62,9 @@ class RequirementDiagram(Graph):
         for link in self.links:
             script += f'{link}\n'
         self.script += script
+
+
+__all__ = [
+    'RequirementDiagram', 'Element', 'Link', 'Requirement', 'Risk',
+    'VerifyMethod', 'Type'
+]

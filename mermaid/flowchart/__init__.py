@@ -67,3 +67,12 @@ class FlowChart(Graph):
         for link in self.links:
             script += f'\n\t{link}'
         self.script += script + '\n'
+
+
+__all__ = [
+    'FlowChart',
+    'Node',
+    'Link',
+    'LinkHead',
+    'LinkShape',
+]
