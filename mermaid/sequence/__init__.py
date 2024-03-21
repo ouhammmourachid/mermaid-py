@@ -49,3 +49,10 @@ class SequenceDiagram(Graph):
         for element in self.elements:
             script += str(element)
         self.script += script
+
+
+__all__ = [
+    'SequenceDiagram', 'Actor', 'Participant', 'Box', 'Note', 'NotePosition',
+    'Rect', 'Link', 'ArrowTypes', 'Alt', 'Break', 'Critical', 'Loop',
+    'Optional', 'Parallel'
+]

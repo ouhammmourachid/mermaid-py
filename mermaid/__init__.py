@@ -14,8 +14,12 @@ from enum import Enum
 
 from ._main import Mermaid
 from ._utils import load, text_to_snake_case
+from .configuration import Config
+from .graph import Graph
+from .icon import Icon
+from .style import Style
 
-__version__: str = '0.2.9'
+__version__: str = '0.3.0'
 
 
 class Direction(Enum):
@@ -24,3 +28,6 @@ class Direction(Enum):
     RIGHT_TO_LEFT = 'RL'
     TOP_TO_BOTTOM = 'TB'
     BOTTOM_TO_TOP = 'BT'
+
+
+__all__ = ['Mermaid', 'load', 'Direction', 'Graph', 'Style', 'Config', 'Icon']

@@ -1,5 +1,6 @@
 import unittest
 
+from mermaid import Config
 from mermaid.icon import Icon
 from mermaid.mindmap import *
 

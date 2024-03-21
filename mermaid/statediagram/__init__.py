@@ -74,3 +74,9 @@ class StateDiagram(Graph):
             script += f'\n\t{transition}'
 
         self.script += script + '\n'
+
+
+__all__ = [
+    'StateDiagram', 'State', 'Composite', 'Concurrent', 'Start', 'End',
+    'Transition', 'Choice', 'Fork', 'Join'
+]

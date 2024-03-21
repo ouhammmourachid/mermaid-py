@@ -52,3 +52,6 @@ class Graph:
             script += '\n' + str(self.config)
         script += self.script
         self.script = script
+
+
+__all__ = ['Graph']

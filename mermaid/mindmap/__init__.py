@@ -53,3 +53,6 @@ class Mindmap(Graph):
 
         # script += '\n'
         self.script += script
+
+
+__all__ = ['Mindmap', 'Level', 'LevelShape']
