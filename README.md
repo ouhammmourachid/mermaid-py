@@ -9,8 +9,15 @@ this package works as an interface for the famous mermaid-js library that uses s
     <a href="https://github.com/ouhammmourachid/mermaid-py/blob/main/LICENSE" >
         <img src="https://img.shields.io/github/license/ouhammmourachid/mermaid-py"
             alt="GitHub LICENSE" /></a>
-    <img src="https://img.shields.io/pypi/dm/mermaid-py"
-        alt="Contributors" />
+    <a href="https://pypistats.org/packages/mermaid-py">
+        <img src="https://img.shields.io/pypi/dm/mermaid-py"
+            alt="Mounthly Download" /></a>
+    <a href="https://pypi.org/project/mermaid-py/">
+        <img src="https://img.shields.io/pypi/v/mermaid-py.svg?style=flat"
+            alt="latest version" /></a>
+    <a href="https://pypi.org/project/mermaid-py/">
+        <img src="https://img.shields.io/badge/Python-%E2%89%A53.8-blue"
+            alt="latest version" /></a>
 </p>
 
 ## Description
@@ -105,7 +112,7 @@ If you'd like to contribute to this open source project folow this steps:
 - [x] [~~Requirement Diagram~~](https://mermaid.js.org/syntax/requirementDiagram.html)
 - [ ] [Gitgraph (Git) Diagram 🔥](https://mermaid.js.org/syntax/gitgraph.html)
 - [ ] [C4 Diagram 🦺⚠️](https://mermaid.js.org/syntax/c4.html)
-- [ ] [Mindmaps 🔥](https://mermaid.js.org/syntax/mindmap.html)
+- [x] [~~Mindmaps~~](https://mermaid.js.org/syntax/mindmap.html)
 - [ ] [Timeline 🔥](https://mermaid.js.org/syntax/timeline.html)
 - [ ] [Zenuml 🔥](https://mermaid.js.org/syntax/zenuml.html)
 - [ ] [Sankey 🔥](https://mermaid.js.org/syntax/sankey.html)

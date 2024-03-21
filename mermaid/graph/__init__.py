@@ -11,6 +11,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
 
+from mermaid.configuration import Config
+
 
 @dataclass
 class Graph:
@@ -22,9 +24,11 @@ class Graph:
     Attributes:
         title (str): The title of the diagram.
         script (str): The main script to create the diagram.
+        config (Optional[Config]): The configuration for the diagram.
     """
     title: str
     script: str
+    config: Optional[Config] = None
 
     def save(self, path: Optional[Path] = None) -> None:
         """Save the diagram to a file.
@@ -43,5 +47,8 @@ class Graph:
             file.write(self.script)
 
     def _build_script(self) -> None:
-        script: str = f'---\ntitle: {self.title}\n---' + self.script
+        script: str = f'---\ntitle: {self.title}\n---'
+        if self.config:
+            script += '\n' + str(self.config)
+        script += self.script
         self.script = script

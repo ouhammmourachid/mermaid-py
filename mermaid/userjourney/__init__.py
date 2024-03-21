@@ -8,8 +8,9 @@ Classes:
     Section: Represents a section in a user's journey.
     Task: Represents a task in a section of a user's journey.
 """
-from typing import Union
+from typing import Optional, Union
 
+from mermaid.configuration import Config
 from mermaid.graph import Graph
 
 from .actor import Actor
@@ -25,16 +26,20 @@ class UserJourney(Graph):
     Attributes:
         title (str): The title of the user's journey.
         sections (list[Union[Section, Task]]): The sections in the user's journey.
+        config (Config): The configuration for the user's journey.
     """
-    def __init__(self, title: str, sections: list[Union[Section,
-                                                        Task]]) -> None:
+    def __init__(self,
+                 title: str,
+                 sections: list[Union[Section, Task]],
+                 config: Optional[Config] = None) -> None:
         """Initialize a new UserJourney.
 
         Args:
             title (str): The title of the user's journey.
             sections (list[Union[Section, Task]]): The sections in the user's journey.
+            config (Optional[Config]): The configuration for the user's journey. Defaults to None.
         """
-        super().__init__(title, '')
+        super().__init__(title, '', config)
         self.title: str = title
         self.sections: list[Union[Section, Task]] = sections
         self._build_script()

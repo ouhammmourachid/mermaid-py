@@ -9,6 +9,7 @@ Classes:
     Link: Represents a link between elements or requirements in a requirement diagram.
     Requirement: Represents a requirement in a requirement diagram.
 """
+from mermaid.configuration import Config
 from mermaid.graph import Graph
 
 from .element import *
@@ -26,9 +27,14 @@ class RequirementDiagram(Graph):
         elements (list[Element]): The elements in the diagram.
         requirements (list[Requirement]): The requirements in the diagram.
         links (list[Link]): The links between elements and requirements in the diagram.
+        config (Config): The configuration for the requirement diagram.
     """
-    def __init__(self, title: str, elements: list[Element],
-                 requirements: list[Requirement], links: list[Link]) -> None:
+    def __init__(self,
+                 title: str,
+                 elements: list[Element],
+                 requirements: list[Requirement],
+                 links: list[Link],
+                 config: Optional[Config] = None) -> None:
         """Initialize a new RequirementDiagram.
 
         Args:
@@ -36,8 +42,9 @@ class RequirementDiagram(Graph):
             elements (list[Element]): The elements in the diagram.
             requirements (list[Requirement]): The requirements in the diagram.
             links (list[Link]): The links between elements and requirements in the diagram.
+            config (Optional[Config]): The configuration for the diagram. Defaults to None.
         """
-        super().__init__(title, '')
+        super().__init__(title, '', config)
         self.elements: list[Element] = elements if elements is not None else []
         self.requirements: list[
             Requirement] = requirements if requirements is not None else []

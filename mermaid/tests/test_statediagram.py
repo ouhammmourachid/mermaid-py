@@ -2,6 +2,7 @@ import unittest
 
 from mermaid import Direction
 from mermaid.statediagram import *
+from mermaid.statediagram import Transition
 from mermaid.style import Style
 
 
@@ -490,3 +491,26 @@ stateDiagram-v2
 \t{self.state_2}
 """
         self.assertEqual(expect_string, state_diagram.script)
+
+    def test_state_diagram_with_config(self):
+        config = Config(primary_color='red')
+        state_diagram: StateDiagram = StateDiagram(
+            'My State Diagram', [self.state_1, self.state_2], config=config)
+        sub_string = """---
+title: My State Diagram
+---
+%%{
+\tinit: {
+\t\t"theme": "default",
+\t\t"themeVariables": {
+\t\t\t"primaryColor": "red"
+\t\t}
+\t}
+}%%
+"""
+        except_str = f"""{sub_string}
+stateDiagram-v2
+\t{self.state_1}
+\t{self.state_2}
+"""
+        self.assertEqual(except_str, state_diagram.script)
