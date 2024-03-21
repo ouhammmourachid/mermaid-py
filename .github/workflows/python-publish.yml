@@ -20,13 +20,14 @@ jobs:
         fetch-depth: 0
         ref: main
 
+    - name: install dependencies
+      uses: ./.github/actions/install
+
     - name: Build and Deploy
       uses: ./.github/actions/build-deploy
       with:
         pypi-token: ${{ secrets.PYPI_API_TOKEN }}
 
-    - name: install dependencies
-      uses: ./.github/actions/install
     - name: bump version
       uses: ./.github/actions/bump-version
     - name: Create Pull Request
