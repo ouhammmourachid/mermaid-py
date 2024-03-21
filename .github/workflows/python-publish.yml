@@ -19,6 +19,12 @@ jobs:
       with:
         fetch-depth: 0
         ref: main
+
+    - name: Build and Deploy
+      uses: ./.github/actions/build-deploy
+      with:
+        pypi-token: ${{ secrets.PYPI_API_TOKEN }}
+
     - name: install dependencies
       uses: ./.github/actions/install
     - name: bump version
@@ -31,9 +37,3 @@ jobs:
         title: "Bump version ${{env.old_version}} → ${{ env.new_version }}"
         committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
         branch: bumpver/mermaid-py-${{env.old_version}}→${{ env.new_version }}
-
-
-    - name: Build and Deploy
-      uses: ./.github/actions/build-deploy
-      with:
-        pypi-token: ${{ secrets.PYPI_API_TOKEN }}
