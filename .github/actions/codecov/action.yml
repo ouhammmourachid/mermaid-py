@@ -10,7 +10,7 @@ runs:
     using: 'composite'
     steps:
       - name: install dependencies
-        uses: ./.github/actions/install
+        uses: ouhammmourachid/poetry-install@v1
       - name: create test coverage.
         run: make coverage
         shell: bash
