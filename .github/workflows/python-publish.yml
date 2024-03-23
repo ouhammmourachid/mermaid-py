@@ -1,8 +1,6 @@
 name: Upload Python Package
 
 on:
-  release:
-    types: [published]
   workflow_dispatch:
 
 permissions:
@@ -29,12 +27,8 @@ jobs:
         pypi-token: ${{ secrets.PYPI_API_TOKEN }}
 
     - name: bump version
-      uses: ./.github/actions/bump-version
-    - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v6
+      uses: ouhammmourachid/bumpversion-action@v1
       with:
-        token: ${{ secrets.ACTIONS_TOKEN }}
-        commit-message: "Bump version ${{env.old_version}} → ${{ env.new_version }}"
-        title: "Bump version ${{env.old_version}} → ${{ env.new_version }}"
-        committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
-        branch: bumpver/mermaid-py-${{env.old_version}}→${{ env.new_version }}
+        bump-type: 'patch'
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
