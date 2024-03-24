@@ -30,6 +30,7 @@ and visualizations directly within their Python environments.
 
 ## Examples
 first install `mermaid-py` by `pip install mermaid-py`.
+- using `Mermaid` and `Graph` classes:
 ```python
 import mermaid as md
 from mermaid.graph import Graph
@@ -47,11 +48,34 @@ graphe # !! note this work just in notbooke that render html.
 ```
 the result will be like this
 
-
 <p align="center">
     <img src="./.github/images/example-flowchart.svg" alt="Example Flowchart"
-    style="width: 20%;">
+    style="width: 30%;">
 </p>
+
+- using `mermaidjs` magic function in a notebook:
+```python
+%%mermaidjs # with --img flag in case your natebook doesn't render html
+flowchart LR
+    A-->B
+    B-->C
+```
+the result:
+
+<p align="center">
+    <img src="./.github/images/example-mermaidjs.svg" alt="Example Flowchart"
+    style="width: 30%;">
+</p>
+- using `FlowChart` etc ...
+
+```python
+from mermaid import *
+from mermaid.flowchart import *
+
+diagram = Mermaid(Flowchart(...))
+
+diagram
+```
 
 
 ## Technologies Used
