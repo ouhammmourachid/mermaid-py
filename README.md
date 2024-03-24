@@ -49,7 +49,7 @@ graphe # !! note this work just in notbooke that render html.
 the result will be like this
 
 <p align="center">
-    <img src="./.github/images/example-flowchart.svg" alt="Example Flowchart"
+   <img src="https://github.com/ouhammmourachid/mermaid-py/assets/93659459/e20f353a-135d-4aa2-bb91-04bedeee36a0" alt="Example Flowchart"
     style="width: 30%;">
 </p>
 
@@ -63,7 +63,7 @@ flowchart LR
 the result:
 
 <p align="center">
-    <img src="./.github/images/example-mermaidjs.svg" alt="Example Flowchart"
+    <img src="https://github.com/ouhammmourachid/mermaid-py/assets/93659459/d4d1b993-a33d-4eb0-82ae-2ad39bf30e90" alt="Example Flowchart"
     style="width: 30%;">
 </p>
 
@@ -77,6 +77,7 @@ diagram = Mermaid(Flowchart(...))
 
 diagram
 ```
+- more examples on [mermaid](https://www.kaggle.com/code/ouhammourachid/mermaid-py) and [test-mermaid](https://www.kaggle.com/code/ouhammourachid/testing-mermaid-py)
 
 
 ## Technologies Used
