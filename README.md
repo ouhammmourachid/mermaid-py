@@ -66,6 +66,7 @@ the result:
     <img src="./.github/images/example-mermaidjs.svg" alt="Example Flowchart"
     style="width: 30%;">
 </p>
+
 - using `FlowChart` etc ...
 
 ```python
