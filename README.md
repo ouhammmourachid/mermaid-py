@@ -48,7 +48,10 @@ graphe # !! note this work just in notbooke that render html.
 the result will be like this
 
 
-![example-flowchart](./.github/images/example-flowchart.svg)
+<p align="center">
+    <img src="./.github/images/example-flowchart.svg" alt="Example Flowchart"
+    style="width: 50%;">
+</p>
 
 
 ## Technologies Used
