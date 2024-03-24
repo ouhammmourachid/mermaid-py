@@ -77,7 +77,7 @@ diagram = Mermaid(Flowchart(...))
 
 diagram
 ```
-- more examples on [mermaid](https://www.kaggle.com/code/ouhammourachid/mermaid-py) and [test-mermaid](https://www.kaggle.com/code/ouhammourachid/testing-mermaid-py) 
+- more examples on [mermaid](https://www.kaggle.com/code/ouhammourachid/mermaid-py) and [test-mermaid](https://www.kaggle.com/code/ouhammourachid/testing-mermaid-py)
 
 
 ## Technologies Used
