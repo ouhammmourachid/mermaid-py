@@ -34,54 +34,22 @@ first install `mermaid-py` by `pip install mermaid-py`.
 import mermaid as md
 from mermaid.graph import Graph
 
-graph: Graph = Graph('first-graph',"""
-graph TD;
-    mer(Mermaid)
-    flow(FlowChart);
-    clas(ClassDiagram)
-    gra(Graph)
-    erDigram(ERDiagram)
-    erdiagram-link(Link)
-    entity(Entity)
-    flow-link(Link)
-    node(Node)
-    mer --> flow
-    mer --> clas
-    mer --> gra
-    mer --> erDigram
-    flow --> node & flow-link
-    erDigram --> entity & erdiagram-link
+graph: Graph = Graph('example-flowchart',"""
+flowchart TD
+    A[Christmas] -->|Get money| B(Go shopping)
+    B --> C{Let me think}
+    C -->|One| D[Laptop]
+    C -->|Two| E[iPhone]
+    C -->|Three| F[fa:fa-car Car]
 """)
 graphe: md.Mermaid = md.Mermaid(graph)
 graphe # !! note this work just in notbooke that render html.
 ```
 the result will be like this
 
-```mermaid
-graph TD;
-    mer(Mermaid)
-    flow(FlowChart);
-    clas(ClassDiagram)
-    gra(Graph)
-    erDigram(ERDiagram)
-    pie(PieDiagram)
-    reqDiagram(RequiremntDiagram)
-    userj(UserJourney)
-    erdiagram-link(Link)
-    entity(Entity)
-    flow-link(Link)
-    node(Node)
-    requiremnt(Requiremnt)
-    element(Element)
-    actor(Actor)
-    section(Section)
-    task(Task)
-    mer --> flow & clas & gra & erDigram & pie & reqDiagram & userj
-    flow --> node & flow-link
-    erDigram --> entity & erdiagram-link
-    reqDiagram --> requiremnt & element
-    userj --> actor & section & task
-```
+<div>
+    <img src'.github/images/example-flowchart.svg' alt='example-flowchart' />
+</div>
 
 ## Technologies Used
 

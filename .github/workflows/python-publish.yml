@@ -2,6 +2,15 @@ name: Upload Python Package
 
 on:
   workflow_dispatch:
+    inputs:
+      bump-type:
+        description: 'Bump type'
+        required: true
+        default: 'patch'
+        options:
+          - patch
+          - minor
+          - major
 
 permissions:
   contents: write
@@ -29,6 +38,6 @@ jobs:
     - name: bump version
       uses: ouhammmourachid/bumpversion-action@v1
       with:
-        bump-type: 'patch'
+        bump-type: ${{ github.event.inputs.bump-type }}
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
         github-token: ${{ secrets.GITHUB_TOKEN }}
