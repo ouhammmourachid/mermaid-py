@@ -47,9 +47,9 @@ graphe # !! note this work just in notbooke that render html.
 ```
 the result will be like this
 
-<div>
-    <img src'.github/images/example-flowchart.svg' alt='example-flowchart' />
-</div>
+
+![example-flowchart](./.github/images/example-flowchart.svg)
+
 
 ## Technologies Used
 
