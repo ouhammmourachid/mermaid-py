@@ -50,7 +50,7 @@ the result will be like this
 
 <p align="center">
     <img src="./.github/images/example-flowchart.svg" alt="Example Flowchart"
-    style="width: 50%;">
+    style="width: 20%;">
 </p>
 
 
