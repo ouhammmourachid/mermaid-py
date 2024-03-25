@@ -28,7 +28,7 @@ jobs:
         ref: main
 
     - name: install dependencies
-      uses: ouhammmourachid/poetry-install@v1
+      uses: ouhammmourachid/poetry-install@v2
 
     - name: Build and Deploy
       uses: ./.github/actions/build-deploy
