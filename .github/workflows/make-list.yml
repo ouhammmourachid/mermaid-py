@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: install dependencies
-        uses: ouhammmourachid/poetry-install@v1
+        uses: ouhammmourachid/poetry-install@v2
       - name: Make lint operation.
         run: |
           make install-pre-commit
