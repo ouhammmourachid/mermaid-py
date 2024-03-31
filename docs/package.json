@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "vercel-build": "npm run prepare && next build"
+    "start": "next start"
   },
   "repository": {
     "type": "git",
