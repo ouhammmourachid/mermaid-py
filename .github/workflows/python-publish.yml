@@ -28,12 +28,7 @@ jobs:
         ref: main
 
     - name: install dependencies
-      uses: ouhammmourachid/poetry-install@v1
-
-    - name: Build and Deploy
-      uses: ./.github/actions/build-deploy
-      with:
-        pypi-token: ${{ secrets.PYPI_API_TOKEN }}
+      uses: ouhammmourachid/poetry-install@v2
 
     - name: bump version
       uses: ouhammmourachid/bumpversion-action@v1
@@ -41,3 +36,8 @@ jobs:
         bump-type: ${{ github.event.inputs.bump-type }}
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
         github-token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build and Deploy
+      uses: ./.github/actions/build-deploy
+      with:
+        pypi-token: ${{ secrets.PYPI_API_TOKEN }}
