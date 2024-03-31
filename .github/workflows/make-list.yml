@@ -47,13 +47,15 @@ jobs:
 
   deploy-docs:
     needs: test
-    if: github.ref == 'refs/heads/docs/*'
+    # if: github.ref == 'refs/heads/docs/*'
     runs-on: ubuntu-latest
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
     steps:
       - uses: actions/checkout@v4
+      - name: change directory
+        run: cd docs
       - name: Install Vercel CLI
         run: npm install --global vercel
 
