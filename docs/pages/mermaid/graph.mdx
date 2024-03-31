@@ -26,6 +26,7 @@ To use the `Graph` class, follow these steps:
 
 ```python
 from mermaid.graph import Graph
+from mermaid import Mermaid
 
 graph = Graph(
     title='simple graph',
@@ -39,7 +40,7 @@ graph = Graph(
         """
 )
 
-graph # render the graph in notebook
+Mermaid(graph) # render the graph in notebook
 ```
 the result will be
 
