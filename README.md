@@ -53,7 +53,8 @@ the result will be like this
     style="width: 30%;">
 </p>
 
-- using `mermaidjs` magic function in a notebook:
+- using `mermaidjs` magic function in a notebook first `import mermaid as md`:
+
 ```python
 %%mermaidjs # with --img flag in case your natebook doesn't render html
 flowchart LR

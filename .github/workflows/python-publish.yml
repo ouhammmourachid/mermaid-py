@@ -30,14 +30,14 @@ jobs:
     - name: install dependencies
       uses: ouhammmourachid/poetry-install@v2
 
-    - name: Build and Deploy
-      uses: ./.github/actions/build-deploy
-      with:
-        pypi-token: ${{ secrets.PYPI_API_TOKEN }}
-
     - name: bump version
       uses: ouhammmourachid/bumpversion-action@v1
       with:
         bump-type: ${{ github.event.inputs.bump-type }}
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
         github-token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build and Deploy
+      uses: ./.github/actions/build-deploy
+      with:
+        pypi-token: ${{ secrets.PYPI_API_TOKEN }}
