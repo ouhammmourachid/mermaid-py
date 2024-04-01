@@ -22,7 +22,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: yarn
       - run: yarn install --immutable
       - run: yarn vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
       - run: yarn vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
