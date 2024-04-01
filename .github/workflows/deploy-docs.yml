@@ -1,0 +1,28 @@
+# .github/workflows/deploy.yml
+name: deploy docs
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: chnage directory
+        run: cd docs
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: cd docs && yarn install --immutable
+      - run: cd docs && yarn vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+      - run: cd docs && yarn vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+      - run: cd docs && yarn vercel deploy --prod --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
