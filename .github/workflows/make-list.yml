@@ -4,7 +4,6 @@ on:
   pull_request:
     branches:
       - main
-      - docs/*
 
 jobs:
   lint:
@@ -36,30 +35,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: install dependencies
+        uses: ouhammmourachid/poetry-install@v2
+      - name: create test coverage.
+        run: make coverage
       - name: upload coverage reports to Codecov
-        uses: ./.github/actions/codecov
+        uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-
-  # deploy-docs:
-  #   needs: test
-  #   # if: github.ref == 'refs/heads/docs/*'
-  #   runs-on: ubuntu-latest
-  #   env:
-  #     VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  #     VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: change directory
-  #       run: cd docs
-  #     - name: Install Vercel CLI
-  #       run: npm install --global vercel
-
-  #     - name: Pull Vercel Environment Information
-  #       run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-
-  #     - name: Build Project Artifacts
-  #       run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
-
-  #     - name: Deploy Project Artifacts
-  #       run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+          flags: unittests
+          fail_ci_if_error: true
+          files: ./coverage.xml

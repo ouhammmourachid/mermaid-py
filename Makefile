@@ -29,7 +29,7 @@ lint:
 
 .PHONY: coverage
 coverage:
-	poetry run pytest --cov ./mermaid
+	poetry run pytest --cov ./mermaid --cov-report=xml
 
 .PHONY: bumpversion
 bumpversion:

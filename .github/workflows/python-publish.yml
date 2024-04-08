@@ -37,7 +37,7 @@ jobs:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
         github-token: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Build and Deploy
+    - name: Build and Deploy to PyPI
       uses: ./.github/actions/build-deploy
       with:
         pypi-token: ${{ secrets.PYPI_API_TOKEN }}
