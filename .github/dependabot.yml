@@ -8,4 +8,23 @@ updates:
   - package-ecosystem: "pip" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
-      interval: "daily"
+      interval: "monthly" # Check for updates Monthly
+    labels:
+      - "dependencies"
+      - "pip"
+
+  - package-ecosystem: "npm" # See documentation for possible values
+    directory: "/docs" # Location of package manifests
+    schedule:
+      interval: "monthly" # Check for updates Monthly
+    labels:
+      - "dependencies"
+      - "npm"
+
+  - package-ecosystem: "github-actions" # See documentation for possible values
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "monthly" # Check for updates Monthly
+    labels:
+      - "dependencies"
+      - "github-actions"
