@@ -39,6 +39,7 @@ jobs:
         uses: ouhammmourachid/poetry-install@v2
       - name: create test coverage.
         run: make coverage
+      - run: ls -all
       - name: upload coverage reports to Codecov
         uses: codecov/codecov-action@v4
         with:
