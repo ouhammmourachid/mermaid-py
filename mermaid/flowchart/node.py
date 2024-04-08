@@ -1,5 +1,8 @@
 from dataclasses import dataclass
-from typing import Self
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing import Self
 
 from mermaid import Direction, text_to_snake_case
 from mermaid.style import Style
@@ -62,7 +65,7 @@ class Node:
                  id_: str,
                  content: str = '',
                  shape: str = 'normal',
-                 sub_nodes: list[Self] | None = None,
+                 sub_nodes: list['Self'] | None = None,
                  href: str | None = None,
                  href_type: str = 'blank',
                  styles: list[Style] | None = None,
@@ -84,7 +87,8 @@ class Node:
         self.shape: NodeShape = NODE_SHAPES[shape]
         self.href: str = href if href is not None else '#'
         self.href_type: str = HREF_TYPES[href_type]
-        self.sub_nodes: list[Self] = sub_nodes if sub_nodes is not None else []
+        self.sub_nodes: list[
+            'Self'] = sub_nodes if sub_nodes is not None else []
         self.styles: list[Style] = styles if styles is not None else []
         self.direction: str = direction if isinstance(direction,
                                                       str) else direction.value
