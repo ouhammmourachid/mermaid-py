@@ -8,7 +8,6 @@ to build the Mermaid diagram script for the pie chart.
 Classes:
     PieChart: Represents a PieChart diagram.
 """
-from typing import Optional
 
 from mermaid.configuration import Config
 from mermaid.graph import Graph
@@ -27,7 +26,7 @@ class PieChart(Graph):
                  title: str,
                  data: dict[str, float],
                  show_data: bool = False,
-                 config: Optional[Config] = None) -> None:
+                 config: Config | None = None) -> None:
         """
         The constructor for the PieChart class.
 

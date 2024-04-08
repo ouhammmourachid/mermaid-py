@@ -1,6 +1,3 @@
-from typing import Optional, Union
-
-
 class Entity:
     """Entity class.
 
@@ -10,11 +7,9 @@ class Entity:
         name (str): The name of the entity.
         attributes (list[str]): The attributes of the entity.
     """
-    def __init__(
-            self,
-            name: str,
-            attributes: Optional[dict[str, Union[list[str],
-                                                 str]]] = None) -> None:
+    def __init__(self,
+                 name: str,
+                 attributes: dict[str, list[str] | str] | None = None) -> None:
         """Initialize a new Entity.
 
         Args:
@@ -22,8 +17,9 @@ class Entity:
             attributes (Optional[dict[str, Union[list[str], str]]]): The attributes of the entity.
         """
         self.name: str = name
-        self.attributes: dict[str, Union[
-            list[str], str]] = attributes if attributes is not None else {}
+        self.attributes: dict[
+            str,
+            list[str] | str] = attributes if attributes is not None else {}
 
     def __str__(self) -> str:
         string_attributes: str = self.build_attributes()
@@ -41,8 +37,8 @@ class Entity:
     def add_attribute(self,
                       name: str,
                       type_: str,
-                      constrint: Optional[str] = None,
-                      comment: Optional[str] = None) -> None:
+                      constrint: str | None = None,
+                      comment: str | None = None) -> None:
         """Add an attribute to the entity.
 
         Args:

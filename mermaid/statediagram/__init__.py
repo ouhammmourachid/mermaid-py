@@ -3,7 +3,6 @@ StateDiagram class.
 
 This module contains the StateDiagram class.
 """
-from typing import Optional, Union
 
 from mermaid import Direction
 from mermaid.configuration import Config
@@ -28,11 +27,11 @@ class StateDiagram(Graph):
     """
     def __init__(self,
                  title: str,
-                 states: Optional[list[State]] = None,
-                 transitions: Optional[list[BaseTransition]] = None,
+                 states: list[State] | None = None,
+                 transitions: list[BaseTransition] | None = None,
                  version: str = 'v2',
-                 direction: Optional[Union[str, Direction]] = None,
-                 config: Optional[Config] = None) -> None:
+                 direction: str | Direction | None = None,
+                 config: Config | None = None) -> None:
         """stateDiagram class.
 
         Args:
@@ -52,7 +51,7 @@ class StateDiagram(Graph):
         for state in self.states:
             self.styles.update(state.styles)
 
-        self.direction: Optional[str] = None
+        self.direction: str | None = None
 
         if direction:
             self.direction = direction if isinstance(direction,

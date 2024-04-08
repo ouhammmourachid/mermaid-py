@@ -1,5 +1,3 @@
-from typing import Union
-
 from mermaid.sequence.link import Link
 
 
@@ -106,9 +104,8 @@ class Parallel:
         condition_elements (dict[str, list[Union[Link, Logic]]]): Dictionary of
         condition and Link or Logic objects.
     """
-    def __init__(
-            self, condition_elements: dict[str, list[Union[Link,
-                                                           Logic]]]) -> None:
+    def __init__(self, condition_elements: dict[str,
+                                                list[Link | Logic]]) -> None:
         """Initialize parallel.
 
         Args:
@@ -144,9 +141,8 @@ class Critical(Logic):
         condition (str): Condition of the loop.
         link (List[Link]): List of Link objects.
     """
-    def __init__(
-            self, condition: str, statements: list[Union[Link, Logic]],
-            optional_statements: dict[str, list[Union[Link, Logic]]]) -> None:
+    def __init__(self, condition: str, statements: list[Link | Logic],
+                 optional_statements: dict[str, list[Link | Logic]]) -> None:
         """Initialize loop.
 
         Args:
@@ -179,8 +175,7 @@ class Break(Logic):
         condition (str): Condition of the loop.
         link (List[Link]): List of Link objects.
     """
-    def __init__(self, condition: str, statements: list[Union[Link,
-                                                              Logic]]) -> None:
+    def __init__(self, condition: str, statements: list[Link | Logic]) -> None:
         """Initialize loop.
 
         Args:

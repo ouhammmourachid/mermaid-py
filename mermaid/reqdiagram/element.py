@@ -1,6 +1,3 @@
-from typing import Optional
-
-
 class Element:
     """UserJourney module.
 
@@ -15,7 +12,7 @@ class Element:
     def __init__(self,
                  name: str,
                  type_: str,
-                 docRef: Optional[str] = None) -> None:
+                 docRef: str | None = None) -> None:
         """Initialize a new Element.
 
         Args:
@@ -25,7 +22,7 @@ class Element:
         """
         self.name: str = name
         self.type_: str = type_
-        self.docRef: Optional[str] = docRef
+        self.docRef: str | None = docRef
 
     def __str__(self) -> str:
         """Return a string representation of the element.

@@ -1,7 +1,6 @@
 import os
 import re
 from pathlib import Path
-from typing import Optional
 
 from .graph import Graph
 
@@ -16,8 +15,8 @@ def load(path: Path) -> Graph:
     Returns:
         Graph: The Graph object containing the Mermaid diagram script and the name of the file.
     """
-    script: Optional[str] = None
-    name: Optional[str] = None
+    script: str | None = None
+    name: str | None = None
 
     if os.path.exists(path):
         with open(path, 'r') as file:

@@ -1,5 +1,3 @@
-from typing import Union
-
 from .element import Element
 from .requirement import Requirement
 
@@ -14,8 +12,8 @@ class Link:
         destination (Union[Element, Requirement]): The destination of the link.
         type_ (str): The type of the link.
     """
-    def __init__(self, source: Union[Element, Requirement],
-                 destination: Union[Element, Requirement], type_: str) -> None:
+    def __init__(self, source: Element | Requirement,
+                 destination: Element | Requirement, type_: str) -> None:
         """Initialize a new Link.
 
         Args:
@@ -23,8 +21,8 @@ class Link:
             destination (Union[Element, Requirement]): The destination of the link.
             type_ (str): The type of the link.
         """
-        self.source: Union[Element, Requirement] = source
-        self.destination: Union[Element, Requirement] = destination
+        self.source: Element | Requirement = source
+        self.destination: Element | Requirement = destination
         self.type_: str = type_
 
     def __str__(self) -> str:

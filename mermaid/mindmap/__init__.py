@@ -6,7 +6,6 @@ diagrams.
 Classes:
     Mindmap: Represents a mindmap diagram.
 """
-from typing import Optional
 
 from mermaid.configuration import Config
 from mermaid.graph import Graph
@@ -27,9 +26,9 @@ class Mindmap(Graph):
     """
     def __init__(self,
                  title: str,
-                 levels: Optional[list[Level]] = None,
-                 shape: Optional[LevelShape] = None,
-                 config: Optional[Config] = None) -> None:
+                 levels: list[Level] | None = None,
+                 shape: LevelShape | None = None,
+                 config: Config | None = None) -> None:
         """Initialize a new Mindmap.
 
         Args:

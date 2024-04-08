@@ -1,5 +1,4 @@
 from enum import Enum
-from typing import Union
 
 from mermaid.sequence.element import Actor, Participant
 
@@ -41,16 +40,16 @@ class Link:
     """
     def __init__(
         self,
-        source: Union[Actor, Participant],
-        target: Union[Actor, Participant],
-        type_: Union[str, ArrowTypes],
+        source: Actor | Participant,
+        target: Actor | Participant,
+        type_: str | ArrowTypes,
         message: str,
         activate_target: bool = False,
         deactivate_target: bool = False,
     ) -> None:
-        self.source: Union[Actor, Participant] = source
-        self.target: Union[Actor, Participant] = target
-        self.type_: Union[str, ArrowTypes] = ARROW_TYPES[type_] if isinstance(
+        self.source: Actor | Participant = source
+        self.target: Actor | Participant = target
+        self.type_: str | ArrowTypes = ARROW_TYPES[type_] if isinstance(
             type_, str) else type_.value
         self.activate_target: bool = activate_target
         self.deactivate_target: bool = deactivate_target

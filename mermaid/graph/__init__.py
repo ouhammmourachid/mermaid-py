@@ -9,7 +9,6 @@ Classes:
 import os
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional
 
 from mermaid.configuration import Config
 
@@ -28,9 +27,9 @@ class Graph:
     """
     title: str
     script: str
-    config: Optional[Config] = None
+    config: Config | None = None
 
-    def save(self, path: Optional[Path] = None) -> None:
+    def save(self, path: Path | str | None = None) -> None:
         """Save the diagram to a file.
 
         Args:
@@ -40,10 +39,14 @@ class Graph:
         Raises:
             ValueError: If the file extension is not '.mmd' or '.mermaid'.
         """
-        file_path: Path = path if path else Path(f'./{self.title}.mmd')
-        if file_path.suffix not in ['.mmd', '.mermaid']:
+        if path:
+            if isinstance(path, str):
+                path = Path(path)
+        else:
+            path = Path(f'./{self.title}.mmd')
+        if path.suffix not in ['.mmd', '.mermaid']:
             raise ValueError("File extension must be '.mmd' or '.mermaid'")
-        with open(file_path, 'w') as file:
+        with open(path, 'w') as file:
             file.write(self.script)
 
     def _build_script(self) -> None:

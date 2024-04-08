@@ -1,5 +1,3 @@
-from typing import Optional
-
 from mermaid import text_to_snake_case
 
 from .base import BaseTransition
@@ -17,8 +15,8 @@ class Transition(BaseTransition):
         label (str): The label of the transition.
     """
     def __init__(self,
-                 from_: Optional[State] = None,
-                 to: Optional[State] = None,
+                 from_: State | None = None,
+                 to: State | None = None,
                  label: str = '') -> None:
         """Initialize a new Transition.
 
@@ -55,9 +53,9 @@ class Choice(BaseTransition):
     """
     def __init__(self,
                  id_: str,
-                 from_: Optional[State] = None,
-                 to: Optional[list[State]] = None,
-                 conditions: Optional[list[str]] = None) -> None:
+                 from_: State | None = None,
+                 to: list[State] | None = None,
+                 conditions: list[str] | None = None) -> None:
         """Initialize a new Choice.
 
         Args:
@@ -67,7 +65,7 @@ class Choice(BaseTransition):
             conditions (Optional[list[str]]): The conditions of the choice.
         """
         self.id_: str = text_to_snake_case(id_)
-        self.from_state: Optional[State] = from_
+        self.from_state: State | None = from_
         self.to_states: list[State] = to if to is not None else []
         self.conditions: list[
             str] = conditions if conditions is not None else []
@@ -101,8 +99,8 @@ class Fork(BaseTransition):
     """
     def __init__(self,
                  id_: str,
-                 from_: Optional[State] = None,
-                 to: Optional[list[State]] = None) -> None:
+                 from_: State | None = None,
+                 to: list[State] | None = None) -> None:
         """Initialize a new Fork.
 
         Args:
@@ -111,7 +109,7 @@ class Fork(BaseTransition):
             to (Optional[list[State]]): The states to which the fork ends.
         """
         self.id_: str = text_to_snake_case(id_)
-        self.from_state: Optional[State] = from_
+        self.from_state: State | None = from_
         self.to_states: list[State] = to if to is not None else []
 
     def __str__(self) -> str:
@@ -139,8 +137,8 @@ class Join(BaseTransition):
     """
     def __init__(self,
                  id_: str,
-                 from_: Optional[list[State]] = None,
-                 to: Optional[State] = None) -> None:
+                 from_: list[State] | None = None,
+                 to: State | None = None) -> None:
         """Initialize a new Join.
 
         Args:
@@ -150,7 +148,7 @@ class Join(BaseTransition):
         """
         self.id_: str = text_to_snake_case(id_)
         self.from_states: list[State] = from_ if from_ is not None else []
-        self.to_state: Optional[State] = to
+        self.to_state: State | None = to
 
     def __str__(self) -> str:
         """Return the string representation of the join.

@@ -1,6 +1,5 @@
 """Sequence diagram elements."""
 from enum import Enum
-from typing import Union
 
 from mermaid._utils import text_to_snake_case
 
@@ -60,7 +59,7 @@ class Box:
         elements (List[Union[Actor, Participant]]): List of Actor or Participant objects.
         name (str): Name of the box.
     """
-    def __init__(self, name: str, elements: list[Union[Actor, Participant]]):
+    def __init__(self, name: str, elements: list[Actor | Participant]):
         self.elements = elements
         self.name = name
 
@@ -95,12 +94,10 @@ class Note:
         note (str): Note to be displayed.
         actor (Union[Actor, Participant], optional): Actor or Participant to attach the note to. Defaults to None.
     """
-    def __init__(
-            self,
-            note: str,
-            element: Union[list[Union[Actor, Participant]],
-                           Union[Actor, Participant]],
-            position: Union[NotePosition, str] = NotePosition.OVER) -> None:
+    def __init__(self,
+                 note: str,
+                 element: list[Actor | Participant | Actor | Participant],
+                 position: NotePosition | str = NotePosition.OVER) -> None:
         self.note = note
         self.element = element[0] if isinstance(
             element, list) and len(element) == 1 else element

@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Optional, Union
 
 from mermaid import Direction, text_to_snake_case
 from mermaid.style import Style
@@ -62,11 +61,11 @@ class Node:
                  id_: str,
                  content: str = '',
                  shape: str = 'normal',
-                 sub_nodes: Optional[list['Node']] = None,
-                 href: Optional[str] = None,
+                 sub_nodes: list['Node'] | None = None,
+                 href: str | None = None,
                  href_type: str = 'blank',
-                 styles: Optional[list[Style]] = None,
-                 direction: Union[str, Direction] = 'LR') -> None:
+                 styles: list[Style] | None = None,
+                 direction: str | Direction = 'LR') -> None:
         """Initialize a new Node.
 
         Args:

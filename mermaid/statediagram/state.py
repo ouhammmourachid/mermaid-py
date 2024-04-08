@@ -2,7 +2,6 @@
 
 This module contains the classes to represent the states in a state diagram.
 """
-from typing import Optional, Union
 
 from mermaid import Direction, text_to_snake_case
 from mermaid.style import Style
@@ -23,7 +22,7 @@ class State:
     def __init__(self,
                  id_: str,
                  content: str = '',
-                 styles: Optional[list[Style]] = None) -> None:
+                 styles: list[Style] | None = None) -> None:
         """Initialize a new State.
 
         Args:
@@ -84,10 +83,10 @@ class Composite(State):
     def __init__(self,
                  id_: str,
                  content: str = '',
-                 sub_states: Optional[list[State]] = None,
-                 transitions: Optional[list[BaseTransition]] = None,
-                 direction: Optional[Union[str, Direction]] = None,
-                 styles: Optional[list[Style]] = None) -> None:
+                 sub_states: list[State] | None = None,
+                 transitions: list[BaseTransition] | None = None,
+                 direction: str | Direction | None = None,
+                 styles: list[Style] | None = None) -> None:
         """Initialize a new Composite.
 
         Args:
@@ -102,7 +101,7 @@ class Composite(State):
             State] = sub_states if sub_states is not None else []
         self.transitions: list[
             BaseTransition] = transitions if transitions is not None else []
-        self.direction: Optional[str] = direction.value if isinstance(
+        self.direction: str | None = direction.value if isinstance(
             direction, Direction) else direction
 
     def __str__(self) -> str:
@@ -137,9 +136,9 @@ class Concurrent(Composite):
     def __init__(self,
                  id_: str,
                  content: str = '',
-                 sub_groups: Optional[list[tuple[
-                     list[State], list[BaseTransition]]]] = None,
-                 styles: Optional[list[Style]] = None) -> None:
+                 sub_groups: list[tuple[list[State], list[BaseTransition]]]
+                 | None = None,
+                 styles: list[Style] | None = None) -> None:
         """Initialize a new Concurrent.
 
         Args:

@@ -8,7 +8,6 @@ Classes:
     Node: Represents a node in a flowchart.
     Link: Represents a link between nodes in a flowchart.
 """
-from typing import Optional, Union
 
 from mermaid import Direction
 from mermaid.configuration import Config
@@ -33,10 +32,10 @@ class FlowChart(Graph):
     """
     def __init__(self,
                  title: str,
-                 nodes: Optional[list[Node]] = None,
-                 links: Optional[list[Link]] = None,
-                 orientation: Union[str, Direction] = 'TB',
-                 config: Optional[Config] = None) -> None:
+                 nodes: list[Node] | None = None,
+                 links: list[Link] | None = None,
+                 orientation: str | Direction = 'TB',
+                 config: Config | None = None) -> None:
         """Initialize a new FlowChart.
 
         Args:

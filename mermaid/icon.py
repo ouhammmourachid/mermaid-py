@@ -11,5 +11,5 @@ class Icon:
         if self.str_ == 'v1':
             return f'{self.type_} {self.name}'
         elif self.str_ == 'v2':
-            return f'{self.type_} {self.name}'
+            return f' {self.type_}:{self.name} '
         return f' {self.type_}:{self.name} '

@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Optional
 
 
 @dataclass
@@ -18,12 +17,12 @@ class Style:
         other (str): Any other style definition sperated by ,.
     """
     name: str
-    fill: Optional[str] = None
-    color: Optional[str] = None
-    font_weight: Optional[str] = None
-    stroke_width: Optional[str] = None
-    stroke: Optional[str] = None
-    other: Optional[str] = None
+    fill: str | None = None
+    color: str | None = None
+    font_weight: str | None = None
+    stroke_width: str | None = None
+    stroke: str | None = None
+    other: str | None = None
 
     def __str__(self) -> str:
         """Return the string representation of the style definition.

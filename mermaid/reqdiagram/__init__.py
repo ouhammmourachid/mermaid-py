@@ -34,7 +34,7 @@ class RequirementDiagram(Graph):
                  elements: list[Element],
                  requirements: list[Requirement],
                  links: list[Link],
-                 config: Optional[Config] = None) -> None:
+                 config: Config | None = None) -> None:
         """Initialize a new RequirementDiagram.
 
         Args:

@@ -1,5 +1,4 @@
 from enum import Enum
-from typing import Union
 
 
 class Risk(Enum):
@@ -50,9 +49,8 @@ class Requirement:
         risk (Union[str, Risk]): The risk of the requirement.
         verifymethod (Union[str, VerifyMethod]): The verification method of the requirement.
     """
-    def __init__(self, id_: str, name: str, text: str, type_: Union[str, Type],
-                 risk: Union[str, Risk],
-                 verifymethod: Union[str, VerifyMethod]) -> None:
+    def __init__(self, id_: str, name: str, text: str, type_: str | Type,
+                 risk: str | Risk, verifymethod: str | VerifyMethod) -> None:
         """Initialize a new Requirement.
 
         Args:

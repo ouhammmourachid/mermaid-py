@@ -9,7 +9,6 @@ Example:
     >>> Level('Level 1', LevelShape.CIRCLE, Icon('fa', 'fa-book'))
 """
 from enum import Enum
-from typing import Optional
 
 from mermaid import text_to_snake_case
 from mermaid.icon import Icon
@@ -46,9 +45,9 @@ class Level:
     """
     def __init__(self,
                  name: str,
-                 children: Optional[list['Level']] = None,
-                 shape: Optional[LevelShape] = None,
-                 icon: Optional[Icon] = None) -> None:
+                 children: list['Level'] | None = None,
+                 shape: LevelShape | None = None,
+                 icon: Icon | None = None) -> None:
         """Constructor for the Level class
 
         Args:
@@ -68,7 +67,7 @@ class Level:
         self.name: str = name
         self.children: list['Level'] = children if children else []
         self.shape: LevelShape = shape if shape else LevelShape.DEFAULT
-        self.icon: Optional[Icon] = icon
+        self.icon: Icon | None = icon
 
     def add_child(self, child: 'Level') -> None:
         """Add a child to the level
@@ -103,6 +102,7 @@ class Level:
             list_str += child.list_str()
         return [string, list_str]
 
+    # TODO: chnage the name of the method to list_to_str
     def list_str_to_str(self, list_str: list, depth: int = 2) -> str:
         """Convert a list representation of a level to a string
 

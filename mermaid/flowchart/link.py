@@ -1,5 +1,4 @@
 from enum import Enum
-from typing import Union
 
 from .node import Node
 
@@ -58,9 +57,9 @@ class Link:
     def __init__(self,
                  origin: Node,
                  end: Node,
-                 shape: Union[str, LinkShape] = 'normal',
-                 head_left: Union[str, LinkHead] = 'none',
-                 head_right: Union[str, LinkHead] = 'arrow',
+                 shape: str | LinkShape = 'normal',
+                 head_left: str | LinkHead = 'none',
+                 head_right: str | LinkHead = 'arrow',
                  message: str = '') -> None:
         """Initialize a new Link.
 

@@ -1,6 +1,3 @@
-from typing import Optional as Option
-from typing import Union
-
 from mermaid.configuration import Config
 from mermaid.graph import Graph
 from mermaid.sequence.element import Actor, Box, Note, NotePosition, Participant, Rect
@@ -21,11 +18,11 @@ class SequenceDiagram(Graph):
     """
     def __init__(self,
                  title: str,
-                 elements: list[Union[Actor, Participant, Box, Note, Link, Alt,
-                                      Break, Critical, Loop, Optional,
-                                      Parallel]],
+                 elements: list[Actor | Participant | Box | Note | Link | Alt
+                                | Break | Critical | Loop | Optional
+                                | Parallel],
                  auto_number: bool = False,
-                 config: Option[Config] = None) -> None:
+                 config: Config | None = None) -> None:
         """Initialize a new SequenceDiagram.
 
         Args:
