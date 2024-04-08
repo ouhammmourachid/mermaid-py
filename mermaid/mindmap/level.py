@@ -9,6 +9,7 @@ Example:
     >>> Level('Level 1', LevelShape.CIRCLE, Icon('fa', 'fa-book'))
 """
 from enum import Enum
+from typing import Self
 
 from mermaid import text_to_snake_case
 from mermaid.icon import Icon
@@ -45,7 +46,7 @@ class Level:
     """
     def __init__(self,
                  name: str,
-                 children: list['Level'] | None = None,
+                 children: list[Self] | None = None,
                  shape: LevelShape | None = None,
                  icon: Icon | None = None) -> None:
         """Constructor for the Level class
@@ -65,11 +66,11 @@ class Level:
         """
         self.id_: str = text_to_snake_case(name)
         self.name: str = name
-        self.children: list['Level'] = children if children else []
+        self.children: list[Self] = children if children else []
         self.shape: LevelShape = shape if shape else LevelShape.DEFAULT
         self.icon: Icon | None = icon
 
-    def add_child(self, child: 'Level') -> None:
+    def add_child(self, child: Self) -> None:
         """Add a child to the level
 
         Args:
