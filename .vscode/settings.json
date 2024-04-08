@@ -1,9 +1,0 @@
-{
-    "launch": {
-
-        "configurations": [],
-        "compounds": []
-    },
-    "python.analysis.typeCheckingMode": "strict",
-    "autoDocstring.docstringFormat": "numpy",
-}

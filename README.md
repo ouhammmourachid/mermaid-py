@@ -16,8 +16,8 @@ this package works as an interface for the famous mermaid-js library that uses s
         <img src="https://img.shields.io/pypi/v/mermaid-py.svg?style=flat"
             alt="latest version" /></a>
     <a href="https://pypi.org/project/mermaid-py/">
-        <img src="https://img.shields.io/badge/Python-%E2%89%A53.8-blue"
-            alt="latest version" /></a>
+        <img src="https://img.shields.io/pypi/pyversions/mermaid-py"
+            alt="suported python version" /></a>
 </p>
 
 ## Description
