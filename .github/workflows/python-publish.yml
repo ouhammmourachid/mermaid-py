@@ -31,7 +31,7 @@ jobs:
       uses: ouhammmourachid/poetry-install@v2
 
     - name: bump version
-      uses: ouhammmourachid/bumpversion-action@v1
+      uses: ouhammmourachid/bumpversion-action@v2
       with:
         bump-type: ${{ github.event.inputs.bump-type }}
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
