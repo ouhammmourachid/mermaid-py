@@ -2,7 +2,7 @@ import os
 import unittest
 from pathlib import Path
 
-from mermaid import Mermaid
+from mermaid import Mermaid, Position
 from mermaid.graph import Graph
 
 
@@ -46,6 +46,24 @@ class TestMermaid(unittest.TestCase):
         self.mermaid_object.to_png(output_path)
 
         self.assertTrue(Path.exists(output_path))
+
+    def test_repr_html_on_mermaid_with_default_position(self):
+        self.assertEqual(self.mermaid_object._repr_html_(),
+                         self.mermaid_object.svg_response.text)
+
+    def test_repr_html_on_mermaid_with_str_position(self):
+        position = 'center'
+        self.mermaid_object.set_position(position)
+        self.assertTrue(self.mermaid_object._repr_html_().startswith(
+            f'<div style="text-align:{position}">'))
+        self.assertTrue(self.mermaid_object._repr_html_().endswith('</div>'))
+
+    def test_repr_html_on_mermaid_with_enum_position(self):
+        position = Position.RIGHT
+        self.mermaid_object.set_position(position)
+        self.assertTrue(self.mermaid_object._repr_html_().startswith(
+            f'<div style="text-align:{position.value}">'))
+        self.assertTrue(self.mermaid_object._repr_html_().endswith('</div>'))
 
     def tearDown(self) -> None:
         output_svg: str = f'./{self.name}.svg'

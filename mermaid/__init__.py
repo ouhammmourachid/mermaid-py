@@ -12,7 +12,7 @@ Functions:
 """
 from enum import Enum
 
-from ._main import Mermaid
+from ._main import Mermaid, Position
 from ._utils import load, text_to_snake_case
 from .configuration import Config
 from .graph import Graph
@@ -30,4 +30,7 @@ class Direction(Enum):
     BOTTOM_TO_TOP = 'BT'
 
 
-__all__ = ['Mermaid', 'load', 'Direction', 'Graph', 'Style', 'Config', 'Icon']
+__all__ = [
+    'Mermaid', 'load', 'Direction', 'Graph', 'Style', 'Config', 'Icon',
+    'Position'
+]
