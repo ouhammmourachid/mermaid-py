@@ -1,4 +1,5 @@
 import base64
+from enum import Enum
 from pathlib import Path
 from typing import Union
 
@@ -6,6 +7,16 @@ import requests
 from requests import Response
 
 from .graph import Graph
+
+
+class Position(Enum):
+    """
+    This class represents the position of the node in a Mermaid diagram.
+    """
+    LEFT = 'left'
+    RIGHT = 'right'
+    CENTER = 'center'
+    NONE = 'none'
 
 
 class Mermaid:
@@ -17,15 +28,29 @@ class Mermaid:
         svg_response (Response): The response from the GET request to the Mermaid SVG API.
         img_response (Response): The response from the GET request to the Mermaid IMG API.
     """
-    def __init__(self, graph: Graph):
+    def __init__(self,
+                 graph: Graph,
+                 position: Union[Position, str] = Position.NONE):
         """
         The constructor for the Mermaid class.
 
         Parameters:
             graph (Graph): The Graph object containing the Mermaid diagram script.
         """
+        self.__position: str = position if isinstance(position,
+                                                      str) else position.value
         self._diagram = self._process_diagram(graph.script)
         self._make_request_to_mermaid()
+
+    def set_position(self, position: Union[Position, str]) -> None:
+        """
+        Set the position of the node in the Mermaid diagram.
+
+        Parameters:
+            position (Union[Position, str]): The position of the node.
+        """
+        self.__position = position if isinstance(position,
+                                                 str) else position.value
 
     @staticmethod
     def _process_diagram(diagram: str) -> str:
@@ -50,7 +75,9 @@ class Mermaid:
         Returns:
             str: The text of the SVG response.
         """
-        return self.svg_response.text
+        if self.__position == Position.NONE.value:
+            return self.svg_response.text
+        return f'<div style="text-align:{self.__position}">{self.svg_response.text}</div>'
 
     def _make_request_to_mermaid(self) -> None:
         """
