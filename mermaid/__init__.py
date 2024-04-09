@@ -19,7 +19,7 @@ from .graph import Graph
 from .icon import Icon
 from .style import Style
 
-__version__: str = '0.4.0'
+__version__: str = '0.5.0'
 
 
 class Direction(Enum):

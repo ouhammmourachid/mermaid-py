@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mermaid-py"
-version = "0.4.0"
+version = "0.5.0"
 description = "A simple interface for the the famous lib mermaid-js to create diagrams."
 authors = ["ouhammmourachid <rachidouhammou21@gmail.com>"]
 readme = "README.md"
@@ -31,7 +31,7 @@ build-backend = "poetry.core.masonry.api"
 
 
 [bumpver]
-current_version = "0.4.0"
+current_version = "0.5.0"
 version_pattern = "MAJOR.MINOR.PATCH"
 
 [bumpver.file_patterns]
