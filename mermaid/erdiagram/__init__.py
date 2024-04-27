@@ -10,7 +10,6 @@ Classes:
 """
 from typing import TYPE_CHECKING
 
-
 from mermaid.erdiagram.link import LIST_CARDINALITIES
 from mermaid.graph import Graph
 
@@ -18,6 +17,7 @@ if TYPE_CHECKING:
     from mermaid.config import Config
     from mermaid.erdiagram.entity import Entity
     from mermaid.erdiagram.link import Link
+
 
 class ERDiagram(Graph):
     """ERDiagram class.
@@ -32,9 +32,9 @@ class ERDiagram(Graph):
     """
     def __init__(self,
                  title: str,
-                 entities: list[Entity]|None = None,
-                 links: list[Link]|None = None,
-                 config: Config|None = None) -> None:
+                 entities: list[Entity] | None = None,
+                 links: list[Link] | None = None,
+                 config: Config | None = None) -> None:
         """Initialize a new ERDiagram.
 
         Args:
