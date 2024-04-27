@@ -8,13 +8,16 @@ Classes:
     Entity: Represents an entity in an ER diagram.
     Link: Represents a link between entities in an ER diagram.
 """
-from typing import Optional
+from typing import TYPE_CHECKING
 
-from mermaid.configuration import Config
-from mermaid.erdiagram.entity import Entity
-from mermaid.erdiagram.link import LIST_CARDINALITIES, Link
+
+from mermaid.erdiagram.link import LIST_CARDINALITIES
 from mermaid.graph import Graph
 
+if TYPE_CHECKING:
+    from mermaid.config import Config
+    from mermaid.erdiagram.entity import Entity
+    from mermaid.erdiagram.link import Link
 
 class ERDiagram(Graph):
     """ERDiagram class.
@@ -29,9 +32,9 @@ class ERDiagram(Graph):
     """
     def __init__(self,
                  title: str,
-                 entities: Optional[list[Entity]] = None,
-                 links: Optional[list[Link]] = None,
-                 config: Optional[Config] = None) -> None:
+                 entities: list[Entity]|None = None,
+                 links: list[Link]|None = None,
+                 config: Config|None = None) -> None:
         """Initialize a new ERDiagram.
 
         Args:

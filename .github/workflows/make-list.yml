@@ -25,7 +25,7 @@ jobs:
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v4
-      - name: Test on Python ${{ matrix.python-version }} on ${{matrix.os}}
+      - name: Test with Python ${{ matrix.python-version }} on ${{matrix.os}}
         uses: ./.github/actions/test
         with:
           python-version: ${{ matrix.python-version }}
