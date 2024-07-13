@@ -44,7 +44,7 @@ flowchart TD
     C -->|Three| F[fa:fa-car Car]
 """)
 graphe: md.Mermaid = md.Mermaid(graph)
-graphe # !! note this work just in notbooke that render html.
+graphe # !! note this only works in the notebook that rendered the html.
 ```
 the result will be like this
 

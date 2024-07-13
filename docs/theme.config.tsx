@@ -9,7 +9,7 @@ const config: DocsThemeConfig = {
   chat: {
     link: 'https://discord.com',
   },
-  docsRepositoryBase: 'https://github.com/shuding/nextra-docs-template',
+  docsRepositoryBase: 'https://github.com/ouhammmourachid/mermaid-py/tree/main/docs',
   footer: {
     text: 'mermaid-py docs',
   },
