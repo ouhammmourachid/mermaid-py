@@ -12,12 +12,12 @@ Functions:
 """
 from enum import Enum
 
-from ._main import Mermaid, Position
-from ._utils import load, text_to_snake_case
+from .__main__ import Mermaid, Position
 from .configuration import Config
 from .graph import Graph
 from .icon import Icon
 from .style import Style
+from .utils import load, text_to_snake_case
 
 __version__: str = '0.5.1'
 
