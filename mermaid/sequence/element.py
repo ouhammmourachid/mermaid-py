@@ -2,7 +2,7 @@
 from enum import Enum
 from typing import Union
 
-from mermaid._utils import text_to_snake_case
+from mermaid.utils import text_to_snake_case
 
 
 class Actor:
