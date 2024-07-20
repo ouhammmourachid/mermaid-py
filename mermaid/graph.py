@@ -6,7 +6,6 @@ different types of diagrams such as flowcharts, ER diagrams, etc.
 Classes:
     Graph: Represents a base class for different types of diagrams.
 """
-import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
