@@ -23,6 +23,10 @@ class TestGraph(unittest.TestCase):
         self.graph_test.save(Path('./test-graph-file.mmd'))
         self.assertTrue(Path.exists(Path('./test-graph-file.mmd')))
 
+    def test_save_graph_with_path_str(self) -> None:
+        self.graph_test.save('./test-graph-str-path.mmd')
+        self.assertTrue(Path.exists(Path('./test-graph-str-path.mmd')))
+
     def test_save_graph_name_contain_space(self) -> None:
         self.graph_test.title = 'test graph file'
         self.graph_test.save(Path('./test graph file.mmd'))
@@ -40,4 +44,6 @@ class TestGraph(unittest.TestCase):
             os.remove('./test-graph-file.mmd')
         if os.path.exists('./test graph file.mmd'):
             os.remove('./test graph file.mmd')
+        if os.path.exists('./test-graph-str-path.mmd'):
+            os.remove('./test-graph-str-path.mmd')
         return super().tearDown()
