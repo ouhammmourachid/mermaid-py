@@ -11,7 +11,10 @@ from .graph import Graph
 
 class Position(Enum):
     """
-    This class represents the position of the node in a Mermaid diagram.
+    Position class
+    =================
+
+    This class is an enumeration of the possible positions of the node in the Mermaid diagram.
     """
     LEFT = 'left'
     RIGHT = 'right'
@@ -21,21 +24,72 @@ class Position(Enum):
 
 class Mermaid:
     """
-    This class represents a Mermaid diagram.
+    Mermaid class
+    =================
+
+    This class call the Mermaid API to render the Mermaid diagram script
+    into SVG and IMG formats.
 
     Attributes:
-        _diagram (str): The base64 encoded string of the Mermaid diagram script.
-        svg_response (Response): The response from the GET request to the Mermaid SVG API.
-        img_response (Response): The response from the GET request to the Mermaid IMG API.
+    ------------
+
+    _diagram : str
+        The base64 encoded string of the Mermaid diagram script.
+    __position : str
+        The position of the node in the Mermaid diagram.
+    svg_response : Response
+        The response object of the GET request to the Mermaid SVG API.
+    img_response : Response
+        The response object of the GET request to the Mermaid IMG API.
+    
+    Methods:
+    --------
+
+    set_position(position: Union[Position, str]):
+        Set the position of the node in the Mermaid diagram.
+    to_svg(path: Union[str, Path]):
+        Write the SVG response text to a file.
+    to_png(path: Union[str, Path]):
+        Write the IMG response content to a file.
+    
+    Example:
+    --------
+
+    >>> from mermaid import Graph, Mermaid
+    >>> graph = Graph('graph TD\\nA-->B')
+    >>> # Create a Mermaid object
+    >>> mermaid = Mermaid(graph)
+    >>> # save the SVG response to a file
+    >>> mermaid.to_svg('./mermaid.svg')
+
     """
     def __init__(self,
                  graph: Graph,
                  position: Union[Position, str] = Position.NONE):
         """
-        The constructor for the Mermaid class.
+        Initialize the Mermaid object.
 
         Parameters:
-            graph (Graph): The Graph object containing the Mermaid diagram script.
+        -----------
+        graph : Graph
+            The Mermaid graph object.
+        position : Union[Position, str]
+            The position of the node in the Mermaid diagram.
+        
+        Raises:
+        -------
+        TypeError:
+            If the position is not a string or an instance of the Position enum.
+        
+        Examples:
+        ---------
+        >>> from mermaid import Graph, Mermaid, Position
+        >>> graph = Graph('graph TD\\nA-->B')
+        >>> # Create a Mermaid object without a position
+        >>> mermaid = Mermaid(graph)
+        >>> # Create a Mermaid object with a position
+        >>> mermaid = Mermaid(graph, Position.LEFT)
+        
         """
         self.__position: str = position if isinstance(position,
                                                       str) else position.value
@@ -47,7 +101,23 @@ class Mermaid:
         Set the position of the node in the Mermaid diagram.
 
         Parameters:
-            position (Union[Position, str]): The position of the node.
+        -----------
+        position : Union[Position, str]
+            The position of the node in the Mermaid diagram.
+        
+        Raises:
+        -------
+        TypeError:
+            If the position is not a string or an instance of the Position enum.
+        
+        Example:
+        --------
+        >>> from mermaid import Graph, Mermaid
+        >>> graph = Graph('graph TD\\nA-->B')
+        >>> # Create a Mermaid object
+        >>> mermaid = Mermaid(graph)
+        >>> # Set the position of the node in the Mermaid diagram
+        >>> mermaid.set_position('left')
         """
         self.__position = position if isinstance(position,
                                                  str) else position.value
@@ -94,7 +164,17 @@ class Mermaid:
         Write the SVG response text to a file.
 
         Parameters:
-            path (Union[str, Path]): The path of the file to write to.
+        -----------
+
+        path : Path or str
+            The path of the file to write to.
+        
+        Example:
+        --------
+        >>> from mermaid import Graph, Mermaid
+        >>> mermaid = Mermaid(Graph('graph TD\\nA-->B'))
+        >>> # Save the SVG response to a file
+        >>> mermaid.to_svg('./mermaid.svg')
         """
         with open(path, 'w', encoding='utf-8') as file:
             file.write(self.svg_response.text)
@@ -104,7 +184,16 @@ class Mermaid:
         Write the IMG response content to a file.
 
         Parameters:
-            path (Union[str, Path]): The path of the file to write to.
+        -----------
+        path : Path or str
+            The path of the file to write to.
+        
+        Example:
+        --------
+        >>> from mermaid import Graph, Mermaid
+        >>> mermaid = Mermaid(Graph('graph TD\\nA-->B'))
+        >>> # Save the IMG response to a file
+        >>> mermaid.to_png('./mermaid.png')
         """
         with open(path, 'wb') as file:
             file.write(self.img_response.content)
