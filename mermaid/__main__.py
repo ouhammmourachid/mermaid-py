@@ -1,7 +1,7 @@
 import base64
 from enum import Enum
 from pathlib import Path
-from typing import Union
+from typing import Union, Optional
 
 import requests
 from requests import Response
@@ -30,6 +30,9 @@ class Mermaid:
     """
     def __init__(self,
                  graph: Graph,
+                 width: Optional[int] = None,
+                 height: Optional[int] = None,
+                 scale: Optional[int] = None,
                  position: Union[Position, str] = Position.NONE):
         """
         The constructor for the Mermaid class.
@@ -40,6 +43,7 @@ class Mermaid:
         self.__position: str = position if isinstance(position,
                                                       str) else position.value
         self._diagram = self._process_diagram(graph.script)
+        self.width, self.height, self.scale = width, height, scale
         self._make_request_to_mermaid()
 
     def set_position(self, position: Union[Position, str]) -> None:
@@ -84,6 +88,17 @@ class Mermaid:
         Make GET requests to the Mermaid SVG and IMG APIs using
         the base64 encoded string of the Mermaid diagram script.
         """
+        # update self._diagram with optional query strings based on self.width, self.height, self.scale. All three are optional and can be used all at once, so the query string needs to be valid
+
+        query_string = ''
+        for param, value in [('width', self.width), ('height', self.height), ('scale', self.scale)]:
+            if value is not None:
+                query_string += f'&{param}={value}'
+        if query_string.startswith('&'):
+            query_string = '?' + query_string[1:]
+
+        self._diagram += query_string
+
         self.svg_response: Response = requests.get('https://mermaid.ink/svg/' +
                                                    self._diagram)
         self.img_response: Response = requests.get('https://mermaid.ink/img/' +
