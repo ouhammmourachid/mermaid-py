@@ -7,9 +7,10 @@ class Risk(Enum):
 
     This enum represents the different levels of risk associated with a requirement in a requirement diagram.
     """
-    LOW = 'Low'
-    MEDIUM = 'Medium'
-    HIGH = 'High'
+
+    LOW = "Low"
+    MEDIUM = "Medium"
+    HIGH = "High"
 
 
 class VerifyMethod(Enum):
@@ -17,24 +18,26 @@ class VerifyMethod(Enum):
 
     This enum represents the different methods of verifying a requirement in a requirement diagram.
     """
-    ANALYSIS = 'Analysis'
-    INSPECTION = 'Inspection'
-    TEST = 'Test'
-    DEMONSTRATION = 'Demonstration'
+
+    ANALYSIS = "Analysis"
+    INSPECTION = "Inspection"
+    TEST = "Test"
+    DEMONSTRATION = "Demonstration"
 
 
 class Type(Enum):
     """Return a string representation of the link.
 
-        Returns:
-            str: A string representation of the link.
+    Returns:
+        str: A string representation of the link.
     """
-    REQUIREMENT = 'requirement'
-    FUNCTIONAL = 'functionalRequirement'
-    INTERFACE = 'interfaceRequirement'
-    PERFORMANCE = 'performanceRequirement'
-    PHYSICAL = 'physicalRequirement'
-    DESIGN_CONSTRAINT = 'designConstraint'
+
+    REQUIREMENT = "requirement"
+    FUNCTIONAL = "functionalRequirement"
+    INTERFACE = "interfaceRequirement"
+    PERFORMANCE = "performanceRequirement"
+    PHYSICAL = "physicalRequirement"
+    DESIGN_CONSTRAINT = "designConstraint"
 
 
 class Requirement:
@@ -50,9 +53,16 @@ class Requirement:
         risk (Union[str, Risk]): The risk of the requirement.
         verifymethod (Union[str, VerifyMethod]): The verification method of the requirement.
     """
-    def __init__(self, id_: str, name: str, text: str, type_: Union[str, Type],
-                 risk: Union[str, Risk],
-                 verifymethod: Union[str, VerifyMethod]) -> None:
+
+    def __init__(
+        self,
+        id_: str,
+        name: str,
+        text: str,
+        type_: Union[str, Type],
+        risk: Union[str, Risk],
+        verifymethod: Union[str, VerifyMethod],
+    ) -> None:
         """Initialize a new Requirement.
 
         Args:
@@ -68,15 +78,16 @@ class Requirement:
         self.text: str = text
         self.type_: str = type_ if isinstance(type_, str) else type_.value
         self.risk: str = risk if isinstance(risk, str) else risk.value
-        self.verifymethod: str = verifymethod if isinstance(
-            verifymethod, str) else verifymethod.value
+        self.verifymethod: str = (
+            verifymethod if isinstance(verifymethod, str) else verifymethod.value
+        )
 
     def __str__(self) -> str:
-        string: str = ''
-        string += f'{self.type_} {self.name} {{\n'
-        string += f'\tid: {self.id_}\n'
-        string += f'\ttext: {self.text}\n'
-        string += f'\trisk: {self.risk}\n'
-        string += f'\tverifymethod: {self.verifymethod}\n'
-        string += '}\n'
+        string: str = ""
+        string += f"{self.type_} {self.name} {{\n"
+        string += f"\tid: {self.id_}\n"
+        string += f"\ttext: {self.text}\n"
+        string += f"\trisk: {self.risk}\n"
+        string += f"\tverifymethod: {self.verifymethod}\n"
+        string += "}\n"
         return string

@@ -16,10 +16,10 @@ class Transition(BaseTransition):
         to_state (State): The state to which the transition ends.
         label (str): The label of the transition.
     """
-    def __init__(self,
-                 from_: Optional[State] = None,
-                 to: Optional[State] = None,
-                 label: str = '') -> None:
+
+    def __init__(
+        self, from_: Optional[State] = None, to: Optional[State] = None, label: str = ""
+    ) -> None:
         """Initialize a new Transition.
 
         Args:
@@ -36,11 +36,10 @@ class Transition(BaseTransition):
         self.label: str = label
 
     def __str__(self):
-        """Return the string representation of the transition.
-        """
+        """Return the string representation of the transition."""
         if not self.label:
-            return f'{self.from_state.id_} --> {self.to_state.id_}'
-        return f'{self.from_state.id_} --> {self.to_state.id_} : {self.label}'
+            return f"{self.from_state.id_} --> {self.to_state.id_}"
+        return f"{self.from_state.id_} --> {self.to_state.id_} : {self.label}"
 
 
 class Choice(BaseTransition):
@@ -53,11 +52,14 @@ class Choice(BaseTransition):
         to_states (list[State]): The states to which the choice ends.
         conditions (list[str]): The conditions of the choice.
     """
-    def __init__(self,
-                 id_: str,
-                 from_: Optional[State] = None,
-                 to: Optional[list[State]] = None,
-                 conditions: Optional[list[str]] = None) -> None:
+
+    def __init__(
+        self,
+        id_: str,
+        from_: Optional[State] = None,
+        to: Optional[list[State]] = None,
+        conditions: Optional[list[str]] = None,
+    ) -> None:
         """Initialize a new Choice.
 
         Args:
@@ -69,23 +71,21 @@ class Choice(BaseTransition):
         self.id_: str = text_to_snake_case(id_)
         self.from_state: Optional[State] = from_
         self.to_states: list[State] = to if to is not None else []
-        self.conditions: list[
-            str] = conditions if conditions is not None else []
+        self.conditions: list[str] = conditions if conditions is not None else []
 
     def __str__(self) -> str:
-        """Return the string representation of the choice.
-        """
-        string: str = f'state {self.id_} <<choice>>'
+        """Return the string representation of the choice."""
+        string: str = f"state {self.id_} <<choice>>"
 
         if self.from_state:
-            string += f'\n{self.from_state.id_} --> {self.id_}'
+            string += f"\n{self.from_state.id_} --> {self.id_}"
 
         for state in self.to_states:
-            string += f'\n{self.id_} --> {state.id_}'
+            string += f"\n{self.id_} --> {state.id_}"
             index = self.to_states.index(state)
             # check if there is a condition for the transition
             if len(self.conditions) > index:
-                string += f' : {self.conditions[index]}'
+                string += f" : {self.conditions[index]}"
 
         return string
 
@@ -99,10 +99,10 @@ class Fork(BaseTransition):
         from_state (State): The state from which the fork starts.
         to_states (list[State]): The states to which the fork ends.
     """
-    def __init__(self,
-                 id_: str,
-                 from_: Optional[State] = None,
-                 to: Optional[list[State]] = None) -> None:
+
+    def __init__(
+        self, id_: str, from_: Optional[State] = None, to: Optional[list[State]] = None
+    ) -> None:
         """Initialize a new Fork.
 
         Args:
@@ -115,15 +115,14 @@ class Fork(BaseTransition):
         self.to_states: list[State] = to if to is not None else []
 
     def __str__(self) -> str:
-        """Return the string representation of the fork.
-        """
-        string: str = f'state {self.id_} <<fork>>'
+        """Return the string representation of the fork."""
+        string: str = f"state {self.id_} <<fork>>"
 
         if self.from_state:
-            string += f'\n{self.from_state.id_} --> {self.id_}'
+            string += f"\n{self.from_state.id_} --> {self.id_}"
 
         for state in self.to_states:
-            string += f'\n{self.id_} --> {state.id_}'
+            string += f"\n{self.id_} --> {state.id_}"
 
         return string
 
@@ -137,10 +136,10 @@ class Join(BaseTransition):
         from_states (list[State]): The states from which the join starts.
         to_state (State): The state to which the join ends.
     """
-    def __init__(self,
-                 id_: str,
-                 from_: Optional[list[State]] = None,
-                 to: Optional[State] = None) -> None:
+
+    def __init__(
+        self, id_: str, from_: Optional[list[State]] = None, to: Optional[State] = None
+    ) -> None:
         """Initialize a new Join.
 
         Args:
@@ -153,14 +152,13 @@ class Join(BaseTransition):
         self.to_state: Optional[State] = to
 
     def __str__(self) -> str:
-        """Return the string representation of the join.
-        """
-        string: str = f'state {self.id_} <<join>>'
+        """Return the string representation of the join."""
+        string: str = f"state {self.id_} <<join>>"
 
         for state in self.from_states:
-            string += f'\n{state.id_} --> {self.id_}'
+            string += f"\n{state.id_} --> {self.id_}"
 
         if self.to_state:
-            string += f'\n{self.id_} --> {self.to_state.id_}'
+            string += f"\n{self.id_} --> {self.to_state.id_}"
 
         return string

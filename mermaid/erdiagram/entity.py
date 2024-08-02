@@ -10,11 +10,10 @@ class Entity:
         name (str): The name of the entity.
         attributes (list[str]): The attributes of the entity.
     """
+
     def __init__(
-            self,
-            name: str,
-            attributes: Optional[dict[str, Union[list[str],
-                                                 str]]] = None) -> None:
+        self, name: str, attributes: Optional[dict[str, Union[list[str], str]]] = None
+    ) -> None:
         """Initialize a new Entity.
 
         Args:
@@ -22,12 +21,13 @@ class Entity:
             attributes (Optional[dict[str, Union[list[str], str]]]): The attributes of the entity.
         """
         self.name: str = name
-        self.attributes: dict[str, Union[
-            list[str], str]] = attributes if attributes is not None else {}
+        self.attributes: dict[str, Union[list[str], str]] = (
+            attributes if attributes is not None else {}
+        )
 
     def __str__(self) -> str:
         string_attributes: str = self.build_attributes()
-        string: str = ''.join([self.name, '{\n', string_attributes, '}'])
+        string: str = "".join([self.name, "{\n", string_attributes, "}"])
         return string
 
     def update_attributes(self, attributes: dict[str, str]) -> None:
@@ -38,11 +38,13 @@ class Entity:
         """
         self.attributes.update(attributes)
 
-    def add_attribute(self,
-                      name: str,
-                      type_: str,
-                      constrint: Optional[str] = None,
-                      comment: Optional[str] = None) -> None:
+    def add_attribute(
+        self,
+        name: str,
+        type_: str,
+        constrint: Optional[str] = None,
+        comment: Optional[str] = None,
+    ) -> None:
         """Add an attribute to the entity.
 
         Args:
@@ -62,17 +64,17 @@ class Entity:
         Returns:
             str: The string representation of the attributes.
         """
-        string_attributes: str = ''
+        string_attributes: str = ""
         for att_name, att_def in self.attributes.items():
-            string: str = ''
+            string: str = ""
             if isinstance(att_def, str):
-                string = f'\t{att_def} {att_name}\n'
+                string = f"\t{att_def} {att_name}\n"
             else:
                 if len(att_def) == 1:
-                    string = f'{att_def[0]} {att_name}\n'
+                    string = f"{att_def[0]} {att_name}\n"
                 elif len(att_def) == 2:
-                    if att_def[1] in ['PK', 'FK', 'UK']:
-                        string = f'\t{att_def[0]} {att_name} {att_def[1]}\n'
+                    if att_def[1] in ["PK", "FK", "UK"]:
+                        string = f"\t{att_def[0]} {att_name} {att_def[1]}\n"
                     else:
                         string = f'\t{att_def[0]} {att_name} "{att_def[1]}"\n'
                 else:

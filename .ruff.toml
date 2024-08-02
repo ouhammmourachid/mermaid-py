@@ -1,0 +1,17 @@
+[lint]
+mccabe = { max-complexity = 14 }
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
+]
+ignore = [
+    "E501",  # line too long, handled by black
+    "B018",  # Found useless expression.
+]
+
+[lint.pyupgrade]
+keep-runtime-typing = true
