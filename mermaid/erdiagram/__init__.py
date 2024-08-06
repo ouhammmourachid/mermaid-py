@@ -8,6 +8,7 @@ Classes:
     Entity: Represents an entity in an ER diagram.
     Link: Represents a link between entities in an ER diagram.
 """
+
 from typing import Optional
 
 from mermaid.configuration import Config
@@ -27,11 +28,14 @@ class ERDiagram(Graph):
         links (list[Link]): The links of the ER diagram.
         config (Optional[Config]): The configuration for the ER diagram.
     """
-    def __init__(self,
-                 title: str,
-                 entities: Optional[list[Entity]] = None,
-                 links: Optional[list[Link]] = None,
-                 config: Optional[Config] = None) -> None:
+
+    def __init__(
+        self,
+        title: str,
+        entities: Optional[list[Entity]] = None,
+        links: Optional[list[Link]] = None,
+        config: Optional[Config] = None,
+    ) -> None:
         """Initialize a new ERDiagram.
 
         Args:
@@ -40,7 +44,7 @@ class ERDiagram(Graph):
             links (Optional[list[Link]]): The links of the ER diagram.
             config (Optional[Config]): The configuration for the ER diagram.
         """
-        super().__init__(title, '', config)
+        super().__init__(title, "", config)
         self.entities: list[Entity] = entities if entities is not None else []
         self.links: list[Link] = links if links is not None else []
         self._build_script()
@@ -48,12 +52,12 @@ class ERDiagram(Graph):
     def _build_script(self) -> None:
         """Build the script of the ER diagram."""
         super()._build_script()
-        script: str = '\nerDiagram'
+        script: str = "\nerDiagram"
         for entity in self.entities:
-            script += f'\n\t{entity}'
+            script += f"\n\t{entity}"
         for link in self.links:
-            script += f'\n\t{link}'
-        self.script += script + '\n'
+            script += f"\n\t{link}"
+        self.script += script + "\n"
 
 
-__all__ = ['ERDiagram', 'Entity', 'Link', 'LIST_CARDINALITIES']
+__all__ = ["ERDiagram", "Entity", "Link", "LIST_CARDINALITIES"]

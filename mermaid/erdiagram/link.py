@@ -1,10 +1,10 @@
 from .entity import Entity
 
 LIST_CARDINALITIES: dict[str, list[str]] = {
-    'zero-or-one': ['|o', 'o|'],
-    'exactly-one': ['||', '||'],
-    'zero-or-more': ['}o', 'o{'],
-    'one-or-more': ['}|', '|{'],
+    "zero-or-one": ["|o", "o|"],
+    "exactly-one": ["||", "||"],
+    "zero-or-more": ["}o", "o{"],
+    "one-or-more": ["}|", "|{"],
 }
 
 
@@ -21,13 +21,16 @@ class Link:
         right_symbol (str): The symbol at the right end of the link.
         dotted (bool): Whether the link is dotted or not.
     """
-    def __init__(self,
-                 origin: Entity,
-                 end: Entity,
-                 origin_cardinality: str,
-                 end_cardinality: str,
-                 label: str = '',
-                 dotted: bool = False) -> None:
+
+    def __init__(
+        self,
+        origin: Entity,
+        end: Entity,
+        origin_cardinality: str,
+        end_cardinality: str,
+        label: str = "",
+        dotted: bool = False,
+    ) -> None:
         """Initialize a new Link.
 
         Args:
@@ -54,5 +57,5 @@ class Link:
         Returns:
             str: A string representation of the link.
         """
-        shape: str = '..' if self.dotted else '--'
+        shape: str = ".." if self.dotted else "--"
         return f'{self.origin.name}{self.left_symbol}{shape}{self.right_symbol}{self.end.name} : "{self.label}"'

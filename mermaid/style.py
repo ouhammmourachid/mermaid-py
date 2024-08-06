@@ -15,8 +15,9 @@ class Style:
         font_weight (str): The font weight of the style definition.
         stroke_width (str): The stroke width of the style definition.
         stroke (str): The stroke color of the style definition.
-        other (str): Any other style definition sperated by ,.
+        other (str): Any other style definition separated by ,.
     """
+
     name: str
     fill: Optional[str] = None
     color: Optional[str] = None
@@ -26,21 +27,20 @@ class Style:
     other: Optional[str] = None
 
     def __str__(self) -> str:
-        """Return the string representation of the style definition.
-        """
-        string: str = f'classDef {self.name} '
+        """Return the string representation of the style definition."""
+        string: str = f"classDef {self.name} "
         if self.fill:
-            string += f',fill:{self.fill}'
+            string += f",fill:{self.fill}"
         if self.color:
-            string += f',color:{self.color}'
+            string += f",color:{self.color}"
         if self.font_weight:
-            string += f',font-weight:{self.font_weight}'
+            string += f",font-weight:{self.font_weight}"
         if self.stroke_width:
-            string += f',stroke-width:{self.stroke_width}'
+            string += f",stroke-width:{self.stroke_width}"
         if self.stroke:
-            string += f',stroke:{self.stroke}'
+            string += f",stroke:{self.stroke}"
         if self.other:
-            string += f',{self.other}'
+            string += f",{self.other}"
 
         return string
 

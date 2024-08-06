@@ -8,31 +8,23 @@ repos:
       - id: end-of-file-fixer
       - id: check-yaml
       - id: check-added-large-files
-        exclude: '^site/assets/.*'
-  - repo: https://github.com/pycqa/isort
-    rev: 5.12.0
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+  # Ruff version.
+    rev: v0.5.6
     hooks:
-      - id: isort
-        name: isort (python)
-  - repo: https://github.com/pre-commit/mirrors-yapf
-    rev: v0.31.0
-    hooks:
-      - id: yapf
-        additional_dependencies: [toml]
-  - repo: https://github.com/pycqa/flake8
-    rev: 4.0.1
-    hooks:
-      - id: flake8
-        additional_dependencies:
-          - flake8-bugbear
-          - flake8-builtins
-          - flake8-coding
-          - flake8-import-order
-          - flake8-polyfill
-          - flake8-quotes
+      # Run the linter.
+      - id: ruff
+        args: [ --fix ]
+      # Run the formatter.
+      - id: ruff-format
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: 'v1.9.0'
+    rev: 'v1.11.1'
     hooks:
       - id: mypy
         additional_dependencies: [types-requests, types-PyYAML, types-toml]
         args: ["--exclude", "requests-stubs"]
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.3.0
+    hooks:
+      - id: codespell
+        additional_dependencies: [tomli]

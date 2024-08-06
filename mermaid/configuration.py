@@ -11,11 +11,12 @@ class Themes(Enum):
     methods:
         value: returns the value of the Enum class
     """
-    DEFAULT = 'default'
-    FOREST = 'forest'
-    DARK = 'dark'
-    NEUTRAL = 'neutral'
-    BASE = 'base'
+
+    DEFAULT = "default"
+    FOREST = "forest"
+    DARK = "dark"
+    NEUTRAL = "neutral"
+    BASE = "base"
 
 
 class Config:
@@ -34,14 +35,17 @@ class Config:
         __init__: initializes the class
         __str__: returns the string representation of the class
     """
-    def __init__(self,
-                 theme: Themes = Themes.DEFAULT,
-                 primary_color: Optional[str] = None,
-                 primary_text_color: Optional[str] = None,
-                 primary_border_color: Optional[str] = None,
-                 line_color: Optional[str] = None,
-                 secondary_color: Optional[str] = None,
-                 tertiary_color: Optional[str] = None) -> None:
+
+    def __init__(
+        self,
+        theme: Themes = Themes.DEFAULT,
+        primary_color: Optional[str] = None,
+        primary_text_color: Optional[str] = None,
+        primary_border_color: Optional[str] = None,
+        line_color: Optional[str] = None,
+        secondary_color: Optional[str] = None,
+        tertiary_color: Optional[str] = None,
+    ) -> None:
         """Initializes the class
 
         args:
@@ -67,9 +71,9 @@ class Config:
         returns:
             str: string representation of the class
         """
-        string: str = '%%{\n\tinit: {\n'
+        string: str = "%%{\n\tinit: {\n"
 
-        string += f'\t\t"theme": "{self.theme.value}",\n\t\t"themeVariables": ' + '{\n'
+        string += f'\t\t"theme": "{self.theme.value}",\n\t\t"themeVariables": ' + "{\n"
         if self.primary_color:
             string += f'\t\t\t"primaryColor": "{self.primary_color}",\n'
         if self.primary_text_color:
@@ -82,8 +86,8 @@ class Config:
             string += f'\t\t\t"secondaryColor": "{self.secondary_color}",\n'
         if self.tertiary_color:
             string += f'\t\t\t"tertiaryColor": "{self.tertiary_color}",\n'
-        if string.endswith(',\n'):
-            string = string[:-2] + '\n'
-        string += '\t\t}\n'
-        string += '\t}\n}%%\n'
+        if string.endswith(",\n"):
+            string = string[:-2] + "\n"
+        string += "\t\t}\n"
+        string += "\t}\n}%%\n"
         return string

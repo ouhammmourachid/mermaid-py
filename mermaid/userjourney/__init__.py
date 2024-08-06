@@ -8,6 +8,7 @@ Classes:
     Section: Represents a section in a user's journey.
     Task: Represents a task in a section of a user's journey.
 """
+
 from typing import Optional, Union
 
 from mermaid.configuration import Config
@@ -28,10 +29,13 @@ class UserJourney(Graph):
         sections (list[Union[Section, Task]]): The sections in the user's journey.
         config (Config): The configuration for the user's journey.
     """
-    def __init__(self,
-                 title: str,
-                 sections: list[Union[Section, Task]],
-                 config: Optional[Config] = None) -> None:
+
+    def __init__(
+        self,
+        title: str,
+        sections: list[Union[Section, Task]],
+        config: Optional[Config] = None,
+    ) -> None:
         """Initialize a new UserJourney.
 
         Args:
@@ -39,7 +43,7 @@ class UserJourney(Graph):
             sections (list[Union[Section, Task]]): The sections in the user's journey.
             config (Optional[Config]): The configuration for the user's journey. Defaults to None.
         """
-        super().__init__(title, '', config)
+        super().__init__(title, "", config)
         self.title: str = title
         self.sections: list[Union[Section, Task]] = sections
         self._build_script()
@@ -47,10 +51,15 @@ class UserJourney(Graph):
     def _build_script(self) -> None:
         """Build the script for the user's journey."""
         super()._build_script()
-        script: str = f'\njourney\n\ttitle {self.title}\n'
+        script: str = f"\njourney\n\ttitle {self.title}\n"
         for section in self.sections:
-            script += f'{section}\n'
+            script += f"{section}\n"
         self.script += script
 
 
-__all__ = ['UserJourney', 'Section', 'Task']
+__all__ = [
+    "UserJourney",
+    "Section",
+    "Task",
+    "Actor",
+]
