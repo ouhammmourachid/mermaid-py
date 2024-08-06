@@ -26,8 +26,6 @@ this package works as an interface for the famous mermaid-js library that uses s
             alt="mermaid-py on snyk"/></a>
 </p>
 
-[![mermaid-py]()]()
-
 ## Description
 
 mermaid-py is a dynamic Python library designed to serve as a seamless interface for
