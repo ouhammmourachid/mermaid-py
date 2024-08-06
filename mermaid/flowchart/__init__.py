@@ -8,6 +8,7 @@ Classes:
     Node: Represents a node in a flowchart.
     Link: Represents a link between nodes in a flowchart.
 """
+
 from typing import Optional, Union
 
 from mermaid import Direction
@@ -31,12 +32,15 @@ class FlowChart(Graph):
         orientation (str): The orientation of the flowchart.
         config (Config): The configuration for the flowchart.
     """
-    def __init__(self,
-                 title: str,
-                 nodes: Optional[list[Node]] = None,
-                 links: Optional[list[Link]] = None,
-                 orientation: Union[str, Direction] = 'TB',
-                 config: Optional[Config] = None) -> None:
+
+    def __init__(
+        self,
+        title: str,
+        nodes: Optional[list[Node]] = None,
+        links: Optional[list[Link]] = None,
+        orientation: Union[str, Direction] = "TB",
+        config: Optional[Config] = None,
+    ) -> None:
         """Initialize a new FlowChart.
 
         Args:
@@ -46,9 +50,10 @@ class FlowChart(Graph):
             orientation (str): The orientation of the flowchart.
             config (Optional[Config]): The configuration for the flowchart.
         """
-        super().__init__(title, '', config)
-        self.orientation: str = orientation if isinstance(
-            orientation, str) else orientation.value
+        super().__init__(title, "", config)
+        self.orientation: str = (
+            orientation if isinstance(orientation, str) else orientation.value
+        )
         self.nodes: list[Node] = nodes if nodes is not None else []
         self.links: list[Link] = links if links is not None else []
         self.styles: set[Style] = set()
@@ -58,21 +63,21 @@ class FlowChart(Graph):
 
     def _build_script(self) -> None:
         super()._build_script()
-        script: str = f'\nflowchart {self.orientation}'
+        script: str = f"\nflowchart {self.orientation}"
         for style in self.styles:
-            script += f'\n\t{style}'
+            script += f"\n\t{style}"
 
         for node in self.nodes:
-            script += f'\n\t{node}'
+            script += f"\n\t{node}"
         for link in self.links:
-            script += f'\n\t{link}'
-        self.script += script + '\n'
+            script += f"\n\t{link}"
+        self.script += script + "\n"
 
 
 __all__ = [
-    'FlowChart',
-    'Node',
-    'Link',
-    'LinkHead',
-    'LinkShape',
+    "FlowChart",
+    "Node",
+    "Link",
+    "LinkHead",
+    "LinkShape",
 ]

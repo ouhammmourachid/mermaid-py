@@ -11,6 +11,7 @@ class Section:
         name (str): The name of the section.
         tasks (list[Task]): The tasks in the section.
     """
+
     def __init__(self, name: str, tasks: list[Task]) -> None:
         """Initialize a new Section.
 
@@ -27,7 +28,7 @@ class Section:
         Returns:
             str: A string representation of the section.
         """
-        string: str = f'\tsection {self.name}\n'
+        string: str = f"\tsection {self.name}\n"
         for task in self.tasks:
-            string += f'{task}\n'
+            string += f"{task}\n"
         return string

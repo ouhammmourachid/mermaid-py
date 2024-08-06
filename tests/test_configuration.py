@@ -1,15 +1,15 @@
 import unittest
 
-from mermaid.configuration import *
+from mermaid.configuration import Config, Themes
 
 
 class TestThemes(unittest.TestCase):
     def test_themes(self):
-        self.assertEqual('default', Themes.DEFAULT.value)
-        self.assertEqual('forest', Themes.FOREST.value)
-        self.assertEqual('dark', Themes.DARK.value)
-        self.assertEqual('neutral', Themes.NEUTRAL.value)
-        self.assertEqual('base', Themes.BASE.value)
+        self.assertEqual("default", Themes.DEFAULT.value)
+        self.assertEqual("forest", Themes.FOREST.value)
+        self.assertEqual("dark", Themes.DARK.value)
+        self.assertEqual("neutral", Themes.NEUTRAL.value)
+        self.assertEqual("base", Themes.BASE.value)
 
 
 class TestConfig(unittest.TestCase):
@@ -26,7 +26,7 @@ class TestConfig(unittest.TestCase):
         self.assertEqual(expect_str, str(config))
 
     def test_config_with_primary_color(self):
-        config = Config(primary_color='red')
+        config = Config(primary_color="red")
         expect_str = """%%{
 \tinit: {
 \t\t"theme": "default",
@@ -39,7 +39,7 @@ class TestConfig(unittest.TestCase):
         self.assertEqual(expect_str, str(config))
 
     def test_config_with_primary_text_color(self):
-        config = Config(primary_text_color='red')
+        config = Config(primary_text_color="red")
         expect_str = """%%{
 \tinit: {
 \t\t"theme": "default",
@@ -52,12 +52,14 @@ class TestConfig(unittest.TestCase):
         self.assertEqual(expect_str, str(config))
 
     def test_config_with_all_colors(self):
-        config = Config(primary_color='red',
-                        primary_text_color='red',
-                        primary_border_color='red',
-                        line_color='red',
-                        secondary_color='red',
-                        tertiary_color='red')
+        config = Config(
+            primary_color="red",
+            primary_text_color="red",
+            primary_border_color="red",
+            line_color="red",
+            secondary_color="red",
+            tertiary_color="red",
+        )
         expect_str = """%%{
 \tinit: {
 \t\t"theme": "default",

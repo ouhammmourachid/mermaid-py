@@ -14,8 +14,13 @@ class Link:
         destination (Union[Element, Requirement]): The destination of the link.
         type_ (str): The type of the link.
     """
-    def __init__(self, source: Union[Element, Requirement],
-                 destination: Union[Element, Requirement], type_: str) -> None:
+
+    def __init__(
+        self,
+        source: Union[Element, Requirement],
+        destination: Union[Element, Requirement],
+        type_: str,
+    ) -> None:
         """Initialize a new Link.
 
         Args:
@@ -33,4 +38,4 @@ class Link:
         Returns:
             str: A string representation of the link.
         """
-        return f'{self.source.name} - {self.type_} -> {self.destination.name}'
+        return f"{self.source.name} - {self.type_} -> {self.destination.name}"

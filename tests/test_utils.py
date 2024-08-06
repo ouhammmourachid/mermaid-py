@@ -8,8 +8,8 @@ from mermaid.graph import Graph
 
 class TestUtils(unittest.TestCase):
     def setUp(self) -> None:
-        self.file_test: str = './test-graph.mmd'
-        with open(self.file_test, 'w') as file:
+        self.file_test: str = "./test-graph.mmd"
+        with open(self.file_test, "w") as file:
             file.write("""graph TD;
     A-->B;
     A-->C;
@@ -19,11 +19,11 @@ class TestUtils(unittest.TestCase):
 
     def test_read_file_should_raise_error(self):
         with self.assertRaises(FileNotFoundError):
-            md.load('./file.mmd')
+            md.load("./file.mmd")
 
     def test_read_file(self):
         graph: Graph = md.load(self.file_test)
-        expect_title: str = 'test-graph'
+        expect_title: str = "test-graph"
         expect_script: str = """graph TD;
     A-->B;
     A-->C;
@@ -34,12 +34,12 @@ class TestUtils(unittest.TestCase):
 
     def test_convert_text_to_snake_case(self):
         test_cases: List[Tuple[str, str]] = [
-            ('This is my Input', 'this_is_my_input'),
-            ('Some_Underscores_in_Input_', 'some_underscores_in_input_'),
-            ('.Some.dots in Input.', '.some.dots_in_input.'),
-            ('Some-dashes-in Input', 'some-dashes-in_input'),
-            ('dots.and-dashes input', 'dots.and-dashes_input'),
-            ('other |chars*in input#', 'other__chars_in_input_'),
+            ("This is my Input", "this_is_my_input"),
+            ("Some_Underscores_in_Input_", "some_underscores_in_input_"),
+            (".Some.dots in Input.", ".some.dots_in_input."),
+            ("Some-dashes-in Input", "some-dashes-in_input"),
+            ("dots.and-dashes input", "dots.and-dashes_input"),
+            ("other |chars*in input#", "other__chars_in_input_"),
         ]
 
         for input_id, expected_out in test_cases:

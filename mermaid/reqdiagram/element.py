@@ -12,10 +12,8 @@ class Element:
         Section: Represents a section in a user's journey.
         Task: Represents a task in a section of a user's journey.
     """
-    def __init__(self,
-                 name: str,
-                 type_: str,
-                 docRef: Optional[str] = None) -> None:
+
+    def __init__(self, name: str, type_: str, docRef: Optional[str] = None) -> None:
         """Initialize a new Element.
 
         Args:
@@ -33,8 +31,8 @@ class Element:
         Returns:
             str: A string representation of the element.
         """
-        string: str = f'element {self.name} {{\n'
+        string: str = f"element {self.name} {{\n"
         string += f'\ttype: "{self.type_}"\n'
-        string += f'\tdocRef: {self.docRef}\n' if self.docRef else ''
-        string += '}\n'
+        string += f"\tdocRef: {self.docRef}\n" if self.docRef else ""
+        string += "}\n"
         return string
