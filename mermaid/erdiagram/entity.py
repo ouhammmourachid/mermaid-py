@@ -42,7 +42,7 @@ class Entity:
         self,
         name: str,
         type_: str,
-        constrint: Optional[str] = None,
+        constraint: Optional[str] = None,
         comment: Optional[str] = None,
     ) -> None:
         """Add an attribute to the entity.
@@ -52,8 +52,8 @@ class Entity:
             attribute_def (Union[list[str], str]): The definition of the attribute.
         """
         attribute_def: list[str] = [type_]
-        if constrint is not None:
-            attribute_def.append(constrint)
+        if constraint is not None:
+            attribute_def.append(constraint)
         if comment is not None:
             attribute_def.append(comment)
         self.attributes[name] = attribute_def

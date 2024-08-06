@@ -39,3 +39,9 @@ version_pattern = "MAJOR.MINOR.PATCH"
 "mermaid/__init__.py" = [
     "^__version__: str = '{version}'$",
 ]
+
+# codespell configuration
+[tool.codespell]
+skip = 'docs/*.json,docs/*.yaml,*.lock'
+count = true
+quiet-level = 3

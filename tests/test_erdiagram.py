@@ -43,8 +43,8 @@ class TestEnity(unittest.TestCase):
         attributes = {"id": "int"}
         entity = Entity("Employee", attributes)
         entity.add_attribute("age", "float")
-        entity.add_attribute("id_cos", "int", constrint="FK")
-        entity.add_attribute("phone", "string", constrint="UK", comment="phone number")
+        entity.add_attribute("id_cos", "int", constraint="FK")
+        entity.add_attribute("phone", "string", constraint="UK", comment="phone number")
         expect_attributes = {
             "id": "int",
             "age": ["float"],

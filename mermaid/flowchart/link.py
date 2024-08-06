@@ -7,7 +7,7 @@ LINK_SHAPES: dict[str, str] = {
     "normal": "--",
     "dotted": "-.-",
     "thick": "==",
-    "hiden": "~~~",
+    "hidden": "~~~",
 }
 
 LINK_HEADS: dict[str, str] = {
@@ -28,7 +28,7 @@ class LinkShape(Enum):
     NORMAL = "normal"
     DOTTED = "dotted"
     THICK = "thick"
-    HIDEN = "hiden"
+    HIDDEN = "hidden"
 
 
 class LinkHead(Enum):
@@ -77,7 +77,7 @@ class Link:
             head_right (Union[str, LinkHead]): The head of the link at the end node.
             message (str): The message of the link.
         """
-        self.oigin: Node = origin
+        self.origin: Node = origin
         self.end: Node = end
         self.head_left: str = LINK_HEADS[
             head_left if isinstance(head_left, str) else head_left.value
@@ -99,7 +99,7 @@ class Link:
         """
         if self.message:
             element: list[str] = [
-                self.oigin.id_,
+                self.origin.id_,
                 " ",
                 self.head_left,
                 self.shape,
@@ -110,7 +110,7 @@ class Link:
             ]
         else:
             element = [
-                self.oigin.id_,
+                self.origin.id_,
                 " ",
                 self.head_left,
                 self.shape,

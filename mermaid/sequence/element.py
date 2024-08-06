@@ -146,7 +146,7 @@ class Rect:
     """
 
     def __init__(self, elements: list["Rect"], color: tuple[int, ...]) -> None:
-        # FIXME: Add type hints for Link and Logic to include links annd Logics
+        # FIXME: Add type hints for Link and Logic to include links and Logics
         # and avoid the circular import
         """Initialize rect.
 

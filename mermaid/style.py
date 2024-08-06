@@ -15,7 +15,7 @@ class Style:
         font_weight (str): The font weight of the style definition.
         stroke_width (str): The stroke width of the style definition.
         stroke (str): The stroke color of the style definition.
-        other (str): Any other style definition sperated by ,.
+        other (str): Any other style definition separated by ,.
     """
 
     name: str
