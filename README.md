@@ -18,7 +18,15 @@ this package works as an interface for the famous mermaid-js library that uses s
     <a href="https://pypi.org/project/mermaid-py/">
         <img src="https://img.shields.io/pypi/pyversions/mermaid-py"
             alt="supported python version" /></a>
+    <a href="https://github.com/astral-sh/ruff">
+        <img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json"
+            alt="ruff badge"/></a>
+    <a href="https://snyk.io/advisor/python/mermaid-py">
+        <img src="https://snyk.io/advisor/python/mermaid-py/badge.svg"
+            alt="mermaid-py on snyk"/></a>
 </p>
+
+[![mermaid-py]()]()
 
 ## Description
 
