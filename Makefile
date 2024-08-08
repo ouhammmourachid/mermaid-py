@@ -1,7 +1,7 @@
 
 # variables
 POETRY_RUN		= poetry run
-PRE_COMMIT_CMD	= $(POETRY_RUN) pre-commit
+PRE_COMMIT_CMD		= $(POETRY_RUN) pre-commit
 
 .PHONY: install
 install:
