@@ -53,7 +53,7 @@ help:
 	@echo "  publish           		publish package"
 	@echo ""
 	@echo "  test              		run tests"
-	@echo "  install-pre-commit 	install pre-commit hooks"
+	@echo "  install-pre-commit 		install pre-commit hooks"
 	@echo "  lint              		run linters"
 	@echo "  coverage          		run tests with coverage"
 	@echo ""
