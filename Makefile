@@ -1,7 +1,7 @@
 
 # variables
-POETRY_RUN		= poetry run
-PRE_COMMIT_CMD		= $(POETRY_RUN) pre-commit
+POETRY_RUN		:= poetry run
+PRE_COMMIT_CMD		:= $(POETRY_RUN) pre-commit
 
 .PHONY: install
 install:
@@ -42,3 +42,21 @@ bumpversion:
 	$(POETRY_RUN) bumpver update --$(name)
 %:
 	@:
+
+.PHONY: help
+help:
+	@echo "run 'make <target>' where <target> is one of the following:"
+	@echo ""
+	@echo "  install           		install dependencies"
+	@echo "  update            		update dependencies"
+	@echo "  build             		build package"
+	@echo "  publish           		publish package"
+	@echo ""
+	@echo "  test              		run tests"
+	@echo "  install-pre-commit 		install pre-commit hooks"
+	@echo "  lint              		run linters"
+	@echo "  coverage          		run tests with coverage"
+	@echo ""
+	@echo "  bumpversion       		bump version"
+	@echo "  help              		show this help message"
+	@echo ""
