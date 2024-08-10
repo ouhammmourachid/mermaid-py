@@ -35,27 +35,34 @@ and visualizations directly within their Python environments.
 
 
 ## Examples
-first install `mermaid-py` by `pip install mermaid-py`.
+
+first install the package using pip:
+
+```bash
+pip install mermaid-py
+```
+
 - using `Mermaid` and `Graph` classes:
 ```python
 import mermaid as md
 from mermaid.graph import Graph
 
-graph: Graph = Graph('example-flowchart',"""
-flowchart TD
-    A[Christmas] -->|Get money| B(Go shopping)
-    B --> C{Let me think}
-    C -->|One| D[Laptop]
-    C -->|Two| E[iPhone]
-    C -->|Three| F[fa:fa-car Car]
+graph = Graph('example-flowchart',"""
+stateDiagram-v2
+    [*] --> Still
+    Still --> [*]
+
+    Still --> Moving
+    Moving --> Still
+    Moving --> Crash
+    Crash --> [*]
 """)
-graphe: md.Mermaid = md.Mermaid(graph)
-graphe # !! note this only works in the notebook that rendered the html.
+rendered_graph = md.Mermaid(graph)
+rendered_graph # !! note this only works in the notebook that rendered the html.
 ```
-the result will be like this
 
 <p align="center">
-   <img src="https://github.com/ouhammmourachid/mermaid-py/assets/93659459/e20f353a-135d-4aa2-bb91-04bedeee36a0" alt="Example Flowchart"
+   <img src="https://github.com/user-attachments/assets/8476ec24-b41f-4a88-9c30-a2478a2c0fd8" alt="Example Flowchart"
     style="width: 30%;">
 </p>
 
@@ -67,7 +74,6 @@ flowchart LR
     A-->B
     B-->C
 ```
-the result:
 
 <p align="center">
     <img src="https://github.com/ouhammmourachid/mermaid-py/assets/93659459/d4d1b993-a33d-4eb0-82ae-2ad39bf30e90" alt="Example Flowchart"
@@ -87,21 +93,6 @@ diagram
 - more examples on [mermaid](https://www.kaggle.com/code/ouhammourachid/mermaid-py) and [test-mermaid](https://www.kaggle.com/code/ouhammourachid/testing-mermaid-py)
 
 
-## Technologies Used
-
-- Python3
-- Poetry
-
-## To contribute to `mermaid-py`
-
-If you'd like to contribute to this open source project follow this steps:
-
-1. Forke the repo and then clone it.
-2. Navigate to the project directory: `cd mermaid-py`.
-3. create a local environment `python3 -m venv env`.
-4. activate the env `source env/bin/activate`.
-5. install the dependencies `poetry install`.
-6. happy coding :) .
 
 ## List of Diagrames
 - [x] [~~FlowChart~~](https://mermaid.js.org/syntax/flowchart.html)
