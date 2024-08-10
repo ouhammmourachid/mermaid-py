@@ -62,8 +62,7 @@ rendered_graph # !! note this only works in the notebook that rendered the html.
 ```
 
 <p align="center">
-   <img src="https://github.com/user-attachments/assets/8476ec24-b41f-4a88-9c30-a2478a2c0fd8" alt="Example Flowchart"
-    style="width: 50%;">
+   <img src="https://github.com/user-attachments/assets/8476ec24-b41f-4a88-9c30-a2478a2c0fd8" alt="Example Flowchart">
 </p>
 
 - using `mermaidjs` magic function in a notebook first `import mermaid as md`:
