@@ -62,7 +62,8 @@ rendered_graph # !! note this only works in the notebook that rendered the html.
 ```
 
 <p align="center">
-   <img src="https://github.com/user-attachments/assets/8476ec24-b41f-4a88-9c30-a2478a2c0fd8" alt="Example Flowchart">
+   <img src="https://github.com/user-attachments/assets/8476ec24-b41f-4a88-9c30-a2478a2c0fd8" alt="Example Flowchart"
+    style="width: 20%;">
 </p>
 
 - using `mermaidjs` magic function in a notebook first `import mermaid as md`:
@@ -76,7 +77,7 @@ flowchart LR
 
 <p align="center">
     <img src="https://github.com/ouhammmourachid/mermaid-py/assets/93659459/d4d1b993-a33d-4eb0-82ae-2ad39bf30e90" alt="Example Flowchart"
-    style="width: 50%;">
+    style="width: 20%;">
 </p>
 
 - using `FlowChart` etc ...
