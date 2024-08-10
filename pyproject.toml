@@ -37,7 +37,7 @@ version_pattern = "MAJOR.MINOR.PATCH"
     'version = "{version}"$'
 ]
 "mermaid/__init__.py" = [
-    "^__version__: str = '{version}'$",
+    '^__version__: str = "{version}"$',
 ]
 
 # codespell configuration
