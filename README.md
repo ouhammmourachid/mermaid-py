@@ -47,7 +47,7 @@ pip install mermaid-py
 import mermaid as md
 from mermaid.graph import Graph
 
-graph = Graph('example-flowchart',"""
+sequence = Graph('Sequence-diagram',"""
 stateDiagram-v2
     [*] --> Still
     Still --> [*]
@@ -57,8 +57,8 @@ stateDiagram-v2
     Moving --> Crash
     Crash --> [*]
 """)
-rendered_graph = md.Mermaid(graph)
-rendered_graph # !! note this only works in the notebook that rendered the html.
+render = md.Mermaid(sequence)
+render # !! note this only works in the notebook that rendered the html.
 ```
 
 <p align="center">
