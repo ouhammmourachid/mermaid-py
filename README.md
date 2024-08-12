@@ -69,7 +69,7 @@ render # !! note this only works in the notebook that rendered the html.
 - using `mermaidjs` magic function in a notebook first `import mermaid as md`:
 
 ```python
-%%mermaidjs # with --img flag in case your natebook doesn't render html
+%%mermaidjs # with --img flag in case your notebook doesn't render HTML
 flowchart LR
     A-->B
     B-->C
