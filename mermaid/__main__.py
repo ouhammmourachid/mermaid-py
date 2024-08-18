@@ -1,7 +1,7 @@
 import base64
 from enum import Enum
 from pathlib import Path
-from typing import Union, Optional
+from typing import Optional, Union
 
 import requests
 from requests import Response
@@ -29,12 +29,15 @@ class Mermaid:
         svg_response (Response): The response from the GET request to the Mermaid SVG API.
         img_response (Response): The response from the GET request to the Mermaid IMG API.
     """
-    def __init__(self,
-                 graph: Graph,
-                 width: Optional[int] = None,
-                 height: Optional[int] = None,
-                 scale: Optional[int] = None,
-                 position: Union[Position, str] = Position.NONE):
+
+    def __init__(
+        self,
+        graph: Graph,
+        width: Optional[int] = None,
+        height: Optional[int] = None,
+        scale: Optional[int] = None,
+        position: Union[Position, str] = Position.NONE,
+    ):
         """
         The constructor for the Mermaid class.
 
@@ -91,19 +94,25 @@ class Mermaid:
         """
         # update self._diagram with optional query strings based on self.width, self.height, self.scale. All three are optional and can be used all at once, so the query string needs to be valid
 
-        query_string = ''
-        for param, value in [('width', self.width), ('height', self.height), ('scale', self.scale)]:
+        query_string = ""
+        for param, value in [
+            ("width", self.width),
+            ("height", self.height),
+            ("scale", self.scale),
+        ]:
             if value is not None:
-                query_string += f'&{param}={value}'
-        if query_string.startswith('&'):
-            query_string = '?' + query_string[1:]
+                query_string += f"&{param}={value}"
+        if query_string.startswith("&"):
+            query_string = "?" + query_string[1:]
 
         self._diagram += query_string
 
-        self.svg_response: Response = requests.get('https://mermaid.ink/svg/' +
-                                                   self._diagram)
-        self.img_response: Response = requests.get('https://mermaid.ink/img/' +
-                                                   self._diagram)
+        self.svg_response: Response = requests.get(
+            "https://mermaid.ink/svg/" + self._diagram
+        )
+        self.img_response: Response = requests.get(
+            "https://mermaid.ink/img/" + self._diagram
+        )
 
     def to_svg(self, path: Union[str, Path]) -> None:
         """
