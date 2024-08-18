@@ -13,10 +13,11 @@ class Position(Enum):
     """
     This class represents the position of the node in a Mermaid diagram.
     """
-    LEFT = 'left'
-    RIGHT = 'right'
-    CENTER = 'center'
-    NONE = 'none'
+
+    LEFT = "left"
+    RIGHT = "right"
+    CENTER = "center"
+    NONE = "none"
 
 
 class Mermaid:
@@ -40,8 +41,7 @@ class Mermaid:
         Parameters:
             graph (Graph): The Graph object containing the Mermaid diagram script.
         """
-        self.__position: str = position if isinstance(position,
-                                                      str) else position.value
+        self.__position: str = position if isinstance(position, str) else position.value
         self._diagram = self._process_diagram(graph.script)
         self.width, self.height, self.scale = width, height, scale
         self._make_request_to_mermaid()
@@ -53,8 +53,7 @@ class Mermaid:
         Parameters:
             position (Union[Position, str]): The position of the node.
         """
-        self.__position = position if isinstance(position,
-                                                 str) else position.value
+        self.__position = position if isinstance(position, str) else position.value
 
     @staticmethod
     def _process_diagram(diagram: str) -> str:
@@ -67,9 +66,9 @@ class Mermaid:
         Returns:
             str: The base64 encoded string of the Mermaid diagram script.
         """
-        graphbytes = diagram.encode('utf8')
+        graphbytes = diagram.encode("utf8")
         base64_bytes = base64.b64encode(graphbytes)
-        diagram = base64_bytes.decode('ascii')
+        diagram = base64_bytes.decode("ascii")
         return diagram
 
     def _repr_html_(self) -> str:
@@ -81,7 +80,9 @@ class Mermaid:
         """
         if self.__position == Position.NONE.value:
             return self.svg_response.text
-        return f'<div style="text-align:{self.__position}">{self.svg_response.text}</div>'
+        return (
+            f'<div style="text-align:{self.__position}">{self.svg_response.text}</div>'
+        )
 
     def _make_request_to_mermaid(self) -> None:
         """
@@ -111,7 +112,7 @@ class Mermaid:
         Parameters:
             path (Union[str, Path]): The path of the file to write to.
         """
-        with open(path, 'w', encoding='utf-8') as file:
+        with open(path, "w", encoding="utf-8") as file:
             file.write(self.svg_response.text)
 
     def to_png(self, path: Union[str, Path]) -> None:
@@ -121,12 +122,13 @@ class Mermaid:
         Parameters:
             path (Union[str, Path]): The path of the file to write to.
         """
-        with open(path, 'wb') as file:
+        with open(path, "wb") as file:
             file.write(self.img_response.content)
 
 
 try:
     from IPython import get_ipython
+
     if get_ipython() is not None:
         from IPython.core.magic import register_cell_magic
         from IPython.display import Image, display
@@ -135,14 +137,14 @@ try:
         def mermaidjs(line, cell):
             options = line.strip().split()
             script: str = cell.strip()
-            graph: Graph = Graph('mermaid diagram', script)
+            graph: Graph = Graph("mermaid diagram", script)
             mermaid: Mermaid = Mermaid(graph)
-            if '--img' in options:
+            if "--img" in options:
                 display(Image(mermaid.img_response.content))
             else:
                 display(Mermaid(graph))
 
-        get_ipython().register_magic_function(mermaidjs, magic_kind='cell')
+        get_ipython().register_magic_function(mermaidjs, magic_kind="cell")
 except ImportError:
     # TODO: add a suitible handler for exception.
-    print('Error acured while importing mermaidjs .')
+    print("Error acured while importing mermaidjs .")

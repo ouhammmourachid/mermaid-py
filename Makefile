@@ -1,3 +1,8 @@
+
+# variables
+POETRY_RUN		:= poetry run
+PRE_COMMIT_CMD		:= $(POETRY_RUN) pre-commit
+
 .PHONY: install
 install:
 	poetry install
@@ -16,24 +21,42 @@ publish:
 
 .PHONY: test
 test:
-	poetry run pytest
+	$(POETRY_RUN) pytest
 
 .PHONY: install-pre-commit
 install-pre-commit:
-	poetry run pre-commit uninstall && poetry run pre-commit install
+	$(PRE_COMMIT_CMD) uninstall && $$(PRE_COMMIT_CMD) install
 
 .PHONY: lint
 lint:
-	poetry run pre-commit run --all-files
+	$(PRE_COMMIT_CMD) run --all-files
 
 
 .PHONY: coverage
 coverage:
-	poetry run pytest --cov ./mermaid --cov-report=xml
+	$(POETRY_RUN) pytest --cov ./mermaid --cov-report=xml
 
 .PHONY: bumpversion
 bumpversion:
 	$(eval name=$(filter-out $@,$(MAKECMDGOALS)))
-	poetry run bumpver update --$(name)
+	$(POETRY_RUN) bumpver update --$(name)
 %:
 	@:
+
+.PHONY: help
+help:
+	@echo "run 'make <target>' where <target> is one of the following:"
+	@echo ""
+	@echo "  install           		install dependencies"
+	@echo "  update            		update dependencies"
+	@echo "  build             		build package"
+	@echo "  publish           		publish package"
+	@echo ""
+	@echo "  test              		run tests"
+	@echo "  install-pre-commit 		install pre-commit hooks"
+	@echo "  lint              		run linters"
+	@echo "  coverage          		run tests with coverage"
+	@echo ""
+	@echo "  bumpversion       		bump version"
+	@echo "  help              		show this help message"
+	@echo ""

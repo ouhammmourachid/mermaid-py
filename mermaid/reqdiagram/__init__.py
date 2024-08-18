@@ -9,12 +9,15 @@ Classes:
     Link: Represents a link between elements or requirements in a requirement diagram.
     Requirement: Represents a requirement in a requirement diagram.
 """
+
+from typing import Optional
+
 from mermaid.configuration import Config
 from mermaid.graph import Graph
 
-from .element import *
-from .link import *
-from .requirement import *
+from .element import Element
+from .link import Link
+from .requirement import Requirement, Risk, Type, VerifyMethod
 
 
 class RequirementDiagram(Graph):
@@ -29,12 +32,15 @@ class RequirementDiagram(Graph):
         links (list[Link]): The links between elements and requirements in the diagram.
         config (Config): The configuration for the requirement diagram.
     """
-    def __init__(self,
-                 title: str,
-                 elements: list[Element],
-                 requirements: list[Requirement],
-                 links: list[Link],
-                 config: Optional[Config] = None) -> None:
+
+    def __init__(
+        self,
+        title: str,
+        elements: list[Element],
+        requirements: list[Requirement],
+        links: list[Link],
+        config: Optional[Config] = None,
+    ) -> None:
         """Initialize a new RequirementDiagram.
 
         Args:
@@ -44,27 +50,33 @@ class RequirementDiagram(Graph):
             links (list[Link]): The links between elements and requirements in the diagram.
             config (Optional[Config]): The configuration for the diagram. Defaults to None.
         """
-        super().__init__(title, '', config)
+        super().__init__(title, "", config)
         self.elements: list[Element] = elements if elements is not None else []
-        self.requirements: list[
-            Requirement] = requirements if requirements is not None else []
+        self.requirements: list[Requirement] = (
+            requirements if requirements is not None else []
+        )
         self.links: list[Link] = links if links is not None else []
         self._build_script()
 
     def _build_script(self) -> None:
         super()._build_script()
-        script: str = '\nrequirementDiagram\n'
+        script: str = "\nrequirementDiagram\n"
         for element in self.elements:
-            script += str(element) + '\n'
+            script += str(element) + "\n"
         for requirement in self.requirements:
-            script += str(requirement) + '\n'
+            script += str(requirement) + "\n"
 
         for link in self.links:
-            script += f'{link}\n'
+            script += f"{link}\n"
         self.script += script
 
 
 __all__ = [
-    'RequirementDiagram', 'Element', 'Link', 'Requirement', 'Risk',
-    'VerifyMethod', 'Type'
+    "RequirementDiagram",
+    "Element",
+    "Link",
+    "Requirement",
+    "Risk",
+    "VerifyMethod",
+    "Type",
 ]

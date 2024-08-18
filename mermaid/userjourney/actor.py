@@ -10,4 +10,5 @@ class Actor:
     Attributes:
         name (str): The name of the actor.
     """
+
     name: str

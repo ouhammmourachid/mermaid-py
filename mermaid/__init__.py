@@ -10,6 +10,7 @@ Functions:
     load(file_path): Load data from a file.
     text_to_snake_case(text): Convert a string of text to snake case.
 """
+
 from enum import Enum
 
 from .__main__ import Mermaid, Position
@@ -19,18 +20,26 @@ from .icon import Icon
 from .style import Style
 from .utils import load, text_to_snake_case
 
-__version__: str = '0.5.2'
+__version__: str = "0.5.3"
 
 
 class Direction(Enum):
     """Enum for representing the direction of a Mermaid diagram."""
-    LEFT_TO_RIGHT = 'LR'
-    RIGHT_TO_LEFT = 'RL'
-    TOP_TO_BOTTOM = 'TB'
-    BOTTOM_TO_TOP = 'BT'
+
+    LEFT_TO_RIGHT = "LR"
+    RIGHT_TO_LEFT = "RL"
+    TOP_TO_BOTTOM = "TB"
+    BOTTOM_TO_TOP = "BT"
 
 
 __all__ = [
-    'Mermaid', 'load', 'Direction', 'Graph', 'Style', 'Config', 'Icon',
-    'Position'
+    "Mermaid",
+    "load",
+    "Direction",
+    "Graph",
+    "Style",
+    "Config",
+    "Icon",
+    "Position",
+    "text_to_snake_case",
 ]
