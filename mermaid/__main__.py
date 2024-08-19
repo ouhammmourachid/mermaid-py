@@ -1,7 +1,8 @@
 import base64
 from enum import Enum
 from pathlib import Path
-from typing import Union
+from typing import Optional, Union
+from urllib.parse import urlencode
 
 import requests
 from requests import Response
@@ -30,16 +31,55 @@ class Mermaid:
         img_response (Response): The response from the GET request to the Mermaid IMG API.
     """
 
-    def __init__(self, graph: Graph, position: Union[Position, str] = Position.NONE):
+    def __init__(
+        self,
+        graph: Graph,
+        width: Optional[int] = None,
+        height: Optional[int] = None,
+        scale: Optional[float] = None,
+        position: Union[Position, str] = Position.NONE,
+    ):
         """
         The constructor for the Mermaid class.
 
         Parameters:
             graph (Graph): The Graph object containing the Mermaid diagram script.
+            width (Optional[int]): The width of the SVG image.
+            height (Optional[int]): The height of the SVG image.
+            scale (Optional[float]): The scale of the SVG image.
+                Must be an float between 1 and 3, and one of height or width must be provided.
+            position (Union[Position, str]): The position of the node in the Mermaid diagram.
         """
+        if scale:
+            assert 1 <= scale <= 3, "Scale must be between 1 and 3"
+            assert any(
+                [width, height]
+            ), "One or both of width and height must be provided"
+
         self.__position: str = position if isinstance(position, str) else position.value
+        self.__height = height if height else None
+        self.__width = width if width else None
+        self.__scale = scale if scale else None
+
         self._diagram = self._process_diagram(graph.script)
+
+        if any([self.__width, self.__height, self.__scale]):
+            self._diagram += "?" + self._build_query_params()
         self._make_request_to_mermaid()
+
+    def _build_query_params(self) -> str:
+        """Build the query parameters for the Mermaid API request."""
+        params = {
+            param: value
+            for param, value in [
+                ("width", self.__width),
+                ("height", self.__height),
+                ("scale", self.__scale),
+            ]
+            if value
+        }
+
+        return urlencode(params, doseq=True)
 
     def set_position(self, position: Union[Position, str]) -> None:
         """
@@ -84,6 +124,7 @@ class Mermaid:
         Make GET requests to the Mermaid SVG and IMG APIs using
         the base64 encoded string of the Mermaid diagram script.
         """
+
         self.svg_response: Response = requests.get(
             "https://mermaid.ink/svg/" + self._diagram
         )
