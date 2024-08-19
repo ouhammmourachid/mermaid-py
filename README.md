@@ -105,13 +105,14 @@ diagram
 - [x] [~~Pie Chart~~](https://mermaid.js.org/syntax/pie.html)
 - [ ] [Quadrant Chart](https://mermaid.js.org/syntax/quadrantChart.html)
 - [x] [~~Requirement Diagram~~](https://mermaid.js.org/syntax/requirementDiagram.html)
-- [ ] [Gitgraph (Git) Diagram 🔥](https://mermaid.js.org/syntax/gitgraph.html)
+- [ ] [Gitgraph (Git) Diagram](https://mermaid.js.org/syntax/gitgraph.html)
 - [ ] [C4 Diagram 🦺⚠️](https://mermaid.js.org/syntax/c4.html)
 - [x] [~~Mindmaps~~](https://mermaid.js.org/syntax/mindmap.html)
-- [ ] [Timeline 🔥](https://mermaid.js.org/syntax/timeline.html)
-- [ ] [Zenuml 🔥](https://mermaid.js.org/syntax/zenuml.html)
-- [ ] [Sankey 🔥](https://mermaid.js.org/syntax/sankey.html)
-- [ ] [XYChart 🔥](https://mermaid.js.org/syntax/xychart.html)
+- [ ] [Timeline](https://mermaid.js.org/syntax/timeline.html)
+- [ ] [Zenuml](https://mermaid.js.org/syntax/zenuml.html)
+- [ ] [Sankey](https://mermaid.js.org/syntax/sankey.html)
+- [ ] [XYChart 🔥](https://mermaid.js.org/syntax/xyChart.html)
+- [ ] [Block Diagram 🔥](https://mermaid.js.org/syntax/block.html)
 
 ## License
 
