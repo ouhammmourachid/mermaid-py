@@ -1,4 +1,4 @@
-name: Upload Python Package
+name: Release mermaid-py package
 
 on:
   workflow_dispatch:
@@ -24,18 +24,14 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
-        fetch-depth: 0
-        ref: main
-
-    - name: install dependencies
-      uses: ouhammmourachid/poetry-install@v2
-
+        persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
+        fetch-depth: 0             # otherwise, you will fail to push refs to dest repo
     - name: bump version
-      uses: ouhammmourachid/bumpversion-action@v3
+      uses: ouhammmourachid/bumpversion-action@v1
       with:
         bump-type: ${{ github.event.inputs.bump-type }}
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        github-token: ${{ secrets.TOKEN_PAT}}
 
     - name: Build and Deploy to PyPI
       uses: ./.github/actions/build-deploy
