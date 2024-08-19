@@ -2,6 +2,7 @@ import base64
 from enum import Enum
 from pathlib import Path
 from typing import Optional, Union
+from urllib.parse import urlencode
 
 import requests
 from requests import Response
@@ -43,11 +44,35 @@ class Mermaid:
 
         Parameters:
             graph (Graph): The Graph object containing the Mermaid diagram script.
+            width (Optional[int]): The width of the SVG image.
+            height (Optional[int]): The height of the SVG image.
+            scale (Optional[int]): The scale of the SVG image.
+            position (Union[Position, str]): The position of the node in the Mermaid diagram.
         """
         self.__position: str = position if isinstance(position, str) else position.value
+        self.__height = height if height else None
+        self.__width = width if width else None
+        self.__scale = scale if scale else None
+
         self._diagram = self._process_diagram(graph.script)
-        self.width, self.height, self.scale = width, height, scale
+
+        if any([self.__width, self.__height, self.__scale]):
+            self._diagram += "&" + self._build_query_params()
         self._make_request_to_mermaid()
+
+    def _build_query_params(self) -> str:
+        """Build the query parameters for the Mermaid API request."""
+        params = {
+            param: value
+            for param, value in [
+                ("width", self.__width),
+                ("height", self.__height),
+                ("scale", self.__scale),
+            ]
+            if value
+        }
+
+        return urlencode(params, doseq=True)
 
     def set_position(self, position: Union[Position, str]) -> None:
         """
@@ -92,20 +117,6 @@ class Mermaid:
         Make GET requests to the Mermaid SVG and IMG APIs using
         the base64 encoded string of the Mermaid diagram script.
         """
-        # update self._diagram with optional query strings based on self.width, self.height, self.scale. All three are optional and can be used all at once, so the query string needs to be valid
-
-        query_string = ""
-        for param, value in [
-            ("width", self.width),
-            ("height", self.height),
-            ("scale", self.scale),
-        ]:
-            if value is not None:
-                query_string += f"&{param}={value}"
-        if query_string.startswith("&"):
-            query_string = "?" + query_string[1:]
-
-        self._diagram += query_string
 
         self.svg_response: Response = requests.get(
             "https://mermaid.ink/svg/" + self._diagram
