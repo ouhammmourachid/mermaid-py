@@ -27,6 +27,16 @@ class TestMermaid(unittest.TestCase):
         mermaid_with_params = Mermaid(self.graph, height=1024, scale=2)
         self.assertTrue(mermaid_with_params.img_response.status_code == 200)
 
+    def test_should_raise_error_on_invalid_scale(self):
+        with self.assertRaises(AssertionError):
+            Mermaid(self.graph, scale=2)
+
+        with self.assertRaises(AssertionError):
+            Mermaid(self.graph, height=100, scale=4)
+
+        with self.assertRaises(AssertionError):
+            Mermaid(self.graph, width=100, scale=0.5)
+
     def test_to_svg_on_mermaid(self):
         output_path: str = f"./{self.name}.svg"
         self.mermaid_object.to_svg(output_path)

@@ -36,7 +36,7 @@ class Mermaid:
         graph: Graph,
         width: Optional[int] = None,
         height: Optional[int] = None,
-        scale: Optional[int] = None,
+        scale: Optional[float] = None,
         position: Union[Position, str] = Position.NONE,
     ):
         """
@@ -46,9 +46,16 @@ class Mermaid:
             graph (Graph): The Graph object containing the Mermaid diagram script.
             width (Optional[int]): The width of the SVG image.
             height (Optional[int]): The height of the SVG image.
-            scale (Optional[int]): The scale of the SVG image.
+            scale (Optional[float]): The scale of the SVG image.
+                Must be an float between 1 and 3, and one of height or width must be provided.
             position (Union[Position, str]): The position of the node in the Mermaid diagram.
         """
+        if scale:
+            assert 1 <= scale <= 3, "Scale must be between 1 and 3"
+            assert any(
+                [width, height]
+            ), "One or both of width and height must be provided"
+
         self.__position: str = position if isinstance(position, str) else position.value
         self.__height = height if height else None
         self.__width = width if width else None
@@ -57,7 +64,7 @@ class Mermaid:
         self._diagram = self._process_diagram(graph.script)
 
         if any([self.__width, self.__height, self.__scale]):
-            self._diagram += "&" + self._build_query_params()
+            self._diagram += "?" + self._build_query_params()
         self._make_request_to_mermaid()
 
     def _build_query_params(self) -> str:
