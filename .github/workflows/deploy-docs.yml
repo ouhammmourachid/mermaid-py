@@ -28,7 +28,8 @@ jobs:
         with:
           node-version: 16
       - run: |
-          cd docs && yarn install --immutable
-          cd docs && yarn vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-          cd docs && yarn vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
-          cd docs && yarn vercel deploy --prod --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+          cd docs
+          yarn install --immutable
+          yarn vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+          yarn vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+          yarn vercel deploy --prod --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
