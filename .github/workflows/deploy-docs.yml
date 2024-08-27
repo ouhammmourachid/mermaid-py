@@ -23,7 +23,7 @@ jobs:
       - name: change directory and sync index.md with README.md
         run: |
           cd docs
-          cp ../README.md index.mdx
+          cp ../README.md pages/index.mdx
       - uses: actions/setup-node@v3
         with:
           node-version: 16
