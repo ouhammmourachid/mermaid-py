@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'docs/**'
+      - 'README.md'
 
   workflow_dispatch:
 
@@ -19,12 +20,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: change directory
-        run: cd docs
+      - name: change directory and sync index.md with README.md
+        run: |
+          cd docs
+          cp ../README.md index.mdx
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: cd docs && yarn install --immutable
-      - run: cd docs && yarn vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-      - run: cd docs && yarn vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
-      - run: cd docs && yarn vercel deploy --prod --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+      - run: |
+          cd docs && yarn install --immutable
+          cd docs && yarn vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+          cd docs && yarn vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+          cd docs && yarn vercel deploy --prod --prebuilt --token=${{ secrets.VERCEL_TOKEN }}

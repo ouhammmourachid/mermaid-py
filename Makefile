@@ -25,7 +25,7 @@ test:
 
 .PHONY: install-pre-commit
 install-pre-commit:
-	$(PRE_COMMIT_CMD) uninstall && $$(PRE_COMMIT_CMD) install
+	$(PRE_COMMIT_CMD) uninstall && $(PRE_COMMIT_CMD) install
 
 .PHONY: lint
 lint:
