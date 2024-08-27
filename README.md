@@ -2,29 +2,14 @@
 
 this package works as an interface for the famous mermaid-js library that uses scripts to create diagrams.
 
-<p align="center">
-    <a href="https://codecov.io/gh/ouhammmourachid/mermaid-py">
-        <img src="https://codecov.io/gh/ouhammmourachid/mermaid-py/graph/badge.svg?token=732C2PA73Z"
-            alt="Code Coverage"></a>
-    <a href="https://github.com/ouhammmourachid/mermaid-py/blob/main/LICENSE" >
-        <img src="https://img.shields.io/github/license/ouhammmourachid/mermaid-py"
-            alt="GitHub LICENSE" /></a>
-    <a href="https://pypistats.org/packages/mermaid-py">
-        <img src="https://img.shields.io/pypi/dm/mermaid-py"
-            alt="Mounthly Download" /></a>
-    <a href="https://pypi.org/project/mermaid-py/">
-        <img src="https://img.shields.io/pypi/v/mermaid-py.svg?style=flat"
-            alt="latest version" /></a>
-    <a href="https://pypi.org/project/mermaid-py/">
-        <img src="https://img.shields.io/pypi/pyversions/mermaid-py"
-            alt="supported python version" /></a>
-    <a href="https://github.com/astral-sh/ruff">
-        <img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json"
-            alt="ruff badge"/></a>
-    <a href="https://snyk.io/advisor/python/mermaid-py">
-        <img src="https://snyk.io/advisor/python/mermaid-py/badge.svg"
-            alt="mermaid-py on snyk"/></a>
-</p>
+[![Code Coverage](https://codecov.io/gh/ouhammmourachid/mermaid-py/graph/badge.svg?token=732C2PA73Z)](https://codecov.io/gh/ouhammmourachid/mermaid-py)
+[![GitHub LICENSE](https://img.shields.io/github/license/ouhammmourachid/mermaid-py)](https://github.com/ouhammmourachid/mermaid-py/blob/main/LICENSE)
+[![Mounthly Download](https://img.shields.io/pypi/dm/mermaid-py)](https://pypistats.org/packages/mermaid-py)
+[![latest version](https://img.shields.io/pypi/v/mermaid-py.svg?style=flat)](https://pypi.org/project/mermaid-py/)
+[![supported python version](https://img.shields.io/pypi/pyversions/mermaid-py)](https://pypi.org/project/mermaid-py)
+[![ruff badge](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![mermaid-py on snyk](https://snyk.io/advisor/python/mermaid-py/badge.svg)](https://snyk.io/advisor/python/mermaid-py)
+
 
 ## Description
 
