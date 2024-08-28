@@ -10,7 +10,7 @@ runs:
     using: 'composite'
     steps:
       - name: install dependencies with Python ${{ inputs.python-version }}
-        uses: ouhammmourachid/poetry-install@v2
+        uses: ouhammmourachid/poetry-install@v2.0.0
         with:
           python-version: ${{ inputs.python-version }}
       - name: Run test for python version ${{inputs.python-version}}
