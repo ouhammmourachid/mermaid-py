@@ -27,7 +27,7 @@ jobs:
         persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
         fetch-depth: 0             # otherwise, you will fail to push refs to dest repo
     - name: bump version
-      uses: ouhammmourachid/bumpversion-action@v1
+      uses: ouhammmourachid/bumpversion-action@v1.1.0
       with:
         bump-type: ${{ github.event.inputs.bump-type }}
         github-token: ${{ secrets.TOKEN_PAT}}
