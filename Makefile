@@ -23,8 +23,8 @@ publish:
 test:
 	$(POETRY_RUN) pytest
 
-.PHONY: install-pre-commit
-install-pre-commit:
+.PHONY: install/pre-commit
+install/pre-commit:
 	$(PRE_COMMIT_CMD) uninstall && $(PRE_COMMIT_CMD) install
 
 .PHONY: lint
@@ -53,7 +53,7 @@ help:
 	@echo "  publish           		publish package"
 	@echo ""
 	@echo "  test              		run tests"
-	@echo "  install-pre-commit 		install pre-commit hooks"
+	@echo "  install/pre-commit 		install pre-commit hooks"
 	@echo "  lint              		run linters"
 	@echo "  coverage          		run tests with coverage"
 	@echo ""
