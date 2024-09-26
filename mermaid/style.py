@@ -29,19 +29,21 @@ class Style:
     def __str__(self) -> str:
         """Return the string representation of the style definition."""
         string: str = f"classDef {self.name} "
-        if self.fill:
-            string += f",fill:{self.fill}"
-        if self.color:
-            string += f",color:{self.color}"
-        if self.font_weight:
-            string += f",font-weight:{self.font_weight}"
-        if self.stroke_width:
-            string += f",stroke-width:{self.stroke_width}"
-        if self.stroke:
-            string += f",stroke:{self.stroke}"
+        string += "".join(
+            [
+                f",{style}:{value}"
+                for style, value in [
+                    ("fill", self.fill),
+                    ("color", self.color),
+                    ("font-weight", self.font_weight),
+                    ("stroke-width", self.stroke_width),
+                    ("stroke", self.stroke),
+                ]
+                if value is not None
+            ]
+        )
         if self.other:
             string += f",{self.other}"
-
         return string
 
     def __hash__(self) -> int:
