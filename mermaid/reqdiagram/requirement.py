@@ -83,11 +83,13 @@ class Requirement:
         )
 
     def __str__(self) -> str:
-        string: str = ""
-        string += f"{self.type_} {self.name} {{\n"
-        string += f"\tid: {self.id_}\n"
-        string += f"\ttext: {self.text}\n"
-        string += f"\trisk: {self.risk}\n"
-        string += f"\tverifymethod: {self.verifymethod}\n"
-        string += "}\n"
-        return string
+        return "".join(
+            [
+                f"{self.type_} {self.name} {{\n",
+                f"\tid: {self.id_}\n",
+                f"\ttext: {self.text}\n",
+                f"\trisk: {self.risk}\n",
+                f"\tverifymethod: {self.verifymethod}\n",
+                "}\n",
+            ]
+        )
