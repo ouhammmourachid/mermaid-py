@@ -98,6 +98,8 @@ diagram
 - [ ] [Sankey](https://mermaid.js.org/syntax/sankey.html)
 - [ ] [XYChart 🔥](https://mermaid.js.org/syntax/xyChart.html)
 - [ ] [Block Diagram 🔥](https://mermaid.js.org/syntax/block.html)
+- [ ] [Packet 🔥](https://mermaid.js.org/syntax/packet.html)
+- [ ] [Architecture 🔥](https://mermaid.js.org/syntax/architecture.html)
 
 ## License
 
