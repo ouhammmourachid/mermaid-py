@@ -36,7 +36,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: install dependencies
-        uses: ouhammmourachid/poetry-install@v2.0.0
+        uses: ouhammmourachid/poetry-install@v2
       - name: create test coverage.
         run: make coverage
       - name: upload coverage reports to Codecov
