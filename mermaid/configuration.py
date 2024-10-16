@@ -74,18 +74,20 @@ class Config:
         string: str = "%%{\n\tinit: {\n"
 
         string += f'\t\t"theme": "{self.theme.value}",\n\t\t"themeVariables": ' + "{\n"
-        if self.primary_color:
-            string += f'\t\t\t"primaryColor": "{self.primary_color}",\n'
-        if self.primary_text_color:
-            string += f'\t\t\t"primaryTextColor": "{self.primary_text_color}",\n'
-        if self.primary_border_color:
-            string += f'\t\t\t"primaryBorderColor": "{self.primary_border_color}",\n'
-        if self.line_color:
-            string += f'\t\t\t"lineColor": "{self.line_color}",\n'
-        if self.secondary_color:
-            string += f'\t\t\t"secondaryColor": "{self.secondary_color}",\n'
-        if self.tertiary_color:
-            string += f'\t\t\t"tertiaryColor": "{self.tertiary_color}",\n'
+        string += "".join(
+            [
+                f'\t\t\t"{style}": "{value}",\n'
+                for style, value in [
+                    ("primaryColor", self.primary_color),
+                    ("primaryTextColor", self.primary_text_color),
+                    ("primaryBorderColor", self.primary_border_color),
+                    ("lineColor", self.line_color),
+                    ("secondaryColor", self.secondary_color),
+                    ("tertiaryColor", self.tertiary_color),
+                ]
+                if value
+            ]
+        )
         if string.endswith(",\n"):
             string = string[:-2] + "\n"
         string += "\t\t}\n"
