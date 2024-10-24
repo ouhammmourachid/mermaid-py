@@ -173,5 +173,4 @@ try:
 
         get_ipython().register_magic_function(mermaidjs, magic_kind="cell")
 except ImportError:
-    # TODO: add a suitible handler for exception.
-    print("Error acured while importing mermaidjs .")
+    print("Warning: IPython is not installed. Mermaidjs magic function is not available.")
