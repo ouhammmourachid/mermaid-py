@@ -9,7 +9,7 @@ Classes:
     Timeline: Represents a Timeline diagram.
 """
 
-from typing import Optional, List, Dict
+from typing import Dict, List, Optional
 
 from mermaid.configuration import Config
 from mermaid.graph import Graph
