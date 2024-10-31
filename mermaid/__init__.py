@@ -21,7 +21,7 @@ from .style import Style
 from .timeline import Timeline
 from .utils import load, text_to_snake_case
 
-__version__: str = "0.6.0"
+__version__: str = "0.6.1"
 
 
 class Direction(Enum):
