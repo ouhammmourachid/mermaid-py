@@ -3,6 +3,7 @@ from enum import Enum
 from pathlib import Path
 from typing import Optional, Union
 from urllib.parse import urlencode
+import os
 
 import requests
 from requests import Response
@@ -124,12 +125,16 @@ class Mermaid:
         Make GET requests to the Mermaid SVG and IMG APIs using
         the base64 encoded string of the Mermaid diagram script.
         """
+        mermaidserveraddress = "https://mermaid.ink/"
+
+        if "MERMAID_INK_SERVER" in os.environ:
+            mermaidserveraddress = os.environ["MERMAID_INK_SERVER"]
 
         self.svg_response: Response = requests.get(
-            "https://mermaid.ink/svg/" + self._diagram
+            mermaidserveraddress + "/svg/" + self._diagram
         )
         self.img_response: Response = requests.get(
-            "https://mermaid.ink/img/" + self._diagram
+            mermaidserveraddress + "/img/" + self._diagram
         )
 
     def to_svg(self, path: Union[str, Path]) -> None:
