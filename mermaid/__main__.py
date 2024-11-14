@@ -1,9 +1,9 @@
 import base64
+import os
 from enum import Enum
 from pathlib import Path
 from typing import Optional, Union
 from urllib.parse import urlencode
-import os
 
 import requests
 from requests import Response
