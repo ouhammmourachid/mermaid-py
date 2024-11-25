@@ -2,6 +2,7 @@
 # variables
 POETRY_RUN		:= poetry run
 PRE_COMMIT_CMD		:= $(POETRY_RUN) pre-commit
+MERMAID_INK_CONTAINER	:= ghcr.io/jihchi/mermaid.ink
 
 .PHONY: install
 install:
@@ -36,6 +37,14 @@ lint:
 coverage:
 	$(POETRY_RUN) pytest --cov ./mermaid --cov-report=xml
 
+.PHONY: mermaid.ink/up
+mermaid.ink/up:
+	docker run -p 3000:3000 -d --cap-add=SYS_ADMIN $(MERMAID_INK_CONTAINER)
+
+.PHONY: mermaid.ink/down
+mermaid.ink/down:
+	docker stop $(shell docker ps -q --filter ancestor=$(MERMAID_INK_CONTAINER))
+
 .PHONY: bumpversion
 bumpversion:
 	$(eval name=$(filter-out $@,$(MAKECMDGOALS)))
@@ -60,3 +69,5 @@ help:
 	@echo "  bumpversion       		bump version"
 	@echo "  help              		show this help message"
 	@echo ""
+	@echo "  mermaid.ink/up    		start mermaid.ink Local server"
+	@echo "  mermaid.ink/down  		stop mermaid.ink local server"
