@@ -9,32 +9,6 @@ inputs:
 runs:
     using: 'composite'
     steps:
-      # Docker setup for Ubuntu
-      - name: Set up Docker (Ubuntu)
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          docker run -p 3000:3000 -d --cap-add=SYS_ADMIN ghcr.io/jihchi/mermaid.ink
-        shell: bash
-
-      # Docker setup for macOS
-      - name: Set up Docker (macOS)
-        if: matrix.os == 'macos-latest'
-        run: |
-          brew install --cask docker || true
-          open --background -a docker
-          sleep 10 # Wait for Docker to start
-
-          docker run -p 3000:3000 -d --cap-add=SYS_ADMIN ghcr.io/jihchi/mermaid.ink
-        shell: bash
-
-      # Docker setup for Windows
-      - name: Set up Docker (Windows)
-        if: matrix.os == 'windows-latest'
-        run: |
-          choco install docker-desktop || true
-          Start-Service docker
-          docker run -p 3000:3000 -d  ghcr.io/jihchi/mermaid.ink
-        shell: pwsh
       - name: install dependencies with Python ${{ inputs.python-version }}
         uses: ouhammmourachid/poetry-install@v2
         with:
