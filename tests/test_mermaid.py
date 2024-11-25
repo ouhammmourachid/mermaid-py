@@ -102,3 +102,27 @@ class TestMermaid(unittest.TestCase):
             os.remove(output_png_path)
 
         return super().tearDown()
+
+
+class TestMermaidWithLocalServer(unittest.TestCase):
+    def setUp(self) -> None:
+        script: str = """graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;"""
+        os.environ["MERMAID_INK_SERVER"] = "http://localhost:3000"
+        self.name: str = "simple-graph"
+        self.graph: Graph = Graph(self.name, script)
+
+    def test_make_request_to_mermaid_api_for_svg(self):
+        mermaid_object = Mermaid(self.graph)
+        self.assertTrue(mermaid_object.svg_response.status_code == 200)
+
+    def test_make_request_to_mermaid_api_for_png(self):
+        mermaid_object = Mermaid(self.graph)
+        self.assertTrue(mermaid_object.img_response.status_code == 200)
+
+    def tearDown(self) -> None:
+        del os.environ["MERMAID_INK_SERVER"]
+        return super().tearDown()

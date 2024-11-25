@@ -36,6 +36,12 @@ lint:
 coverage:
 	$(POETRY_RUN) pytest --cov ./mermaid --cov-report=xml
 
+mermaid.ink/up:
+	docker run -p 3000:3000 -d --cap-add=SYS_ADMIN ghcr.io/jihchi/mermaid.ink
+
+mermaid.ink/down:
+	docker stop $(shell docker ps -q --filter ancestor=ghcr.io/jihchi/mermaid.ink)
+
 .PHONY: bumpversion
 bumpversion:
 	$(eval name=$(filter-out $@,$(MAKECMDGOALS)))
@@ -60,3 +66,5 @@ help:
 	@echo "  bumpversion       		bump version"
 	@echo "  help              		show this help message"
 	@echo ""
+	@echo "  mermaid.ink/up    		start mermaid.ink Local server"
+	@echo "  mermaid.ink/down  		stop mermaid.ink local server"
