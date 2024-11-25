@@ -168,8 +168,6 @@ state main_state {
 \tfirst_state : First State
 \t[*] --> first_state
 }"""
-        print(expect_string)
-        print(concurrent)
         self.assertEqual(expect_string, str(concurrent))
 
     def test_concurrent_with_sub_goups_and_styles(self):

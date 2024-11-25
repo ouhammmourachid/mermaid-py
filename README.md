@@ -77,7 +77,11 @@ diagram
 ```
 - more examples on [mermaid](https://www.kaggle.com/code/ouhammourachid/mermaid-py) and [test-mermaid](https://www.kaggle.com/code/ouhammourachid/testing-mermaid-py)
 
+## Server
 
+By default, the library uses the mermaid.ink service [github](https://github.com/jihchi/mermaid.ink) for generating diagrams. The service can be run locally using docker, following instructions [here](https://github.com/jihchi/mermaid.ink?tab=readme-ov-file#launch-a-container).
+
+The `MERMAID_INK_SERVER` environment variable can be used to specify the server to use, for example.
 
 ## List of Diagrames
 - [x] [~~FlowChart~~](https://mermaid.js.org/syntax/flowchart.html)
@@ -99,6 +103,7 @@ diagram
 - [ ] [XYChart 🔥](https://mermaid.js.org/syntax/xyChart.html)
 - [ ] [Block Diagram 🔥](https://mermaid.js.org/syntax/block.html)
 - [ ] [Packet 🔥](https://mermaid.js.org/syntax/packet.html)
+- [ ] [Kanban 🔥](https://mermaid.js.org/syntax/kanban.html)
 - [ ] [Architecture 🔥](https://mermaid.js.org/syntax/architecture.html)
 
 ## License
