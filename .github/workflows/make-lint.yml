@@ -39,7 +39,7 @@ jobs:
       image: ghcr.io/jihchi/mermaid.ink
       ports:
         - 3000:3000
-      options: --cap-add=SYS_ADMIN
+      options: --user root
     steps:
       - uses: actions/checkout@v4
       - name: Test on Python ${{ matrix.python-version }} with local mermaid server
