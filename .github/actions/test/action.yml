@@ -12,6 +12,7 @@ runs:
       - name: setup mermaid.ink locally
         run : |
           docker run -p 3000:3000 -d --cap-add=SYS_ADMIN ghcr.io/jihchi/mermaid.ink
+        shell: bash
       - name: install dependencies with Python ${{ inputs.python-version }}
         uses: ouhammmourachid/poetry-install@v2
         with:
