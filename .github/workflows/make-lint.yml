@@ -27,13 +27,13 @@ jobs:
         uses: ./.github/actions/test
         with:
           python-version: ${{ matrix.python-version }}
-  
+
   test-with-local-mermaid-server:
     needs: lint
     strategy:
       matrix:
         python-version: ["3.9", "3.10", "3.11", "3.12","3.13"]
-    
+
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/jihchi/mermaid.ink
