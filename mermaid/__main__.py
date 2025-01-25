@@ -53,9 +53,9 @@ class Mermaid:
         """
         if scale:
             assert 1 <= scale <= 3, "Scale must be between 1 and 3"
-            assert any(
-                [width, height]
-            ), "One or both of width and height must be provided"
+            assert any([width, height]), (
+                "One or both of width and height must be provided"
+            )
 
         self.__position: str = position if isinstance(position, str) else position.value
         self.__height = height if height else None
