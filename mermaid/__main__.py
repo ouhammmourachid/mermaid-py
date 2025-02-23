@@ -53,9 +53,9 @@ class Mermaid:
         """
         if scale:
             assert 1 <= scale <= 3, "Scale must be between 1 and 3"
-            assert any(
-                [width, height]
-            ), "One or both of width and height must be provided"
+            assert any([width, height]), (
+                "One or both of width and height must be provided"
+            )
 
         self.__position: str = position if isinstance(position, str) else position.value
         self.__height = height if height else None
@@ -103,7 +103,7 @@ class Mermaid:
             str: The base64 encoded string of the Mermaid diagram script.
         """
         graphbytes = diagram.encode("utf8")
-        base64_bytes = base64.b64encode(graphbytes)
+        base64_bytes = base64.urlsafe_b64encode(graphbytes)
         diagram = base64_bytes.decode("ascii")
         return diagram
 
