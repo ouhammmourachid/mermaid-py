@@ -20,7 +20,7 @@ from .icon import Icon
 from .style import Style
 from .utils import load, text_to_snake_case
 
-__version__: str = "0.7.0"
+__version__: str = "0.7.1"
 
 
 class Direction(Enum):
