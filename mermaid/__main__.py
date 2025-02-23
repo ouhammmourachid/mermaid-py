@@ -103,7 +103,7 @@ class Mermaid:
             str: The base64 encoded string of the Mermaid diagram script.
         """
         graphbytes = diagram.encode("utf8")
-        base64_bytes = base64.b64encode(graphbytes)
+        base64_bytes = base64.urlsafe_b64encode(graphbytes)
         diagram = base64_bytes.decode("ascii")
         return diagram
 
