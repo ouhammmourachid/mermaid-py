@@ -8,13 +8,13 @@ from mermaid.graph import Graph
 
 class TestMermaid(unittest.TestCase):
     def setUp(self) -> None:
-        script: str = """graph TD;
+        self.script: str = """graph TD;
     A-->B;
     A-->C;
     B-->D;
     C-->D;"""
         self.name: str = "simple-graph"
-        self.graph: Graph = Graph(self.name, script)
+        self.graph: Graph = Graph(self.name, self.script)
         self.mermaid_object = Mermaid(self.graph)
 
     def test_make_request_to_mermaid_api_for_svg(self):
@@ -22,6 +22,11 @@ class TestMermaid(unittest.TestCase):
 
     def test_make_request_to_mermaid_api_for_png(self):
         self.assertTrue(self.mermaid_object.img_response.status_code == 200)
+
+    def test_using_mermaid_with_str_script(self):
+        mermaid_with_str_script = Mermaid(self.script)
+        self.assertTrue(mermaid_with_str_script.svg_response.status_code == 200)
+        self.assertTrue(mermaid_with_str_script.img_response.status_code == 200)
 
     def test_query_params_to_mermaid_api_for_svg(self):
         mermaid_with_params = Mermaid(self.graph, height=1024, scale=2)
