@@ -34,7 +34,7 @@ class Mermaid:
 
     def __init__(
         self,
-        graph: Graph,
+        graph: Union[Graph, str],
         width: Optional[int] = None,
         height: Optional[int] = None,
         scale: Optional[float] = None,
@@ -44,7 +44,7 @@ class Mermaid:
         The constructor for the Mermaid class.
 
         Parameters:
-            graph (Graph): The Graph object containing the Mermaid diagram script.
+            graph (Graph): The Mermaid diagram. It can be an instance of the Graph class or a string representing the script.
             width (Optional[int]): The width of the SVG image.
             height (Optional[int]): The height of the SVG image.
             scale (Optional[float]): The scale of the SVG image.
@@ -62,7 +62,9 @@ class Mermaid:
         self.__width = width if width else None
         self.__scale = scale if scale else None
 
-        self._diagram = self._process_diagram(graph.script)
+        self._diagram = self._process_diagram(
+            graph if isinstance(graph, str) else graph.script
+        )
 
         if any([self.__width, self.__height, self.__scale]):
             self._diagram += "?" + self._build_query_params()
