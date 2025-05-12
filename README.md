@@ -32,7 +32,7 @@ pip install mermaid-py
 import mermaid as md
 from mermaid.graph import Graph
 
-sequence = Graph('Sequence-diagram',"""
+render = md.Mermaid("""
 stateDiagram-v2
     [*] --> Still
     Still --> [*]
@@ -42,7 +42,6 @@ stateDiagram-v2
     Moving --> Crash
     Crash --> [*]
 """)
-render = md.Mermaid(sequence)
 render # !! note this only works in the notebook that rendered the html.
 ```
 
