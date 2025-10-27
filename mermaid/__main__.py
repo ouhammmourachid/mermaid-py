@@ -136,6 +136,10 @@ class Mermaid:
         )
         self.img_response: Response = requests.get(
             mermaid_server_adress + "/img/" + self._diagram
+        ) 
+
+        self.pdf_response: Response = requests.get(
+            mermaid_server_adress + "/pdf/" + self._diagram
         )
 
     def to_svg(self, path: Union[str, Path]) -> None:
@@ -157,6 +161,16 @@ class Mermaid:
         """
         with open(path, "wb") as file:
             file.write(self.img_response.content)
+
+    def to_pdf(self, path: Union[str, Path]) -> None:
+        """
+        Write the PDF response content to a file
+
+        Parameters:
+            path (Union[str, Path]): The path of the file to write to.
+        """
+        with open(path, "wb") as f:
+            f.write(self.pdf_response.content)
 
 
 try:
