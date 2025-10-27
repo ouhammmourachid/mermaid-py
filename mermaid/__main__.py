@@ -136,7 +136,7 @@ class Mermaid:
         )
         self.img_response: Response = requests.get(
             mermaid_server_adress + "/img/" + self._diagram
-        ) 
+        )
 
         self.pdf_response: Response = requests.get(
             mermaid_server_adress + "/pdf/" + self._diagram
