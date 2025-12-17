@@ -104,6 +104,8 @@ The `MERMAID_INK_SERVER` environment variable can be used to specify the server 
 - [ ] [Packet 🔥](https://mermaid.js.org/syntax/packet.html)
 - [ ] [Kanban 🔥](https://mermaid.js.org/syntax/kanban.html)
 - [ ] [Architecture 🔥](https://mermaid.js.org/syntax/architecture.html)
+- [ ] [Radar 🔥](https://mermaid.js.org/syntax/radar.html)
+- [ ] [Treemap 🔥](https://mermaid.js.org/syntax/treemap.html)
 
 ## License
 
@@ -111,4 +113,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
 
-If you have any questions or want to get in touch, you can reach out to me at [ouhammmourachid@gmail.com](ouhammmourachid@gmail.com).
+If you have any questions or want to get in touch, you can reach out to me at [contact.ouhammou@gmail.com](contact.ouhammou@gmail.com).
