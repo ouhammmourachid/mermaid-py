@@ -70,7 +70,7 @@ class Mermaid:
     def _build_query_params(self, image_format: Optional[str] = None) -> str:
         """
         Build the query parameters for the Mermaid API request.
-        
+
         Parameters:
             image_format (Optional[str]): The image format for /img endpoint
         """
@@ -128,10 +128,18 @@ class Mermaid:
         )
 
         self.svg_response: Response = requests.get(
-            mermaid_server_adress + "/svg/" + self._diagram + "?" + self._build_query_params()
+            mermaid_server_adress
+            + "/svg/"
+            + self._diagram
+            + "?"
+            + self._build_query_params()
         )
         self.img_response: Response = requests.get(
-            mermaid_server_adress + "/img/" + self._diagram + "?" + self._build_query_params(image_format="png")
+            mermaid_server_adress
+            + "/img/"
+            + self._diagram
+            + "?"
+            + self._build_query_params(image_format="png")
         )
 
     def to_svg(self, path: Union[str, Path]) -> None:
