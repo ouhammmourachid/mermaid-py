@@ -62,22 +62,25 @@ class Mermaid:
         self.__width = width if width else None
         self.__scale = scale if scale else None
 
-        self._diagram = self._process_diagram(
+        self._diagram = self._get_encoded_script(
             graph if isinstance(graph, str) else graph.script
         )
-
-        if any([self.__width, self.__height, self.__scale]):
-            self._diagram += "?" + self._build_query_params()
         self._make_request_to_mermaid()
 
-    def _build_query_params(self) -> str:
-        """Build the query parameters for the Mermaid API request."""
+    def _build_query_params(self, image_format: Optional[str] = None) -> str:
+        """
+        Build the query parameters for the Mermaid API request.
+        
+        Parameters:
+            image_format (Optional[str]): The image format for /img endpoint
+        """
         params = {
             param: value
             for param, value in [
                 ("width", self.__width),
                 ("height", self.__height),
                 ("scale", self.__scale),
+                ("format", image_format),
             ]
             if value
         }
@@ -94,20 +97,13 @@ class Mermaid:
         self.__position = position if isinstance(position, str) else position.value
 
     @staticmethod
-    def _process_diagram(diagram: str) -> str:
-        """
-        Process the Mermaid diagram script into a base64 encoded string.
+    def _get_encoded_script(script: str) -> str:
+        # CRITICAL FIX: Explicit UTF-8 encoding before base64
+        script_bytes = script.encode("utf-8")
 
-        Parameters:
-            diagram (str): The Mermaid diagram script.
-
-        Returns:
-            str: The base64 encoded string of the Mermaid diagram script.
-        """
-        graphbytes = diagram.encode("utf8")
-        base64_bytes = base64.urlsafe_b64encode(graphbytes)
-        diagram = base64_bytes.decode("ascii")
-        return diagram
+        # Use URL-safe base64 encoding (replaces + with -, / with _)
+        encoded = base64.urlsafe_b64encode(script_bytes).decode("ascii")
+        return encoded
 
     def _repr_html_(self) -> str:
         """
@@ -132,10 +128,10 @@ class Mermaid:
         )
 
         self.svg_response: Response = requests.get(
-            mermaid_server_adress + "/svg/" + self._diagram
+            mermaid_server_adress + "/svg/" + self._diagram + "?" + self._build_query_params()
         )
         self.img_response: Response = requests.get(
-            mermaid_server_adress + "/img/" + self._diagram
+            mermaid_server_adress + "/img/" + self._diagram + "?" + self._build_query_params(image_format="png")
         )
 
     def to_svg(self, path: Union[str, Path]) -> None:
