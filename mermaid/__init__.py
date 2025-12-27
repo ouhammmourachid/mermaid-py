@@ -18,6 +18,7 @@ from .configuration import Config
 from .graph import Graph
 from .icon import Icon
 from .style import Style
+from .timeline import Timeline
 from .utils import load, text_to_snake_case
 
 __version__: str = "0.8.1"
@@ -42,4 +43,5 @@ __all__ = [
     "Icon",
     "Position",
     "text_to_snake_case",
+    "Timeline",
 ]
