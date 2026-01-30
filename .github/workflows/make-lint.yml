@@ -9,7 +9,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Lint code
         uses: pre-commit/action@v3.0.1
 
@@ -17,12 +17,12 @@ jobs:
     needs: lint
     strategy:
       matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12","3.13"]
+        python-version: ["3.9", "3.10", "3.11", "3.12","3.13","3.14"]
         os: [ubuntu-latest, windows-latest, macos-latest]
 
     runs-on: ${{matrix.os}}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Test on Python ${{ matrix.python-version }} on ${{matrix.os}}
         uses: ./.github/actions/test
         with:
@@ -36,7 +36,7 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: setup mermaid.ink server
         run: docker run -p 3000:3000 -d --cap-add=SYS_ADMIN ghcr.io/jihchi/mermaid.ink
       - name: Test on Python ${{ matrix.python-version }} with local mermaid server
@@ -50,10 +50,14 @@ jobs:
     needs: [test,test-with-local-mermaid-server]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - name: install dependencies
-        uses: ouhammmourachid/poetry-install@v3
-      - name: create test coverage.
+      - uses: actions/checkout@v6
+      - name: set up uv and install dependencies
+        uses: astral-sh/setup-uv@v3
+        with:
+          python-version: ${{ inputs.python-version }}
+      - name: Install dependencies
+        run: make install
+      - name: generate coverage report
         run: make coverage
       - name: upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
