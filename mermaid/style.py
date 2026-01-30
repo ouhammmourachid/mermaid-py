@@ -44,7 +44,7 @@ class Style:
         )
         string += style_paramaters
         if self.other:
-            string += f",{self.other}" if style_paramaters else self.other 
+            string += f",{self.other}" if style_paramaters else self.other
         return string
 
     def __hash__(self) -> int:
