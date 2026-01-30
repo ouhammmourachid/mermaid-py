@@ -10,10 +10,10 @@ runs:
     steps:
       - name: Build package
         run: |
-          poetry build
+          make build
         shell: bash
       - name: Publish package
         run: |
-          poetry config pypi-token.pypi ${{ inputs.pypi-token }}
-          poetry publish
+          export V_PUBLISH_TOKEN=${{ inputs.pypi-token }}
+          make publish
         shell: bash
