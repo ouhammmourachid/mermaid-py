@@ -29,9 +29,9 @@ class Style:
     def __str__(self) -> str:
         """Return the string representation of the style definition."""
         string: str = f"classDef {self.name} "
-        string += "".join(
+        style_paramaters = ",".join(
             [
-                f",{style}:{value}"
+                f"{style}:{value}"
                 for style, value in [
                     ("fill", self.fill),
                     ("color", self.color),
@@ -42,8 +42,9 @@ class Style:
                 if value is not None
             ]
         )
+        string += style_paramaters
         if self.other:
-            string += f",{self.other}"
+            string += f",{self.other}" if style_paramaters else self.other 
         return string
 
     def __hash__(self) -> int:
