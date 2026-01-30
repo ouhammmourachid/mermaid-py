@@ -1,28 +1,28 @@
 
 # variables
-POETRY_RUN		:= poetry run
-PRE_COMMIT_CMD		:= $(POETRY_RUN) pre-commit
+UV_RUN		:= uv run
+PRE_COMMIT_CMD		:= $(UV_RUN) pre-commit
 MERMAID_INK_CONTAINER	:= ghcr.io/jihchi/mermaid.ink
 
 .PHONY: install
 install:
-	poetry install
+	uv sync
 
 .PHONY: update
 update:
-	poetry update
+	uv sync --upgrade
 
 .PHONY: build
 build:
-	poetry build
+	$(UV_RUN) python -m build
 
 .PHONY: publish
 publish:
-	poetry publish
+	$(UV_RUN) python -m twine upload dist/*
 
 .PHONY: test
 test:
-	$(POETRY_RUN) pytest
+	$(UV_RUN) pytest
 
 .PHONY: install/pre-commit
 install/pre-commit:
@@ -35,7 +35,7 @@ lint:
 
 .PHONY: coverage
 coverage:
-	$(POETRY_RUN) pytest --cov ./mermaid --cov-report=xml
+	$(UV_RUN) pytest --cov ./mermaid --cov-report=xml
 
 .PHONY: mermaid.ink/up
 mermaid.ink/up:
@@ -48,7 +48,7 @@ mermaid.ink/down:
 .PHONY: bumpversion
 bumpversion:
 	$(eval name=$(filter-out $@,$(MAKECMDGOALS)))
-	$(POETRY_RUN) bumpver update --$(name)
+	$(UV_RUN) bumpver update --$(name)
 %:
 	@:
 
