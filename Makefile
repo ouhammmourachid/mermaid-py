@@ -52,6 +52,14 @@ bumpversion:
 %:
 	@:
 
+.PHONY: build
+build:
+	uv build
+
+.PHONY: publish
+publish:
+	uv publish
+
 .PHONY: help
 help:
 	@echo "run 'make <target>' where <target> is one of the following:"

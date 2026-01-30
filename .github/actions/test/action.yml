@@ -10,7 +10,7 @@ runs:
     using: 'composite'
     steps:
       - name: set up uv and install dependencies
-        uses: astral-sh/setup-uv@v3
+        uses: astral-sh/setup-uv@v7
         with:
           python-version: ${{ inputs.python-version }}
       - name: Install dependencies
