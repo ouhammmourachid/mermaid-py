@@ -8,12 +8,14 @@ inputs:
 runs:
     using: 'composite'
     steps:
+      - name: set up uv and install dependencies
+        uses: astral-sh/setup-uv@v7
       - name: Build package
         run: |
           make build
         shell: bash
       - name: Publish package
         run: |
-          export V_PUBLISH_TOKEN=${{ inputs.pypi-token }}
+          export UV_PUBLISH_TOKEN=${{ inputs.pypi-token }}
           make publish
         shell: bash
