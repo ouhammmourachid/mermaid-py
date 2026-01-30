@@ -14,5 +14,6 @@ runs:
         shell: bash
       - name: Publish package
         run: |
-          export 
+          export V_PUBLISH_TOKEN=${{ inputs.pypi-token }}
+          make publish
         shell: bash
