@@ -9,7 +9,7 @@ runs:
     using: 'composite'
     steps:
       - name: set up uv and install dependencies
-        uses: astral-sh/setup-uv@v7
+        uses: fikra-tech/uv-sync@v2
       - name: Build package
         run: |
           make build

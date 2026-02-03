@@ -52,11 +52,9 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: set up uv and install dependencies
-        uses: astral-sh/setup-uv@v3
+        uses: fikra-tech/uv-sync@v2
         with:
           python-version: ${{ inputs.python-version }}
-      - name: Install dependencies
-        run: make install
       - name: generate coverage report
         run: make coverage
       - name: upload coverage reports to Codecov
