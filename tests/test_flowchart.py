@@ -112,7 +112,7 @@ class TestLink(unittest.TestCase):
     def test_str_link_with_message(self):
         message: str = "this is my message"
         link: Link = Link(self.node_1, self.node_2, message=message)
-        expect_string: str = f"first_node -->|{message}| second_node"
+        expect_string: str = f"first_node -->|\"{message}\"| second_node"
         self.assertEqual(expect_string, str(link))
 
     def test_str_link_with_no_default_value(self):
@@ -125,7 +125,7 @@ class TestLink(unittest.TestCase):
             head_right="cross",
             message=message,
         )
-        expect_string: str = f"first_node o-.-x|{message}| second_node"
+        expect_string: str = f"first_node o-.-x|\"{message}\"| second_node"
         self.assertEqual(expect_string, str(link))
 
     def test_str_link_with_enum_shape(self):
