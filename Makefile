@@ -13,7 +13,6 @@ update:
 	uv sync --upgrade
 
 
-
 .PHONY: test
 test:
 	$(UV_RUN) pytest
@@ -48,11 +47,11 @@ bumpversion:
 
 .PHONY: build
 build:
-	uv build
+	$(UV_RUN) python -m build
 
 .PHONY: publish
 publish:
-	uv publish
+	$(UV_RUN) python -m twine upload dist/*
 
 .PHONY: help
 help:
