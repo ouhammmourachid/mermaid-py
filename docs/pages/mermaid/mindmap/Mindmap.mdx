@@ -1,0 +1,224 @@
+# Mindmap Diagrams
+
+Mindmap diagrams are used to visualize hierarchical information and brainstorming ideas. The `Mindmap` class allows you to create tree-like structures with multiple levels of nested information.
+
+## Overview
+
+A Mindmap is a hierarchical diagram that branches out from a central concept. It's useful for brainstorming, organizing ideas, planning, and showing relationships between concepts.
+
+## Basic Usage
+
+### Creating a Simple Mindmap
+
+```python
+from mermaid import Mermaid
+from mermaid.mindmap import Mindmap, Level
+
+# Create levels
+projects = Level("Projects", [
+    Level("Project A"),
+    Level("Project B")
+])
+
+tasks = Level("Tasks", [
+    Level("Development"),
+    Level("Testing"),
+    Level("Deployment")
+])
+
+# Create mindmap
+mindmap = Mindmap(
+    title="Work Planning",
+    levels=[projects, tasks]
+)
+
+Mermaid(mindmap)
+```
+
+## Mindmap Class
+
+### Constructor
+
+```python
+Mindmap(
+    title: str,
+    levels: Optional[list[Level]] = None,
+    shape: Optional[LevelShape] = None,
+    config: Optional[Config] = None
+)
+```
+
+### Parameters
+
+- **title** (str): The central topic/root of the mindmap
+- **levels** (Optional[list[Level]]): The main branches
+- **shape** (Optional[LevelShape]): Shape for the root node. Default: DEFAULT
+- **config** (Optional[Config]): Configuration settings
+
+## Level Class
+
+Represents a node in the mindmap hierarchy.
+
+### Constructor
+
+```python
+Level(
+    name: str,
+    children: Optional[list["Level"]] = None,
+    shape: Optional[LevelShape] = None,
+    icon: Optional[Icon] = None
+)
+```
+
+### Parameters
+
+- **name** (str): The level's text
+- **children** (Optional[list[Level]]): Child levels
+- **shape** (Optional[LevelShape]): Node shape
+- **icon** (Optional[Icon]): Icon to display
+
+### Methods
+
+#### add_child(child: Level) -> None
+
+Add a child level.
+
+```python
+parent = Level("Parent")
+child = Level("Child")
+parent.add_child(child)
+```
+
+## Level Shapes
+
+The `LevelShape` enum defines available node shapes:
+
+- `LevelShape.SQUARE`: `[text]`
+- `LevelShape.ROUNDED_SQUARE`: `(text)`
+- `LevelShape.CIRCLE`: `((text))`
+- `LevelShape.BANG`: `))text((`
+- `LevelShape.CLOUD`: `)text(`
+- `LevelShape.HEXAGON`: `{{text}}`
+- `LevelShape.DEFAULT`: No special shape
+
+## Complete Example
+
+```python
+from mermaid import Mermaid
+from mermaid.mindmap import Mindmap, Level, LevelShape
+from mermaid.icon import Icon
+
+# Create mindmap structure
+roadmap = Mindmap(
+    title="Product Roadmap 2024",
+    levels=[
+        Level("Q1", [
+            Level("Feature A", shape=LevelShape.SQUARE),
+            Level("Bug Fixes", [
+                Level("Critical Bugs"),
+                Level("Minor Bugs")
+            ]),
+            Level("Documentation")
+        ]),
+        Level("Q2", [
+            Level("Feature B"),
+            Level("Performance", [
+                Level("Optimization"),
+                Level("Monitoring")
+            ]),
+            Level("DevOps")
+        ]),
+        Level("Q3", [
+            Level("Feature C"),
+            Level("Integration"),
+            Level("Testing")
+        ]),
+        Level("Q4", [
+            Level("Release"),
+            Level("Support"),
+            Level("Planning")
+        ])
+    ],
+    shape=LevelShape.ROUNDED_SQUARE
+)
+
+Mermaid(roadmap)
+```
+
+## More Examples
+
+### Learning Path
+
+```python
+learning = Mindmap(
+    title="Python Learning Path",
+    levels=[
+        Level("Fundamentals", [
+            Level("Variables"),
+            Level("Data Types"),
+            Level("Control Flow")
+        ]),
+        Level("OOP", [
+            Level("Classes"),
+            Level("Inheritance"),
+            Level("Polymorphism")
+        ]),
+        Level("Libraries", [
+            Level("NumPy"),
+            Level("Pandas"),
+            Level("Matplotlib")
+        ]),
+        Level("Advanced", [
+            Level("Async"),
+            Level("Decorators"),
+            Level("Metaclasses")
+        ])
+    ]
+)
+```
+
+### Project Planning
+
+```python
+project = Mindmap(
+    title="Website Redesign",
+    levels=[
+        Level("Design", [
+            Level("Visual Design"),
+            Level("User Experience"),
+            Level("Prototyping")
+        ]),
+        Level("Development", [
+            Level("Frontend", [
+                Level("HTML/CSS"),
+                Level("JavaScript")
+            ]),
+            Level("Backend", [
+                Level("Database"),
+                Level("API")
+            ])
+        ]),
+        Level("Testing", [
+            Level("Unit Tests"),
+            Level("Integration Tests"),
+            Level("User Testing")
+        ]),
+        Level("Launch", [
+            Level("Deploy"),
+            Level("Monitor"),
+            Level("Support")
+        ])
+    ]
+)
+```
+
+## Tips
+
+- Start with a clear central concept
+- Organize ideas by logical categories
+- Use consistent indentation levels
+- Keep text concise at each level
+- Use shapes to distinguish different types of nodes
+- Add icons to enhance visual clarity
+- Limit depth to 3-4 levels for readability
+- Group related items together

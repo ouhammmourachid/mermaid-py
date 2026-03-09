@@ -1,0 +1,247 @@
+# FlowChart Diagrams
+
+FlowCharts are one of the most popular diagram types for visualizing processes, workflows, and algorithms. The `FlowChart` class allows you to create flowchart diagrams with nodes, links, and customizable styling.
+
+## Overview
+
+A FlowChart represents a sequence of steps or decisions in a process. Each node represents an action or decision, and links represent the flow between nodes.
+
+## Basic Usage
+
+### Creating a Simple FlowChart
+
+```python
+from mermaid import Mermaid, Direction
+from mermaid.flowchart import FlowChart, Node, Link
+
+# Create nodes
+start = Node("start", "Start", shape="stadium-shape")
+process = Node("process", "Process Data", shape="normal")
+decision = Node("decision", "Is Valid?", shape="rhombus")
+end = Node("end", "End", shape="stadium-shape")
+
+# Create links
+link1 = Link(start, process)
+link2 = Link(process, decision)
+link3 = Link(decision, end, message="Yes")
+
+# Create flowchart
+flowchart = FlowChart(
+    title="Data Processing Flow",
+    nodes=[start, process, decision, end],
+    links=[link1, link2, link3],
+    orientation=Direction.TOP_TO_BOTTOM
+)
+
+# Render
+Mermaid(flowchart)
+```
+
+## FlowChart Class
+
+### Constructor Parameters
+
+- **title** (str): The title of the flowchart
+- **nodes** (Optional[list[Node]]): List of nodes in the flowchart
+- **links** (Optional[list[Link]]): List of links between nodes
+- **orientation** (Union[str, Direction]): The direction of the flowchart (default: "TB")
+- **config** (Optional[Config]): Configuration settings for the flowchart
+
+### Orientation Values
+
+The orientation determines the direction of the flowchart flow:
+
+- `Direction.TOP_TO_BOTTOM` or `"TB"`: Top to bottom (default)
+- `Direction.BOTTOM_TO_TOP` or `"BT"`: Bottom to top
+- `Direction.LEFT_TO_RIGHT` or `"LR"`: Left to right
+- `Direction.RIGHT_TO_LEFT` or `"RL"`: Right to left
+
+### Methods
+
+#### save(path: Optional[Union[Path, str]] = None) -> None
+
+Saves the flowchart to a `.mmd` or `.mermaid` file.
+
+```python
+flowchart.save("my_flowchart.mmd")
+flowchart.save("/path/to/flowchart.mermaid")
+```
+
+## Advanced Features
+
+### Custom Styling
+
+Apply styles to nodes to customize their appearance:
+
+```python
+from mermaid.style import Style
+
+# Create a style
+highlight_style = Style(
+    name="highlight",
+    fill="#ffcccc",
+    stroke="#ff0000",
+    stroke_width="3px"
+)
+
+# Apply style to a node
+process = Node("process", "Important", shape="normal", styles=[highlight_style])
+
+# Add style when creating flowchart
+flowchart = FlowChart(
+    title="Styled Flow",
+    nodes=[process],
+    links=[]
+)
+```
+
+### SubGraphs
+
+Create nested flowchart sections using sub-nodes:
+
+```python
+# Create sub-nodes for a subgraph
+sub_node1 = Node("sub1", "Sub Task 1")
+sub_node2 = Node("sub2", "Sub Task 2")
+
+# Create parent node with sub-nodes
+parent = Node(
+    "parent",
+    "Parent Task",
+    shape="normal",
+    sub_nodes=[sub_node1, sub_node2],
+    direction=Direction.LEFT_TO_RIGHT
+)
+```
+
+### Hyperlinks
+
+Add hyperlinks to nodes:
+
+```python
+node = Node(
+    "task",
+    "Click me",
+    shape="normal",
+    href="https://example.com",
+    href_type="blank"  # blank, self, parent, top
+)
+```
+
+## Complete Example
+
+```python
+from mermaid import Mermaid, Direction
+from mermaid.flowchart import FlowChart, Node, Link, LinkHead, LinkShape
+from mermaid.style import Style
+
+# Create styles
+success_style = Style(
+    name="success",
+    fill="#90EE90",
+    color="white",
+    stroke="#228B22"
+)
+
+error_style = Style(
+    name="error",
+    fill="#FFB6C6",
+    color="white",
+    stroke="#DC143C",
+    stroke_width="2px"
+)
+
+# Create nodes
+start = Node("start", "Start", shape="stadium-shape")
+input_node = Node("input", "Input Data", shape="normal")
+process = Node("process", "Validate", shape="normal", styles=[success_style])
+error = Node("error", "Error Handling", shape="normal", styles=[error_style])
+output = Node("output", "Output", shape="normal")
+end = Node("end", "End", shape="stadium-shape")
+
+# Create links
+links = [
+    Link(start, input_node),
+    Link(input_node, process),
+    Link(process, output, message="Valid"),
+    Link(process, error, message="Invalid", head_left=LinkHead.ARROW),
+    Link(error, input_node),
+    Link(output, end)
+]
+
+# Create flowchart
+flowchart = FlowChart(
+    title="Data Validation Flow",
+    nodes=[start, input_node, process, error, output, end],
+    links=links,
+    orientation=Direction.TOP_TO_BOTTOM
+)
+
+diagram = Mermaid(flowchart)
+diagram
+
+# Save to file
+flowchart.save("validation_flow.mmd")
+```
+
+## Node Shapes
+
+The following node shapes are available:
+
+- `"normal"`: `[text]`
+- `"round-edge"`: `(text)`
+- `"stadium-shape"`: `([text])`
+- `"subroutine-shape"`: `[[text]]`
+- `"cylindrical"`: `[(text)]`
+- `"circle"`: `((text))`
+- `"label-shape"`: `>text]`
+- `"rhombus"`: `{text}`
+- `"hexagon"`: `{{text}}`
+- `"parallelogram"`: `[/text/]`
+- `"parallelogram-alt"`: `[\text\]`
+- `"trapezoid"`: `[/text\]`
+- `"trapezoid-alt"`: `[\text/]`
+- `"double-circle"`: `(((text)))`
+
+## Link Types
+
+### Link Shapes
+
+- `"normal"` or `LinkShape.NORMAL`: `--` solid line
+- `"dotted"` or `LinkShape.DOTTED`: `-.-` dotted line
+- `"thick"` or `LinkShape.THICK`: `==` thick line
+- `"hidden"` or `LinkShape.HIDDEN`: `~~~` hidden line
+
+### Link Heads
+
+- `"none"` or `LinkHead.NONE`: No arrow
+- `"arrow"` or `LinkHead.ARROW`: `>` standard arrow
+- `"left-arrow"` or `LinkHead.LEFT_ARROW`: `<` left arrow
+- `"bullet"` or `LinkHead.BULLET`: `o` bullet
+- `"cross"` or `LinkHead.CROSS`: `x` cross
+
+## Exporting
+
+### Export to File
+
+```python
+flowchart.save("my_flowchart.mmd")
+```
+
+### Export to Image
+
+```python
+from mermaid import Mermaid
+
+diagram = Mermaid(flowchart)
+diagram.to_png("flowchart.png")
+diagram.to_svg("flowchart.svg")
+```
+
+## Tips
+
+- Use descriptive node labels to make the flowchart self-documenting
+- Limit the number of nodes per flowchart to maintain clarity
+- Use different shapes to distinguish between different types of actions
+- Apply styles consistently to help readers understand the flow
+- Use hyperlinks to connect related diagrams

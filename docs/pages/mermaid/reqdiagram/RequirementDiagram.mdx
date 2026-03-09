@@ -1,0 +1,186 @@
+# Requirement Diagrams
+
+Requirement diagrams are used to document, analyze, and track requirements in a system. The `RequirementDiagram` class allows you to create diagrams showing requirements, elements, and their relationships with traceability information.
+
+## Overview
+
+A Requirement Diagram visualizes system requirements and how they relate to each other and to system elements. It includes requirements with risk levels and verification methods, helping ensure all requirements are met and traceable.
+
+## Basic Usage
+
+### Creating a Simple Requirement Diagram
+
+```python
+from mermaid import Mermaid
+from mermaid.reqdiagram import RequirementDiagram, Requirement, Element, Link, Type, Risk, VerifyMethod
+
+# Create elements
+system = Element("SYS_001", "Web Application", "System")
+database = Element("DB_001", "Database", "Database")
+
+# Create requirements
+req1 = Requirement(
+    id_="REQ_001",
+    name="User Authentication",
+    text="System must authenticate users with username and password",
+    type_=Type.FUNCTIONAL,
+    risk=Risk.HIGH,
+    verifymethod=VerifyMethod.TEST
+)
+
+req2 = Requirement(
+    id_="REQ_002",
+    name="Data Persistence",
+    text="All user data must be persisted in the database",
+    type_=Type.FUNCTIONAL,
+    risk=Risk.HIGH,
+    verifymethod=VerifyMethod.INSPECTION
+)
+
+# Create links
+link1 = Link(req1, system, "satisfies")
+link2 = Link(req2, database, "uses")
+
+# Create diagram
+diagram = RequirementDiagram(
+    title="System Requirements",
+    elements=[system, database],
+    requirements=[req1, req2],
+    links=[link1, link2]
+)
+
+Mermaid(diagram)
+```
+
+## RequirementDiagram Class
+
+### Constructor
+
+```python
+RequirementDiagram(
+    title: str,
+    elements: list[Element],
+    requirements: list[Requirement],
+    links: list[Link],
+    config: Optional[Config] = None
+)
+```
+
+### Parameters
+
+- **title** (str): The title of the requirement diagram
+- **elements** (list[Element]): List of system elements
+- **requirements** (list[Requirement]): List of system requirements
+- **links** (list[Link]): List of relationships between requirements and elements
+- **config** (Optional[Config]): Configuration settings
+
+## Requirement Types
+
+Requirements can be classified by type:
+
+- `Type.REQUIREMENT`: Generic requirement
+- `Type.FUNCTIONAL`: Functional requirement
+- `Type.INTERFACE`: Interface requirement
+- `Type.PERFORMANCE`: Performance requirement
+- `Type.PHYSICAL`: Physical requirement
+- `Type.DESIGN_CONSTRAINT`: Design constraint
+
+## Risk Levels
+
+Requirements can be assigned risk levels:
+
+- `Risk.LOW`: Low risk
+- `Risk.MEDIUM`: Medium risk
+- `Risk.HIGH`: High risk
+
+## Verification Methods
+
+Requirements must be verified using one of:
+
+- `VerifyMethod.ANALYSIS`: Analytical verification
+- `VerifyMethod.INSPECTION`: Inspection or review
+- `VerifyMethod.TEST`: Automated or manual testing
+- `VerifyMethod.DEMONSTRATION`: Live demonstration
+
+## Complete Example
+
+```python
+from mermaid import Mermaid
+from mermaid.reqdiagram import (
+    RequirementDiagram, Requirement, Element, Link,
+    Type, Risk, VerifyMethod
+)
+
+# Define system elements
+ui = Element("UI_001", "User Interface", "System")
+api = Element("API_001", "REST API", "System")
+db = Element("DB_001", "Database", "Database")
+auth = Element("AUTH_001", "Authentication Service", "System")
+
+# Define functional requirements
+req_auth = Requirement(
+    "F_001",
+    "Authentication",
+    "Users must be able to authenticate using credentials",
+    Type.FUNCTIONAL,
+    Risk.HIGH,
+    VerifyMethod.TEST
+)
+
+req_ui = Requirement(
+    "F_002",
+    "User Interface",
+    "System must provide user-friendly interface",
+    Type.INTERFACE,
+    Risk.MEDIUM,
+    VerifyMethod.INSPECTION
+)
+
+req_perf = Requirement(
+    "P_001",
+    "Response Time",
+    "API must respond within 500ms",
+    Type.PERFORMANCE,
+    Risk.HIGH,
+    VerifyMethod.TEST
+)
+
+req_security = Requirement(
+    "S_001",
+    "Data Security",
+    "All data must be encrypted in transit",
+    Type.DESIGN_CONSTRAINT,
+    Risk.HIGH,
+    VerifyMethod.INSPECTION
+)
+
+# Create relationships
+links = [
+    Link(req_auth, auth, "verifies"),
+    Link(req_ui, ui, "implements"),
+    Link(req_perf, api, "constrains"),
+    Link(req_security, db, "applies_to"),
+    Link(auth, api, "uses"),
+    Link(api, db, "queries")
+]
+
+# Create diagram
+diagram = RequirementDiagram(
+    title="Software Requirements Specification",
+    elements=[ui, api, db, auth],
+    requirements=[req_auth, req_ui, req_perf, req_security],
+    links=links
+)
+
+Mermaid(diagram)
+```
+
+## Tips
+
+- Use unique, meaningful IDs for traceability
+- Assign appropriate risk levels based on system criticality
+- Match verification methods to requirement types
+- Organize requirements by type (functional, performance, etc.)
+- Ensure all requirements are linked to at least one element
+- Use clear, concise requirement descriptions
+- Document constraints that affect multiple requirements

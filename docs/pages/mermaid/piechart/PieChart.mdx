@@ -1,0 +1,179 @@
+# Pie Chart Diagrams
+
+Pie charts are used to display data distribution and proportions. The `PieChart` class allows you to create simple, visual representations of data as percentages of a whole.
+
+## Overview
+
+A Pie Chart divides a circle into slices, where each slice represents a proportion of the total. It's useful for showing how different categories make up a whole, like budget allocation, market share, or survey responses.
+
+## Basic Usage
+
+### Creating a Simple Pie Chart
+
+```python
+from mermaid import Mermaid
+from mermaid.piechart import PieChart
+
+# Create data
+data = {
+    "Python": 30,
+    "JavaScript": 25,
+    "Java": 20,
+    "Go": 15,
+    "Rust": 10
+}
+
+# Create pie chart
+pie = PieChart(
+    title="Programming Languages Usage",
+    data=data
+)
+
+Mermaid(pie)
+```
+
+## PieChart Class
+
+### Constructor
+
+```python
+PieChart(
+    title: str,
+    data: dict[str, float],
+    show_data: bool = False,
+    config: Optional[Config] = None
+)
+```
+
+### Parameters
+
+- **title** (str): The chart title
+- **data** (dict[str, float]): Dictionary with labels as keys and values as numbers
+- **show_data** (bool): Whether to display data values on the chart. Default: `False`
+- **config** (Optional[Config]): Configuration settings
+
+## Data Format
+
+The data parameter should be a dictionary where:
+
+- **Keys** (str): Category labels
+- **Values** (float): Numeric values (will be converted to percentages)
+
+```python
+data = {
+    "Category A": 100,
+    "Category B": 50,
+    "Category C": 25,
+    "Category D": 25
+}
+# Results in: A=50%, B=25%, C=12.5%, D=12.5%
+```
+
+## Examples
+
+### Budget Allocation
+
+```python
+from mermaid import Mermaid
+from mermaid.piechart import PieChart
+
+budget = {
+    "Development": 40,
+    "Testing": 20,
+    "Documentation": 15,
+    "DevOps": 15,
+    "Management": 10
+}
+
+pie = PieChart(
+    title="Project Budget Allocation",
+    data=budget,
+    show_data=True
+)
+
+Mermaid(pie)
+```
+
+### Customer Satisfaction
+
+```python
+satisfaction = {
+    "Very Satisfied": 45,
+    "Satisfied": 35,
+    "Neutral": 12,
+    "Dissatisfied": 6,
+    "Very Dissatisfied": 2
+}
+
+pie = PieChart(
+    title="Customer Satisfaction Survey",
+    data=satisfaction,
+    show_data=True
+)
+```
+
+### Market Share
+
+```python
+market_share = {
+    "Company A": 2500,
+    "Company B": 1800,
+    "Company C": 1200,
+    "Company D": 950,
+    "Others": 550
+}
+
+pie = PieChart(
+    title="Current Market Share",
+    data=market_share
+)
+```
+
+### Technology Stack Usage
+
+```python
+tech_stack = {
+    "React": 35,
+    "Vue": 25,
+    "Angular": 20,
+    "Svelte": 12,
+    "Others": 8
+}
+
+pie = PieChart(
+    title="Frontend Framework Usage",
+    data=tech_stack,
+    show_data=True
+)
+```
+
+## Display Data
+
+Set `show_data=True` to display the actual values or percentages:
+
+```python
+# Without data values (default)
+pie1 = PieChart(title="Chart 1", data=data, show_data=False)
+
+# With data values displayed
+pie2 = PieChart(title="Chart 2", data=data, show_data=True)
+```
+
+## Saving Pie Charts
+
+```python
+pie = PieChart(title="My Chart", data={"A": 30, "B": 70})
+
+# Save as SVG
+pie.save("chart.mmd")
+```
+
+## Tips
+
+- Use meaningful category names that are self-explanatory
+- Limit to 5-7 categories for clarity
+- Ensure all values sum to a meaningful total
+- Use `show_data=True` for precise percentages
+- Order categories by value (largest first) for better readability
+- Use descriptive titles that explain what's being shown
+- Consider using other chart types for more than 8 categories

@@ -86,7 +86,7 @@ class Link:
             head_right if isinstance(head_right, str) else head_right.value
         ]
         self.shape: str = LINK_SHAPES[shape if isinstance(shape, str) else shape.value]
-        self.message: str = f"|{message}|" if message else message
+        self.message: str = message
 
     def __str__(self) -> str:
         """Return a string representation of the link.
@@ -97,25 +97,15 @@ class Link:
         Returns:
             str: A string representation of the link.
         """
-        if self.message:
-            element: list[str] = [
+        return "".join(
+            [
                 self.origin.id_,
                 " ",
                 self.head_left,
                 self.shape,
                 self.head_right,
-                self.message,
+                f'|"{self.message}"|' if self.message else "",
                 " ",
                 self.end.id_,
             ]
-        else:
-            element = [
-                self.origin.id_,
-                " ",
-                self.head_left,
-                self.shape,
-                self.head_right,
-                " ",
-                self.end.id_,
-            ]
-        return "".join(element)
+        )

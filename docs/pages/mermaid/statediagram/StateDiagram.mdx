@@ -1,0 +1,248 @@
+# State Diagrams
+
+State diagrams are used to represent the behavior of a system using states and transitions. The `StateDiagram` class allows you to visualize state machines, workflows, and system behavior with conditions and choices.
+
+## Overview
+
+A State Diagram shows how a system transitions between different states based on events or conditions. It's useful for documenting state machines, workflows, and complex system behaviors.
+
+## Basic Usage
+
+### Creating a Simple State Diagram
+
+```python
+from mermaid import Mermaid, Direction
+from mermaid.statediagram import StateDiagram, State, Start, End, Transition
+
+# Create states
+start = Start()
+active = State("active", "Active State")
+paused = State("paused", "Paused State")
+stopped = State("stopped", "Stopped State")
+end = End()
+
+# Create transitions
+transitions = [
+    Transition(start, active, "init"),
+    Transition(active, paused, "pause"),
+    Transition(paused, active, "resume"),
+    Transition(active, stopped, "stop"),
+    Transition(stopped, end)
+]
+
+# Create diagram
+diagram = StateDiagram(
+    title="Process State Machine",
+    states=[start, active, paused, stopped, end],
+    transitions=transitions,
+    direction=Direction.TOP_TO_BOTTOM
+)
+
+Mermaid(diagram)
+```
+
+## StateDiagram Class
+
+### Constructor
+
+```python
+StateDiagram(
+    title: str,
+    states: Optional[list[State]] = None,
+    transitions: Optional[list[BaseTransition]] = None,
+    version: str = "v2",
+    direction: Optional[Union[str, Direction]] = None,
+    config: Optional[Config] = None
+)
+```
+
+### Parameters
+
+- **title** (str): The diagram title
+- **states** (Optional[list[State]]): List of states
+- **transitions** (Optional[list[BaseTransition]]): List of transitions
+- **version** (str): Diagram version ("v1" or "v2"). Default: "v2"
+- **direction** (Optional[Union[str, Direction]]): Diagram direction
+- **config** (Optional[Config]): Configuration settings
+
+## State Types
+
+### Simple State
+
+```python
+state = State("state_id", "State Label")
+```
+
+### Start State
+
+```python
+from mermaid.statediagram import Start
+
+start = Start()  # Represents [*]
+```
+
+### End State
+
+```python
+from mermaid.statediagram import End
+
+end = End()  # Represents [*]
+```
+
+### Composite State
+
+Contains sub-states with their own transitions.
+
+```python
+from mermaid.statediagram import Composite
+
+sub_states = [
+    State("s1", "Sub State 1"),
+    State("s2", "Sub State 2")
+]
+
+composite = Composite(
+    "compound",
+    "Composite State",
+    sub_states=sub_states,
+    direction=Direction.TOP_TO_BOTTOM
+)
+```
+
+### Concurrent State
+
+Contains parallel sub-states.
+
+```python
+from mermaid.statediagram import Concurrent
+
+group1 = [
+    State("p1", "Process 1"),
+    State("p2", "Process 2")
+]
+
+group2 = [
+    State("p3", "Process 3"),
+    State("p4", "Process 4")
+]
+
+concurrent = Concurrent(
+    "parallel",
+    "Parallel States",
+    sub_groups=[(group1, []), (group2, [])]
+)
+```
+
+## Transitions
+
+### Regular Transition
+
+```python
+from mermaid.statediagram import Transition
+
+transition = Transition(
+    from_=state1,
+    to=state2,
+    label="event"
+)
+```
+
+### Choice (Decision Point)
+
+```python
+from mermaid.statediagram import Choice
+
+choice = Choice(
+    id_="decision",
+    from_=state1,
+    to=[success, failure],
+    conditions=["valid", "invalid"]
+)
+```
+
+### Fork and Join
+
+```python
+from mermaid.statediagram import Fork, Join
+
+fork = Fork("start_parallel", state1, [state2, state3])
+join = Join("sync_point", [state4, state5], state6)
+```
+
+## Complete Example
+
+```python
+from mermaid import Mermaid, Direction
+from mermaid.statediagram import (
+    StateDiagram, State, Start, End, Transition,
+    Composite, Choice
+)
+from mermaid.style import Style
+
+# Define styles
+warning_style = Style(name="warning", fill="#FFB6C1", color="black")
+success_style = Style(name="success", fill="#90EE90", color="black")
+
+# Create states
+start = Start()
+
+# Main workflow states
+pending = State("pending", "Pending", styles=[warning_style])
+processing = State("processing", "Processing")
+completed = State("completed", "Completed", styles=[success_style])
+failed = State("failed", "Failed", styles=[warning_style])
+
+# Sub-states for processing
+validate = State("validate", "Validate Input")
+execute = State("execute", "Execute")
+cleanup = State("cleanup", "Cleanup")
+
+processing_composite = Composite(
+    "proc",
+    "Processing",
+    sub_states=[validate, execute, cleanup],
+    transitions=[
+        Transition(validate, execute, "valid"),
+        Transition(execute, cleanup, "done")
+    ]
+)
+
+end = End()
+
+# Choice point for results
+result_choice = Choice(
+    "check_result",
+    processing_composite,
+    [completed, failed],
+    ["success", "error"]
+)
+
+# State transitions
+transitions = [
+    Transition(start, pending, "submit"),
+    Transition(pending, processing_composite, "start"),
+    result_choice,
+    Transition(failed, pending, "retry"),
+    Transition(completed, end)
+]
+
+# Create diagram
+diagram = StateDiagram(
+    title="Order Processing Workflow",
+    states=[start, pending, processing_composite, completed, failed, end],
+    transitions=transitions,
+    direction=Direction.TOP_TO_BOTTOM
+)
+
+Mermaid(diagram)
+```
+
+## Tips
+
+- Use clear state labels describing what the system is doing
+- Include all relevant transitions
+- Use composite states for complex subsystems
+- Document conditions on transitions
+- Keep state diagram hierarchy manageable
+- Use styling to highlight important states
+- Document start and end states clearly

@@ -13,6 +13,7 @@ runs:
         uses: fikra-tech/uv-sync@v2
         with:
           python-version: ${{ inputs.python-version }}
+          extra-args: "--all-groups"
       - name: Run test for python version ${{inputs.python-version}}
         run: make test
         shell: bash

@@ -1,0 +1,32 @@
+{
+  "flowchart": {
+    "title": "FlowChart Diagrams"
+  },
+  "graph": {
+    "title": "Graph (Base Class)"
+  },
+  "erdiagram": {
+    "title": "Entity Relationship Diagrams"
+  },
+  "reqdiagram": {
+    "title": "Requirement Diagrams"
+  },
+  "sequence": {
+    "title": "Sequence Diagrams"
+  },
+  "statediagram": {
+    "title": "State Diagrams"
+  },
+  "mindmap": {
+    "title": "Mindmap Diagrams"
+  },
+  "userjourney": {
+    "title": "User Journey Diagrams"
+  },
+  "piechart": {
+    "title": "Pie Chart Diagrams"
+  },
+  "configuration": {
+    "title": "Configuration & Styling"
+  }
+}

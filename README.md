@@ -8,7 +8,6 @@ this package works as an interface for the famous mermaid-js library that uses s
 [![latest version](https://img.shields.io/pypi/v/mermaid-py.svg?style=flat)](https://pypi.org/project/mermaid-py/)
 [![supported python version](https://img.shields.io/pypi/pyversions/mermaid-py)](https://pypi.org/project/mermaid-py)
 [![ruff badge](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-[![mermaid-py on snyk](https://snyk.io/advisor/python/mermaid-py/badge.svg)](https://snyk.io/advisor/python/mermaid-py)
 
 
 ## Description
@@ -98,7 +97,7 @@ The `MERMAID_INK_SERVER` environment variable can be used to specify the server 
 - [x] [~~Mindmaps~~](https://mermaid.js.org/syntax/mindmap.html)
 - [ ] [Timeline](https://mermaid.js.org/syntax/timeline.html)
 - [ ] [Zenuml](https://mermaid.js.org/syntax/zenuml.html)
-- [ ] [Sankey](https://mermaid.js.org/syntax/sankey.html)
+- [ ] [Sankey 🔥](https://mermaid.js.org/syntax/sankey.html)
 - [ ] [XYChart 🔥](https://mermaid.js.org/syntax/xyChart.html)
 - [ ] [Block Diagram 🔥](https://mermaid.js.org/syntax/block.html)
 - [ ] [Packet 🔥](https://mermaid.js.org/syntax/packet.html)
@@ -106,6 +105,7 @@ The `MERMAID_INK_SERVER` environment variable can be used to specify the server 
 - [ ] [Architecture 🔥](https://mermaid.js.org/syntax/architecture.html)
 - [ ] [Radar 🔥](https://mermaid.js.org/syntax/radar.html)
 - [ ] [Treemap 🔥](https://mermaid.js.org/syntax/treemap.html)
+- [ ] [Venn 🔥](https://mermaid.js.org/syntax/venn.html)
 
 ## License
 

@@ -1,1 +1,265 @@
-# some text
+# Entity Class (ER Diagrams)
+
+The `Entity` class represents a table or entity in an Entity Relationship (ER) diagram. Each entity contains a set of attributes that describe its properties.
+
+## Overview
+
+An Entity is a logical representation of a table or concept in a database schema. It contains attributes (columns) with their types and optional constraints like Primary Key (PK), Foreign Key (FK), or Unique Key (UK).
+
+## Constructor
+
+```python
+Entity(
+    name: str,
+    attributes: Optional[dict[str, Union[list[str], str]]] = None
+)
+```
+
+## Parameters
+
+- **name** (str): The name of the entity (typically the table name)
+- **attributes** (Optional[dict]): Dictionary mapping attribute names to their definitions. Values can be:
+  - A string: Just the type (e.g., `"int"`, `"string"`)
+  - A list: Type and constraints/comments (e.g., `["int", "PK"]` or `["string", "comment"]`)
+
+## Attributes
+
+After initialization:
+
+- **name** (str): The entity's name
+- **attributes** (dict): Dictionary of attributes
+
+## Methods
+
+### add_attribute(name: str, type_: str, constraint: Optional[str] = None, comment: Optional[str] = None) -> None
+
+Add a single attribute to the entity with optional constraint and comment.
+
+**Parameters:**
+
+- **name** (str): The attribute name
+- **type_** (str): The data type (e.g., `"int"`, `"string"`, `"datetime"`)
+- **constraint** (Optional[str]): Optional constraint like `"PK"`, `"FK"`, `"UK"`, or combination like `"FK PK"`
+- **comment** (Optional[str]): Optional comment describing the attribute
+
+**Example:**
+
+```python
+entity = Entity("USER")
+entity.add_attribute("user_id", "int", constraint="PK")
+entity.add_attribute("email", "string", constraint="UK")
+entity.add_attribute("created_at", "datetime", comment="Account creation timestamp")
+```
+
+### update_attributes(attributes: dict[str, str]) -> None
+
+Update multiple attributes at once.
+
+**Parameters:**
+
+- **attributes** (dict): Dictionary of attribute names and their type definitions
+
+**Example:**
+
+```python
+entity.update_attributes({
+    "username": "string",
+    "password": "string",
+    "is_active": "boolean"
+})
+```
+
+## Attribute Constraints
+
+Use these standard database constraints:
+
+| Constraint | Meaning | Usage |
+|-----------|---------|-------|
+| `PK` | Primary Key | Uniquely identifies each record |
+| `FK` | Foreign Key | References a primary key in another entity |
+| `UK` | Unique Key | Ensures unique values |
+| `PK FK` | Composite Key | Both primary and foreign key |
+
+## Basic Examples
+
+### Simple Entity
+
+```python
+from mermaid.erdiagram import Entity
+
+product = Entity("PRODUCT", {
+    "product_id": "int",
+    "name": "string",
+    "price": "decimal",
+    "quantity": "int"
+})
+```
+
+### Entity with Constraints
+
+```python
+user = Entity("USER")
+user.add_attribute("user_id", "int", constraint="PK")
+user.add_attribute("email", "string", constraint="UK")
+user.add_attribute("username", "string", constraint="UK")
+user.add_attribute("password", "string")
+user.add_attribute("is_active", "boolean")
+```
+
+### Entity with Comments
+
+```python
+order = Entity("ORDER")
+order.add_attribute("order_id", "int", constraint="PK")
+order.add_attribute("customer_id", "int", constraint="FK", comment="References CUSTOMER table")
+order.add_attribute("order_date", "datetime", comment="When the order was placed")
+order.add_attribute("total_amount", "decimal", comment="Sum of all items in order")
+order.add_attribute("status", "enum", comment="pending, processing, shipped, delivered, cancelled")
+```
+
+### Entity with Multiple Constraints
+
+```python
+enrollment = Entity("ENROLLMENT")
+enrollment.add_attribute("student_id", "int", constraint="FK PK")
+enrollment.add_attribute("course_id", "int", constraint="FK PK")
+enrollment.add_attribute("grade", "char")
+enrollment.add_attribute("enrollment_date", "datetime")
+```
+
+## Attribute Data Types
+
+Common data types used in ER diagrams:
+
+- **Numeric**: `int`, `integer`, `bigint`, `decimal`, `float`, `double`, `numeric`
+- **String**: `string`, `varchar`, `char`, `text`, `clob`
+- **Date/Time**: `date`, `time`, `datetime`, `timestamp`
+- **Boolean**: `boolean`, `bool`, `bit`
+- **Other**: `enum`, `json`, `uuid`, `blob`, `binary`
+
+## Complete Example
+
+```python
+from mermaid.erdiagram import Entity
+
+# User entity
+user = Entity("USER")
+user.add_attribute("user_id", "int", constraint="PK")
+user.add_attribute("username", "string", constraint="UK")
+user.add_attribute("email", "string", constraint="UK")
+user.add_attribute("password_hash", "string")
+user.add_attribute("first_name", "string")
+user.add_attribute("last_name", "string")
+user.add_attribute("profile_image_url", "string")
+user.add_attribute("bio", "text", comment="User biography")
+user.add_attribute("created_at", "datetime")
+user.add_attribute("updated_at", "datetime")
+user.add_attribute("is_active", "boolean")
+
+# Post entity
+post = Entity("POST")
+post.add_attribute("post_id", "int", constraint="PK")
+post.add_attribute("user_id", "int", constraint="FK", comment="References USER")
+post.add_attribute("title", "string")
+post.add_attribute("content", "text")
+post.add_attribute("status", "enum", comment="draft, published, archived")
+post.add_attribute("published_at", "datetime")
+post.add_attribute("view_count", "int")
+post.add_attribute("created_at", "datetime")
+post.add_attribute("updated_at", "datetime")
+
+# Comment entity
+comment = Entity("COMMENT")
+comment.add_attribute("comment_id", "int", constraint="PK")
+comment.add_attribute("post_id", "int", constraint="FK", comment="References POST")
+comment.add_attribute("user_id", "int", constraint="FK", comment="References USER")
+comment.add_attribute("content", "text")
+comment.add_attribute("created_at", "datetime")
+comment.add_attribute("updated_at", "datetime")
+
+# Tag entity
+tag = Entity("TAG")
+tag.add_attribute("tag_id", "int", constraint="PK")
+tag.add_attribute("name", "string", constraint="UK")
+tag.add_attribute("slug", "string", constraint="UK", comment="URL-friendly version")
+
+# Junction table for many-to-many relationship
+post_tag = Entity("POST_TAG")
+post_tag.add_attribute("post_id", "int", constraint="FK PK")
+post_tag.add_attribute("tag_id", "int", constraint="FK PK")
+post_tag.add_attribute("created_at", "datetime")
+```
+
+## Database Design Patterns
+
+### Entity for One-to-One Relationship
+
+```python
+# User has one profile
+user = Entity("USER")
+user.add_attribute("user_id", "int", constraint="PK")
+# ... other attributes
+
+profile = Entity("PROFILE")
+profile.add_attribute("profile_id", "int", constraint="PK")
+profile.add_attribute("user_id", "int", constraint="FK UK")
+profile.add_attribute("bio", "text")
+# One-to-one enforced by unique constraint on foreign key
+```
+
+### Entity for One-to-Many Relationship
+
+```python
+# Department has many employees
+department = Entity("DEPARTMENT")
+department.add_attribute("dept_id", "int", constraint="PK")
+department.add_attribute("name", "string")
+
+employee = Entity("EMPLOYEE")
+employee.add_attribute("emp_id", "int", constraint="PK")
+employee.add_attribute("dept_id", "int", constraint="FK")
+employee.add_attribute("name", "string")
+```
+
+### Entity for Many-to-Many Relationship
+
+```python
+# Students enroll in many courses, courses have many students
+student = Entity("STUDENT")
+student.add_attribute("student_id", "int", constraint="PK")
+student.add_attribute("name", "string")
+
+course = Entity("COURSE")
+course.add_attribute("course_id", "int", constraint="PK")
+course.add_attribute("name", "string")
+
+# Junction table
+enrollment = Entity("ENROLLMENT")
+enrollment.add_attribute("student_id", "int", constraint="FK PK")
+enrollment.add_attribute("course_id", "int", constraint="FK PK")
+enrollment.add_attribute("grade", "char")
+enrollment.add_attribute("enrollment_date", "datetime")
+```
+
+### Weak Entity
+
+```python
+# Order exists because of Customer; OrderItem existence depends on Order
+order_item = Entity("ORDER_ITEM")
+order_item.add_attribute("order_id", "int", constraint="FK PK", comment="Composite key")
+order_item.add_attribute("item_number", "int", constraint="PK", comment="Composite key")
+order_item.add_attribute("product_id", "int", constraint="FK")
+order_item.add_attribute("quantity", "int")
+order_item.add_attribute("unit_price", "decimal")
+```
+
+## Tips
+
+- **Naming**: Use singular nouns for entity names (USER, not USERS)
+- **Attributes**: Keep attribute names descriptive and consistent
+- **Keys**: Always define primary keys for every entity
+- **Relationships**: Use foreign keys to establish relationships
+- **Constraints**: Use FK to maintain referential integrity
+- **Uniqueness**: Use UK for fields that must be unique (usernames, emails, etc.)
+- **Comments**: Document complex attributes and their purposes
+- **Types**: Use appropriate data types for clear schema documentation
