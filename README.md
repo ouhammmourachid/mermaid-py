@@ -97,7 +97,7 @@ The `MERMAID_INK_SERVER` environment variable can be used to specify the server 
 - [x] [~~Mindmaps~~](https://mermaid.js.org/syntax/mindmap.html)
 - [ ] [Timeline](https://mermaid.js.org/syntax/timeline.html)
 - [ ] [Zenuml](https://mermaid.js.org/syntax/zenuml.html)
-- [ ] [Sankey ](https://mermaid.js.org/syntax/sankey.html)
+- [ ] [Sankey 🔥](https://mermaid.js.org/syntax/sankey.html)
 - [ ] [XYChart 🔥](https://mermaid.js.org/syntax/xyChart.html)
 - [ ] [Block Diagram 🔥](https://mermaid.js.org/syntax/block.html)
 - [ ] [Packet 🔥](https://mermaid.js.org/syntax/packet.html)
