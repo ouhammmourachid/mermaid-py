@@ -51,7 +51,7 @@ build:
 
 .PHONY: publish
 publish:
-	$(UV_RUN) python -m twine upload dist/*
+	$(UV_RUN) twine upload dist/* --non-interactive
 
 .PHONY: help
 help:
