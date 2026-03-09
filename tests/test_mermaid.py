@@ -1,8 +1,9 @@
 import os
 import unittest
 from pathlib import Path
+from unittest import mock
 
-from mermaid import Mermaid, Position
+from mermaid import Mermaid, MermaidError, Position
 from mermaid.graph import Graph
 
 
@@ -107,3 +108,117 @@ class TestMermaid(unittest.TestCase):
             os.remove(output_png_path)
 
         return super().tearDown()
+
+
+class TestMermaidError(unittest.TestCase):
+    """Test cases for MermaidError exception."""
+
+    def setUp(self) -> None:
+        self.script: str = """graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;"""
+        self.name: str = "error-test-graph"
+        self.graph: Graph = Graph(self.name, self.script)
+
+    def test_mermaid_error_on_400_bad_request(self):
+        """Test that MermaidError is raised when API returns 400."""
+        with mock.patch("requests.get") as mock_get:
+            mock_response = mock.Mock()
+            mock_response.ok = False
+            mock_response.status_code = 400
+            mock_response.text = "Invalid diagram syntax"
+            mock_get.return_value = mock_response
+
+            with self.assertRaises(MermaidError) as context:
+                Mermaid(self.graph)
+
+            error = context.exception
+            self.assertEqual(error.status_code, 400)
+            self.assertIn("Bad Request", str(error))
+            self.assertIn("Invalid diagram syntax", str(error))
+
+    def test_mermaid_error_on_500_internal_server_error(self):
+        """Test that MermaidError is raised when API returns 500."""
+        with mock.patch("requests.get") as mock_get:
+            mock_response = mock.Mock()
+            mock_response.ok = False
+            mock_response.status_code = 500
+            mock_response.text = "Internal server error"
+            mock_get.return_value = mock_response
+
+            with self.assertRaises(MermaidError) as context:
+                Mermaid(self.graph)
+
+            error = context.exception
+            self.assertEqual(error.status_code, 500)
+            self.assertIn("Internal Server Error", str(error))
+            self.assertIn("Internal server error", str(error))
+
+    def test_mermaid_error_on_503_service_unavailable(self):
+        """Test that MermaidError is raised when API returns 503."""
+        with mock.patch("requests.get") as mock_get:
+            mock_response = mock.Mock()
+            mock_response.ok = False
+            mock_response.status_code = 503
+            mock_response.text = "Service temporarily unavailable"
+            mock_get.return_value = mock_response
+
+            with self.assertRaises(MermaidError) as context:
+                Mermaid(self.graph)
+
+            error = context.exception
+            self.assertEqual(error.status_code, 503)
+            self.assertIn("Service Unavailable", str(error))
+
+    def test_mermaid_error_on_404_not_found(self):
+        """Test that MermaidError is raised when API returns 404."""
+        with mock.patch("requests.get") as mock_get:
+            mock_response = mock.Mock()
+            mock_response.ok = False
+            mock_response.status_code = 404
+            mock_response.text = "Endpoint not found"
+            mock_get.return_value = mock_response
+
+            with self.assertRaises(MermaidError) as context:
+                Mermaid(self.graph)
+
+            error = context.exception
+            self.assertEqual(error.status_code, 404)
+            self.assertIn("Not Found", str(error))
+
+    def test_mermaid_error_contains_metadata(self):
+        """Test that MermaidError stores error metadata."""
+        with mock.patch("requests.get") as mock_get:
+            mock_response = mock.Mock()
+            mock_response.ok = False
+            mock_response.status_code = 400
+            mock_response.text = "Test error details"
+            mock_get.return_value = mock_response
+
+            with self.assertRaises(MermaidError) as context:
+                Mermaid(self.graph)
+
+            error = context.exception
+            self.assertEqual(error.status_code, 400)
+            self.assertEqual(error.response_text, "Test error details")
+            self.assertIsNotNone(error.url)
+
+    def test_mermaid_error_message_formatting_long_response(self):
+        """Test that MermaidError truncates long response messages."""
+        long_error_text = "x" * 600  # Longer than 500 chars
+        
+        with mock.patch("requests.get") as mock_get:
+            mock_response = mock.Mock()
+            mock_response.ok = False
+            mock_response.status_code = 400
+            mock_response.text = long_error_text
+            mock_get.return_value = mock_response
+
+            with self.assertRaises(MermaidError) as context:
+                Mermaid(self.graph)
+
+            error_message = str(context.exception)
+            # Should contain truncation indicator
+            self.assertIn("...", error_message)

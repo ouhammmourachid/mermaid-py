@@ -13,7 +13,7 @@ Functions:
 
 from enum import Enum
 
-from .__main__ import Mermaid, Position
+from .__main__ import Mermaid, Position, MermaidError
 from .configuration import Config
 from .graph import Graph
 from .icon import Icon
@@ -34,6 +34,7 @@ class Direction(Enum):
 
 __all__ = [
     "Mermaid",
+    "MermaidError",
     "load",
     "Direction",
     "Graph",
