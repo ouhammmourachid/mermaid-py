@@ -55,6 +55,7 @@ jobs:
         uses: fikra-tech/uv-sync@v2
         with:
           python-version: ${{ inputs.python-version }}
+          extra-args: "--all-groups"
       - name: generate coverage report
         run: make coverage
       - name: upload coverage reports to Codecov

@@ -10,17 +10,41 @@ authors = [
 requires-python = ">=3.9"
 
 dependencies = [
+    "requests>=2.32.5"
+]
+classifiers = [
+    # Update the following list as the project matures
+    "Development Status :: 4 - Beta",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Framework :: FastAPI",
+    "Framework :: AsyncIO",
+    "Framework :: Pydantic",
+    "Framework :: Pydantic :: 2",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Internet",
+    "Typing :: Typed",
+]
+
+
+[dependency-groups]
+dev = [
     "codecov>=2.1.13",
     "coverage>=7.10.7",
     "pre-commit>=4.3.0",
     "pytest>=8.4.2",
     "pytest-cov>=7.0.0",
-    "requests>=2.32.5",
-    "ruff>=0.14.14",
-]
-
-[dependency-groups]
-dev = [
+    "ruff>=0.14.14"
 ]
 
 [tool.uv]

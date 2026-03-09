@@ -1,0 +1,289 @@
+# Link Class (FlowChart)
+
+The `Link` class represents a connection or edge between two nodes in a flowchart diagram. Links visualize the flow and relationships between different steps or decisions in your process.
+
+## Overview
+
+A Link connects an origin node to an end node and can include decorative elements such as messages, different shapes, and arrow heads to indicate the type of flow or relationship.
+
+## Constructor
+
+```python
+Link(
+    origin: Node,
+    end: Node,
+    shape: Union[str, LinkShape] = "normal",
+    head_left: Union[str, LinkHead] = "none",
+    head_right: Union[str, LinkHead] = "arrow",
+    message: str = ""
+)
+```
+
+## Parameters
+
+- **origin** (Node): The starting node of the link. Required.
+- **end** (Node): The ending node of the link. Required.
+- **shape** (Union[str, LinkShape]): The visual style of the link line. Default: `"normal"`
+- **head_left** (Union[str, LinkHead]): Arrow or symbol at the origin end of the link. Default: `"none"`
+- **head_right** (Union[str, LinkHead]): Arrow or symbol at the end of the link. Default: `"arrow"`
+- **message** (str): Text displayed along the link. Default: `""`
+
+## Link Shapes
+
+The `shape` parameter determines the visual style of the link line:
+
+| Shape | Enum Value | Visual | Use Case |
+|-------|-----------|--------|----------|
+| Normal | `"normal"` or `LinkShape.NORMAL` | `--` | Standard connection |
+| Dotted | `"dotted"` or `LinkShape.DOTTED` | `-.-` | Conditional or optional flow |
+| Thick | `"thick"` or `LinkShape.THICK` | `==` | Important or primary flow |
+| Hidden | `"hidden"` or `LinkShape.HIDDEN` | `~~~` | Hidden/invisible connection |
+
+## Link Head Types
+
+The `head_left` and `head_right` parameters control the arrow/symbol at each end:
+
+| Head Type | Enum Value | Syntax | Visual |
+|-----------|-----------|--------|--------|
+| None | `"none"` or `LinkHead.NONE` | `` | No arrow |
+| Arrow | `"arrow"` or `LinkHead.ARROW` | `>` | Standard arrow → |
+| Left Arrow | `"left-arrow"` or `LinkHead.LEFT_ARROW` | `<` | Reverse arrow ← |
+| Bullet | `"bullet"` or `LinkHead.BULLET` | `o` | Circle bullet ● |
+| Cross | `"cross"` or `LinkHead.CROSS` | `x` | Cross mark ✕ |
+
+## Basic Examples
+
+### Simple Link
+
+```python
+from mermaid.flowchart import Node, Link
+
+start = Node("start", "Start")
+process = Node("process", "Process")
+
+# Create a simple link
+link = Link(start, process)
+print(link)  # Output: start -->|message| process
+```
+
+### Link with Message
+
+```python
+# Link with descriptive text
+decision = Node("check", "Valid?", shape="rhombus")
+success = Node("success", "Continue", shape="normal")
+
+link_yes = Link(decision, success, message="Yes")
+link_no = Link(decision, error, message="No")
+```
+
+### Different Shapes
+
+```python
+from mermaid.flowchart import LinkShape
+
+input_node = Node("input", "Input")
+process = Node("process", "Processing")
+output = Node("output", "Output")
+
+# Different link shapes
+normal_link = Link(input_node, process)  # Default
+dotted_link = Link(input_node, output, shape=LinkShape.DOTTED)
+thick_link = Link(process, output, shape="thick")
+hidden_link = Link(process, output, shape=LinkShape.HIDDEN)
+```
+
+### Different Arrow Heads
+
+```python
+from mermaid.flowchart import LinkHead
+
+node_a = Node("a", "Node A")
+node_b = Node("b", "Node B")
+node_c = Node("c", "Node C")
+node_d = Node("d", "Node D")
+
+# Different arrow styles
+link1 = Link(node_a, node_b, head_right=LinkHead.ARROW)  # Standard arrow
+link2 = Link(node_a, node_c, head_right=LinkHead.BULLET)  # Bullet point
+link3 = Link(node_a, node_d, head_right=LinkHead.CROSS)  # Cross mark
+```
+
+### Bidirectional Arrows
+
+```python
+# Create bidirectional link
+bidirectional = Link(
+    node_a,
+    node_b,
+    head_left=LinkHead.ARROW,
+    head_right=LinkHead.ARROW,
+    message="Bidirectional"
+)
+
+# Link with bullet on left, arrow on right
+mixed = Link(
+    node_a,
+    node_b,
+    head_left=LinkHead.BULLET,
+    head_right=LinkHead.ARROW
+)
+```
+
+## Complete Example
+
+```python
+from mermaid import Mermaid, Direction
+from mermaid.flowchart import FlowChart, Node, Link, LinkShape, LinkHead
+
+# Create nodes
+start = Node("start", "Start Process", shape="stadium-shape")
+input_data = Node("input", "Get Input", shape="normal")
+validate = Node("validate", "Validate", shape="rhombus")
+process = Node("process", "Process Data", shape="normal")
+error_log = Node("error", "Log Error", shape="normal")
+store = Node("store", "Store Result", shape="cylinder")
+end = Node("end", "End", shape="stadium-shape")
+
+# Create links with various styles
+links = [
+    Link(
+        start,
+        input_data,
+        shape=LinkShape.NORMAL,
+        head_right=LinkHead.ARROW
+    ),
+    Link(
+        input_data,
+        validate,
+        message="Check Format",
+        shape=LinkShape.NORMAL
+    ),
+    Link(
+        validate,
+        process,
+        message="Valid",
+        shape=LinkShape.THICK
+    ),
+    Link(
+        validate,
+        error_log,
+        message="Invalid",
+        shape=LinkShape.DOTTED,
+        head_left=LinkHead.ARROW,
+        head_right=LinkHead.CROSS
+    ),
+    Link(
+        process,
+        store,
+        shape=LinkShape.THICK
+    ),
+    Link(
+        store,
+        end,
+        message="Complete",
+        shape=LinkShape.NORMAL
+    ),
+]
+
+# Create flowchart
+flowchart = FlowChart(
+    title="Data Processing Pipeline",
+    nodes=[start, input_data, validate, process, error_log, store, end],
+    links=links,
+    orientation=Direction.TOP_TO_BOTTOM
+)
+
+diagram = Mermaid(flowchart)
+diagram
+```
+
+## Common Link Patterns
+
+### Decision Flow
+
+```python
+decision = Node("decide", "Condition?", shape="rhombus")
+yes_path = Node("yes", "Yes Path")
+no_path = Node("no", "No Path")
+
+yes_link = Link(decision, yes_path, message="Yes")
+no_link = Link(decision, no_path, message="No")
+```
+
+### Error Handling
+
+```python
+process = Node("process", "Process")
+error = Node("error", "Error Handler")
+retry = Node("retry", "Retry")
+
+# Error connection with special styling
+error_link = Link(
+    process,
+    error,
+    shape=LinkShape.DOTTED,
+    head_right=LinkHead.CROSS,
+    message="Error"
+)
+
+# Retry loop with different styling
+retry_link = Link(
+    retry,
+    process,
+    shape=LinkShape.THICK,
+    message="Retry"
+)
+```
+
+### Optional/Conditional Flow
+
+```python
+main_process = Node("main", "Main Process")
+optional = Node("optional", "Optional Step")
+
+# Use dotted line for optional connections
+optional_link = Link(
+    main_process,
+    optional,
+    shape=LinkShape.DOTTED,
+    message="Optional"
+)
+```
+
+### Feedback Loops
+
+```python
+process = Node("process", "Process")
+verify = Node("verify", "Verify")
+
+forward = Link(process, verify, message="Forward")
+
+# Backward loop with left arrow
+feedback = Link(
+    verify,
+    process,
+    head_left=LinkHead.ARROW,
+    shape=LinkShape.DOTTED,
+    message="Feedback"
+)
+```
+
+## String Representation
+
+You can view the Mermaid syntax of a link:
+
+```python
+link = Link(node_a, node_b, message="Flow", shape=LinkShape.THICK)
+print(str(link))  # Output: node_a ==|"Flow"| node_b
+```
+
+## Tips
+
+- Use messages to clarify decision branches and special conditions
+- Choose appropriate shapes to indicate the importance or type of flow
+- Use arrow heads consistently to indicate flow direction
+- Limit message length for readability
+- Use dotted lines for optional or exceptional flows
+- Use thick lines for critical or primary paths
+- Add bullet or cross heads to indicate special connection types

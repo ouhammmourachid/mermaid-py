@@ -1,0 +1,256 @@
+# Sequence Diagrams
+
+Sequence diagrams are used to show the interactions between objects over time. The `SequenceDiagram` class allows you to visualize message flows, timing, and interactions between system components, processes, or entities.
+
+## Overview
+
+A Sequence Diagram illustrates how different actors and participants interact with each other through messages over time. It's useful for documenting workflows, processes, and communication protocols.
+
+## Basic Usage
+
+### Creating a Simple Sequence Diagram
+
+```python
+from mermaid import Mermaid
+from mermaid.sequence import (
+    SequenceDiagram, Actor, Participant, Link, ArrowTypes
+)
+
+# Create participants
+alice = Actor("Alice")
+bob = Participant("Bob")
+server = Participant("Server")
+
+# Create interactions
+msg1 = Link(alice, bob, ArrowTypes.SOLID_LINE, "Hello Bob!")
+msg2 = Link(bob, server, ArrowTypes.SOLID_ARROW, "Process request")
+msg3 = Link(server, bob, ArrowTypes.DOTTED_LINE, "Response")
+msg4 = Link(bob, alice, ArrowTypes.SOLID_ARROW, "Hello Alice!")
+
+# Create diagram
+diagram = SequenceDiagram(
+    title="Simple Interaction",
+    elements=[alice, bob, server, msg1, msg2, msg3, msg4]
+)
+
+Mermaid(diagram)
+```
+
+## SequenceDiagram Class
+
+### Constructor
+
+```python
+SequenceDiagram(
+    title: str,
+    elements: list[Union[Actor, Participant, Box, Note, Link, Alt, Break, Critical, Loop, Optional, Parallel]],
+    auto_number: bool = False,
+    config: Optional[Config] = None
+)
+```
+
+### Parameters
+
+- **title** (str): The diagram title
+- **elements** (list): Actors, participants, interactions, and logic constructs
+- **auto_number** (bool): Whether to auto-number interactions. Default: `False`
+- **config** (Optional[Config]): Configuration settings
+
+## Participants
+
+### Actor
+
+Represents an external actor outside the system.
+
+```python
+alice = Actor("Alice")
+user = Actor("End User")
+```
+
+### Participant
+
+Represents a system or internal entity.
+
+```python
+server = Participant("Web Server")
+database = Participant("Database")
+```
+
+### Box
+
+Groups multiple participants.
+
+```python
+box = Box("Backend System", [server, database])
+```
+
+## Interactions
+
+### Link Class
+
+Represents a message or interaction between two participants.
+
+```python
+Link(
+    source: Union[Actor, Participant],
+    target: Union[Actor, Participant],
+    type_: Union[str, ArrowTypes],
+    message: str,
+    activate_target: bool = False,
+    deactivate_target: bool = False
+)
+```
+
+#### Arrow Types
+
+- `ArrowTypes.SOLID_LINE`: `->`
+- `ArrowTypes.DOTTED_LINE`: `-->`
+- `ArrowTypes.SOLID_ARROW`: `->>`
+- `ArrowTypes.DOTTED_ARROW`: `-->>`
+- `ArrowTypes.SOLID_CROSS`: `-x`
+- `ArrowTypes.DOTTED_CROSS`: `--x`
+- `ArrowTypes.SOLID_ASYNC`: `-)`
+- `ArrowTypes.DOTTED_ASYNC`: `--)`
+
+## Logic Constructs
+
+### Alt (Alternative)
+
+Represents conditional logic.
+
+```python
+from mermaid.sequence import Alt
+
+condition_links = {
+    "valid credentials": [link1, link2],
+    "invalid credentials": [link3]
+}
+alt = Alt(condition_links)
+```
+
+### Loop
+
+Represents repeated interactions.
+
+```python
+from mermaid.sequence import Loop
+
+links = [interaction1, interaction2]
+loop = Loop("while data available", links)
+```
+
+### Parallel
+
+Represents parallel interactions.
+
+```python
+from mermaid.sequence import Parallel
+
+parallel = Parallel({
+    "Task 1": [links1],
+    "Task 2": [links2]
+})
+```
+
+### Optional
+
+Represents optional interactions.
+
+```python
+from mermaid.sequence import Optional
+
+optional = Optional("if needed", [link1, link2])
+```
+
+## Notes and Formatting
+
+### Note
+
+Add notes to explain interactions.
+
+```python
+from mermaid.sequence import Note, NotePosition
+
+note = Note(
+    "This is a note",
+    participant,
+    position=NotePosition.RIGHT_OF
+)
+```
+
+### Rect (Rectangle/Highlight)
+
+Highlight a section with color.
+
+```python
+from mermaid.sequence import Rect
+
+rect = Rect([link1, link2], (255, 200, 150))  # RGB color
+```
+
+## Complete Example
+
+```python
+from mermaid import Mermaid
+from mermaid.sequence import (
+    SequenceDiagram, Actor, Participant, Link, ArrowTypes,
+    Alt, Note, NotePosition
+)
+
+# Create participants
+user = Actor("User")
+web_app = Participant("Web App")
+api_server = Participant("API Server")
+database = Participant("Database")
+
+# Create interactions
+msg1 = Link(user, web_app, ArrowTypes.SOLID_ARROW, "Login request")
+msg2 = Link(web_app, api_server, ArrowTypes.SOLID_ARROW, "Authenticate")
+msg3 = Link(api_server, database, ArrowTypes.SOLID_ARROW, "Query user")
+msg4 = Link(database, api_server, ArrowTypes.DOTTED_ARROW, "User record")
+
+# Add a note
+note = Note(
+    "Validation check",
+    api_server,
+    position=NotePosition.RIGHT_OF
+)
+
+# Create authentication logic
+auth_success = [
+    Link(api_server, web_app, ArrowTypes.DOTTED_ARROW, "Token"),
+    Link(web_app, user, ArrowTypes.DOTTED_ARROW, "Welcome!")
+]
+
+auth_logic = Alt({
+    "Credentials valid": auth_success,
+    "Invalid credentials": [
+        Link(api_server, web_app, ArrowTypes.SOLID_CROSS, "Error"),
+        Link(web_app, user, ArrowTypes.SOLID_CROSS, "Login failed")
+    ]
+})
+
+# Create diagram
+diagram = SequenceDiagram(
+    title="User Authentication Flow",
+    elements=[
+        user, web_app, api_server, database,
+        msg1, msg2, msg3, msg4,
+        note,
+        auth_logic
+    ],
+    auto_number=True
+)
+
+Mermaid(diagram)
+```
+
+## Tips
+
+- Use clear message names to document interactions
+- Order participants logically across the diagram
+- Use alt for decision points
+- Use loop for repeated sequences
+- Add notes to clarify complex logic
+- Activate/deactivate participants to show their lifecycle
+- Use different arrow types to indicate different interaction types

@@ -1,3 +1,357 @@
-# Advanced
+# Advanced Usage Guide
 
-This is the index page for the Advanced folder!
+This guide covers advanced features and techniques for using mermaid-py to create sophisticated diagrams and integrate them into your applications.
+
+## Configuration and Customization
+
+### Custom Themes
+
+```python
+from mermaid.configuration import Config, Themes
+
+# Use built-in themes
+config = Config(theme=Themes.DARK)
+
+# Or mix with custom colors
+config = Config(
+    theme=Themes.DEFAULT,
+    primary_color="#FF6B6B",
+    secondary_color="#4ECDC4",
+    tertiary_color="#FFE66D"
+)
+```
+
+### Styling Elements
+
+Apply custom styles to create visually distinct diagram elements:
+
+```python
+from mermaid.style import Style
+from mermaid.flowchart import Node, FlowChart
+
+# Create multiple styles
+success = Style(name="success", fill="#90EE90", color="#000000")
+warning = Style(name="warning", fill="#FFD700", color="#000000")
+danger = Style(name="danger", fill="#FF6B6B", color="#FFFFFF")
+
+# Apply to nodes
+node1 = Node("task1", "Success Path", shapes=[success])
+node2 = Node("task2", "Warning", styles=[warning])
+node3 = Node("task3", "Danger", styles=[danger])
+```
+
+## Working with Large Diagrams
+
+### Managing Complex Flowcharts
+
+For large flowcharts, organize your code:
+
+```python
+def create_nodes():
+    """Create all nodes for the diagram"""
+    return [
+        Node("start", "Start"),
+        Node("process", "Process"),
+        # ... many more nodes
+    ]
+
+def create_links():
+    """Create all connections"""
+    nodes = create_nodes()
+    return [
+        Link(nodes[0], nodes[1], message="Next"),
+        # ... many more links
+    ]
+
+# Assemble the diagram
+nodes = create_nodes()
+links = create_links()
+flowchart = FlowChart(
+    title="Large Diagram",
+    nodes=nodes,
+    links=links
+)
+```
+
+### Using Sub-nodes for Organization
+
+```python
+from mermaid.flowchart import Node, Link, FlowChart
+from mermaid import Direction
+
+# Create sub-sections
+section1_nodes = [Node("s1_1", "Task 1"), Node("s1_2", "Task 2")]
+section2_nodes = [Node("s2_1", "Task 3"), Node("s2_2", "Task 4")]
+
+# Create parent nodes with sub-nodes
+section1_parent = Node(
+    "section1",
+    "Section 1",
+    sub_nodes=section1_nodes,
+    direction=Direction.TOP_TO_BOTTOM
+)
+
+section2_parent = Node(
+    "section2",
+    "Section 2",
+    sub_nodes=section2_nodes,
+    direction=Direction.TOP_TO_BOTTOM
+)
+```
+
+## Export and Integration
+
+### Saving Diagrams
+
+```python
+from mermaid import Mermaid
+
+# Create diagram
+diagram = Mermaid(flowchart)
+
+# Export as SVG
+diagram.to_svg("flowchart.svg")
+
+# Export as PNG
+diagram.to_png("flowchart.png")
+
+# Save diagram definition
+flowchart.save("flowchart.mmd")
+```
+
+### Using Custom Mermaid Server
+
+```python
+import os
+from mermaid import Mermaid
+
+# Set custom Mermaid server
+os.environ["MERMAID_INK_SERVER"] = "http://localhost:8080"
+
+# Now all diagrams will use the local server
+diagram = Mermaid(flowchart)
+```
+
+## Advanced Pattern: Diagram Builders
+
+Create reusable diagram builders:
+
+```python
+class WorkflowBuilder:
+    """Builder for workflow diagrams"""
+
+    def __init__(self, title):
+        self.title = title
+        self.nodes = []
+        self.links = []
+
+    def add_process_step(self, id_, label):
+        """Add a process step"""
+        self.nodes.append(Node(id_, label, shape="normal"))
+        return self
+
+    def add_decision(self, id_, label):
+        """Add a decision point"""
+        self.nodes.append(Node(id_, label, shape="rhombus"))
+        return self
+
+    def connect(self, from_id, to_id, message=""):
+        """Connect two nodes"""
+        from_node = next(n for n in self.nodes if n.id_ == from_id)
+        to_node = next(n for n in self.nodes if n.id_ == to_id)
+        self.links.append(Link(from_node, to_node, message=message))
+        return self
+
+    def build(self):
+        """Build the final diagram"""
+        return FlowChart(
+            title=self.title,
+            nodes=self.nodes,
+            links=self.links
+        )
+
+# Usage
+builder = WorkflowBuilder("Order Processing")
+builder.add_process_step("start", "Receive Order")
+builder.add_process_step("validate", "Validate Order")
+builder.add_decision("check", "Valid?")
+builder.add_process_step("process", "Process Order")
+builder.add_process_step("ship", "Ship Order")
+builder.add_process_step("end", "Complete")
+
+builder.connect("start", "validate")
+builder.connect("validate", "check", "Check")
+builder.connect("check", "process", "Yes")
+builder.connect("process", "ship")
+builder.connect("ship", "end")
+
+diagram = builder.build()
+```
+
+## Advanced Sequence Diagrams
+
+### Complex Message Flows
+
+```python
+from mermaid.sequence import (
+    SequenceDiagram, Actor, Participant, Link, ArrowTypes,
+    Loop, Alt, Note
+)
+
+# Create a complex interaction scenario
+user = Actor("User")
+frontend = Participant("Frontend")
+backend = Participant("Backend")
+database = Participant("Database")
+
+# Build message flow
+messages = [
+    Link(user, frontend, ArrowTypes.SOLID_ARROW, "Click Submit"),
+    Link(frontend, backend, ArrowTypes.SOLID_ARROW, "POST /api/submit"),
+
+    # Database operations with loop
+    Loop("For each item", [
+        Link(backend, database, ArrowTypes.SOLID_ARROW, "INSERT"),
+        Link(database, backend, ArrowTypes.DOTTED_ARROW, "OK")
+    ]),
+
+    # Response with alt
+    Alt({
+        "Success": [Link(backend, frontend, ArrowTypes.SOLID_ARROW, "200 OK")],
+        "Error": [Link(backend, frontend, ArrowTypes.SOLID_CROSS, "500 Error")]
+    }),
+
+    Link(frontend, user, ArrowTypes.DOTTED_ARROW, "Display Result")
+]
+
+diagram = SequenceDiagram(
+    title="Complex API Interaction",
+    elements=[user, frontend, backend, database] + messages,
+    auto_number=True
+)
+```
+
+## Dynamic Diagram Generation
+
+### Generate Diagrams from Data
+
+```python
+def generate_flowchart_from_tasks(tasks):
+    """Generate flowchart from a list of tasks"""
+    from mermaid.flowchart import FlowChart, Node, Link
+
+    nodes = [Node("start", "Start", shape="stadium-shape")]
+    links = []
+
+    for i, task in enumerate(tasks):
+        node_id = f"task_{i}"
+        node = Node(node_id, task["name"], shape="normal")
+        nodes.append(node)
+
+        if i == 0:
+            links.append(Link(nodes[0], node))
+        else:
+            links.append(Link(nodes[i], node))
+
+    nodes.append(Node("end", "End", shape="stadium-shape"))
+    links.append(Link(nodes[-2], nodes[-1]))
+
+    return FlowChart(
+        title="Generated Workflow",
+        nodes=nodes,
+        links=links
+    )
+
+# Usage
+tasks = [
+    {"name": "Prepare Data"},
+    {"name": "Validate Input"},
+    {"name": "Process"},
+    {"name": "Generate Report"}
+]
+
+flowchart = generate_flowchart_from_tasks(tasks)
+```
+
+## Jupyter Notebook Integration
+
+### Display Diagrams in Notebooks
+
+```python
+# In a Jupyter notebook
+from mermaid import Mermaid
+from mermaid.flowchart import FlowChart, Node, Link
+
+flowchart = FlowChart(...)
+diagram = Mermaid(flowchart)
+
+# Display inline (auto-rendering in notebooks)
+diagram
+
+# Position the diagram
+diagram._repr_html_()  # Returns HTML for custom positioning
+```
+
+### Creating Interactive Notebooks
+
+```python
+# Create a function that generates diagrams based on input
+def create_diagram_from_input(config):
+    """Create diagram based on configuration"""
+    # Parse config
+    # Generate appropriate diagram
+    # Return and display
+    pass
+
+# Use with notebook widgets for interactive exploration
+```
+
+## Performance Optimization
+
+### Caching Diagrams
+
+```python
+from functools import lru_cache
+
+@lru_cache(maxsize=128)
+def get_cached_diagram(diagram_type, params_hash):
+    """Cache compiled diagrams to avoid re-rendering"""
+    # Generate diagram
+    return diagram
+
+# Useful for web applications serving many diagram requests
+```
+
+## Best Practices
+
+1. **Modularity**: Break diagrams into logical components
+2. **Styling**: Use consistent style definitions across diagrams
+3. **Naming**: Use clear, descriptive names for all elements
+4. **Comments**: Document complex diagram logic
+5. **Testing**: Test diagram generation with various inputs
+6. **Performance**: Monitor and optimize for large diagrams
+7. **Accessibility**: Ensure diagrams are readable and clear
+8. **Versioning**: Track diagram definitions in version control
+
+## Troubleshooting
+
+### Diagram Not Rendering
+
+- Check the Mermaid server is accessible
+- Validate diagram syntax using `diagram.save()`
+- Check for special characters in labels
+- Ensure all required elements are properly initialized
+
+### Large File Sizes
+
+- Simplify diagram complexity
+- Reduce node count
+- Use shorter labels
+- Compress SVG/PNG exports
+
+### Performance Issues
+
+- Split large diagrams into smaller ones
+- Use lazy loading for diagrams
+- Cache compiled diagrams
+- Optimize external Mermaid server

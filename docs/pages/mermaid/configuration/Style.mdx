@@ -1,0 +1,300 @@
+# Style
+
+The `Style` class allows you to define and apply custom CSS-like styling to diagram elements, enabling visual differentiation and highlighting of important components.
+
+## Overview
+
+Styles define the visual appearance of diagram elements like fill color, text color, border properties, and other CSS-style attributes. Styles can be applied to nodes, states, and other diagram elements.
+
+## Style Class
+
+### Constructor
+
+```python
+Style(
+    name: str,
+    fill: Optional[str] = None,
+    color: Optional[str] = None,
+    font_weight: Optional[str] = None,
+    stroke_width: Optional[str] = None,
+    stroke: Optional[str] = None,
+    other: Optional[str] = None
+)
+```
+
+### Parameters
+
+- **name** (str): The style identifier (used to reference the style)
+- **fill** (Optional[str]): Fill/background color (hex format)
+- **color** (Optional[str]): Text color (hex format)
+- **font_weight** (Optional[str]): Font weight (normal, bold, lighter, 100-900)
+- **stroke_width** (Optional[str]): Border width (e.g., "2px", "3px")
+- **stroke** (Optional[str]): Border color (hex format)
+- **other** (Optional[str]): Additional CSS properties
+
+## Basic Examples
+
+### Simple Style
+
+```python
+from mermaid.style import Style
+
+highlight = Style(
+    name="highlight",
+    fill="#FFFF00",
+    color="#000000"
+)
+```
+
+### Style with Border
+
+```python
+emphasis = Style(
+    name="emphasis",
+    fill="#FFE6E6",
+    color="#CC0000",
+    stroke="#FF0000",
+    stroke_width="3px"
+)
+```
+
+### Bold Text Style
+
+```python
+bold_style = Style(
+    name="bold",
+    color="#000000",
+    font_weight="bold"
+)
+```
+
+### Success Style
+
+```python
+success = Style(
+    name="success",
+    fill="#90EE90",
+    color="#000000",
+    stroke="#228B22",
+    stroke_width="2px"
+)
+```
+
+### Error/Warning Styles
+
+```python
+error = Style(
+    name="error",
+    fill="#FFB6C6",
+    color="#FFFFFF",
+    stroke="#DC143C",
+    stroke_width="2px"
+)
+
+warning = Style(
+    name="warning",
+    fill="#FFFFE0",
+    color="#DAA520",
+    stroke="#FFD700",
+    stroke_width="2px"
+)
+```
+
+## Using Styles in Diagrams
+
+### Styling Flowchart Nodes
+
+```python
+from mermaid import Mermaid
+from mermaid.flowchart import FlowChart, Node, Link
+from mermaid.style import Style
+
+# Define styles
+success_style = Style(
+    name="success",
+    fill="#90EE90",
+    color="#000000"
+)
+
+error_style = Style(
+    name="error",
+    fill="#FFB6C6",
+    color="#FFFFFF"
+)
+
+# Create nodes with styles
+start = Node("start", "Start", shape="stadium-shape", styles=[success_style])
+process = Node("process", "Process")
+error = Node("error", "Error Handling", styles=[error_style])
+end = Node("end", "End", shape="stadium-shape", styles=[success_style])
+
+# Create flowchart
+flowchart = FlowChart(
+    title="Styled Flowchart",
+    nodes=[start, process, error, end],
+    links=[Link(start, process), Link(process, error), Link(error, end)]
+)
+
+Mermaid(flowchart)
+```
+
+### Styling State Diagram States
+
+```python
+from mermaid.statediagram import StateDiagram, State
+from mermaid.style import Style
+
+# Define styles
+active_style = Style(
+    name="active",
+    fill="#90EE90",
+    color="#000000"
+)
+
+inactive_style = Style(
+    name="inactive",
+    fill="#D3D3D3",
+    color="#666666"
+)
+
+# Create states with styles
+active = State("active", "Active", styles=[active_style])
+inactive = State("inactive", "Inactive", styles=[inactive_style])
+
+# Create diagram
+diagram = StateDiagram(
+    title="State Styles",
+    states=[active, inactive],
+    transitions=[...]
+)
+```
+
+## Color Palettes
+
+### Professional Colors
+
+```python
+# Blue and Gray
+blue = "#1E90FF"
+gray = "#A9A9A9"
+dark_gray = "#2F4F4F"
+light_blue = "#ADD8E6"
+
+# Define styles
+primary = Style(name="primary", fill=blue, color="#FFFFFF")
+secondary = Style(name="secondary", fill=gray, color="#FFFFFF")
+neutral = Style(name="neutral", fill=light_blue, color=dark_gray)
+```
+
+### Warm Colors
+
+```python
+# Warm/Orange palette
+orange = "#FF8C00"
+peach = "#FFDAB9"
+coral = "#FF7F50"
+brown = "#8B4513"
+
+warm_style = Style(
+    name="warm",
+    fill=peach,
+    color=brown,
+    stroke=orange
+)
+```
+
+### Cool Colors
+
+```python
+# Cool/Blue palette
+teal = "#008080"
+cyan = "#00FFFF"
+navy = "#000080"
+
+cool_style = Style(
+    name="cool",
+    fill=teal,
+    color="#FFFFFF",
+    stroke=navy
+)
+```
+
+## Common Style Patterns
+
+### Traffic Light Pattern
+
+```python
+red_style = Style(
+    name="error",
+    fill="#FF4444",
+    color="#FFFFFF"
+)
+
+yellow_style = Style(
+    name="warning",
+    fill="#FFDD44",
+    color="#000000"
+)
+
+green_style = Style(
+    name="success",
+    fill="#44FF44",
+    color="#000000"
+)
+```
+
+### Importance Hierarchy
+
+```python
+critical = Style(
+    name="critical",
+    fill="#FF0000",
+    color="#FFFFFF",
+    stroke_width="3px"
+)
+
+high = Style(
+    name="high",
+    fill="#FFA500",
+    color="#000000",
+    stroke_width="2px"
+)
+
+medium = Style(
+    name="medium",
+    fill="#FFFF00",
+    color="#000000",
+    stroke_width="1px"
+)
+
+low = Style(
+    name="low",
+    fill="#90EE90",
+    color="#000000"
+)
+```
+
+## Advanced: Custom CSS Properties
+
+Use the `other` parameter for additional CSS:
+
+```python
+custom = Style(
+    name="custom",
+    fill="#E0E0E0",
+    stroke="#333333",
+    other="text-decoration:underline,font-style:italic"
+)
+```
+
+## Tips
+
+- Use meaningful style names that describe their purpose
+- Maintain consistency across related diagrams
+- Limit the number of styles to avoid visual clutter
+- Ensure sufficient color contrast for accessibility
+- Test styles with colorblind-friendly color schemes
+- Document which styles are used for what purpose
+- Use lighter colors for background fills
+- Use darker colors for text to ensure readability
+- Keep stroke widths proportional to element size

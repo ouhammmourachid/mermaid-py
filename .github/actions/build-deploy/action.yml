@@ -10,6 +10,8 @@ runs:
     steps:
       - name: set up uv and install dependencies
         uses: fikra-tech/uv-sync@v2
+        with:
+          extra-args: "--all-groups"
       - name: Build package
         run: |
           make build

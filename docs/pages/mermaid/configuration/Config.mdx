@@ -1,0 +1,165 @@
+# Configuration
+
+The `Config` class allows you to customize the appearance and behavior of your diagrams by setting themes, colors, and other visual properties.
+
+## Overview
+
+Configuration settings control how diagrams are rendered, including themes, colors for different elements, fonts, and other visual aspects.
+
+## Config Class
+
+### Constructor
+
+```python
+Config(
+    theme: Themes = Themes.DEFAULT,
+    primary_color: Optional[str] = None,
+    primary_text_color: Optional[str] = None,
+    primary_border_color: Optional[str] = None,
+    line_color: Optional[str] = None,
+    secondary_color: Optional[str] = None,
+    tertiary_color: Optional[str] = None
+)
+```
+
+### Parameters
+
+- **theme** (Themes): The color theme to use (DEFAULT, FOREST, DARK, NEUTRAL, BASE)
+- **primary_color** (Optional[str]): Primary background color (hex format)
+- **primary_text_color** (Optional[str]): Primary text color
+- **primary_border_color** (Optional[str]): Primary border color
+- **line_color** (Optional[str]): Color for lines/connectors
+- **secondary_color** (Optional[str]): Secondary background color
+- **tertiary_color** (Optional[str]): Tertiary background color
+
+## Themes
+
+The `Themes` enum provides predefined color schemes:
+
+- `Themes.DEFAULT`: Default Mermaid theme
+- `Themes.FOREST`: Green forest colors
+- `Themes.DARK`: Dark/night colors
+- `Themes.NEUTRAL`: Neutral grayscale colors
+- `Themes.BASE`: Base theme
+
+## Examples
+
+### Using a Built-in Theme
+
+```python
+from mermaid.configuration import Config, Themes
+from mermaid import Mermaid
+from mermaid.flowchart import FlowChart, Node, Link
+
+config = Config(theme=Themes.DARK)
+
+flowchart = FlowChart(
+    title="Dark Theme Flowchart",
+    nodes=[
+        Node("start", "Start", shape="stadium-shape"),
+        Node("end", "End", shape="stadium-shape")
+    ],
+    links=[Link(nodes[0], nodes[1])],
+    config=config
+)
+
+Mermaid(flowchart)
+```
+
+### Custom Color Scheme
+
+```python
+from mermaid.configuration import Config, Themes
+from mermaid import Mermaid
+from mermaid.flowchart import FlowChart
+
+config = Config(
+    theme=Themes.DEFAULT,
+    primary_color="#85C1E2",
+    primary_text_color="#000000",
+    primary_border_color="#0066CC",
+    secondary_color="#FFE0B2",
+    tertiary_color="#FFFFFF"
+)
+
+flowchart = FlowChart(
+    title="Custom Color Flowchart",
+    nodes=[...],
+    config=config
+)
+
+Mermaid(flowchart)
+```
+
+### Forest Theme with Customization
+
+```python
+config = Config(
+    theme=Themes.FOREST,
+    primary_color="#228B22",
+    primary_text_color="#FFFFFF"
+)
+```
+
+### Dark Theme
+
+```python
+config = Config(theme=Themes.DARK)
+```
+
+## Color Format
+
+Use hexadecimal color codes:
+
+- `#FF0000` - Red
+- `#00FF00` - Green
+- `#0000FF` - Blue
+- `#FFFFFF` - White
+- `#000000` - Black
+
+## Applying Config to Different Diagrams
+
+### Flowchart with Config
+
+```python
+from mermaid.flowchart import FlowChart
+
+flowchart = FlowChart(
+    title="Styled Flowchart",
+    nodes=[...],
+    config=config
+)
+```
+
+### Sequence Diagram with Config
+
+```python
+from mermaid.sequence import SequenceDiagram
+
+diagram = SequenceDiagram(
+    title="Styled Sequence",
+    elements=[...],
+    config=config
+)
+```
+
+### ER Diagram with Config
+
+```python
+from mermaid.erdiagram import ERDiagram
+
+diagram = ERDiagram(
+    title="Styled ER Diagram",
+    entities=[...],
+    config=config
+)
+```
+
+## Tips
+
+- Use consistent color schemes across related diagrams
+- Ensure sufficient contrast for readability
+- Dark themes work well for presentations
+- Forest theme is good for technical documentation
+- Test color schemes with colorblind-friendly palettes
+- Keep brand colors consistent with your organization

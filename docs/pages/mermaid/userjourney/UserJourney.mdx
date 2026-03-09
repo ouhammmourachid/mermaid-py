@@ -1,0 +1,266 @@
+# User Journey Diagrams
+
+User Journey diagrams visualize a user's interactions with a system or service over time. The `UserJourney` class allows you to document user experiences, tasks, and emotional responses through different sections of a journey.
+
+## Overview
+
+A User Journey diagram shows how users interact with a system across different sections or phases. It displays tasks, actors, and support levels to document the complete user experience.
+
+## Basic Usage
+
+### Creating a Simple User Journey
+
+```python
+from mermaid import Mermaid
+from mermaid.userjourney import UserJourney, Section, Task, Actor
+
+# Create actors
+user = Actor("User")
+support = Actor("Support Team")
+
+# Create tasks
+task1 = Task("Search Product", 5, user)
+task2 = Task("View Details", 4, user)
+task3 = Task("Add to Cart", 5, user)
+task4 = Task("Checkout", 3, user)
+
+# Create sections
+shopping = Section("Shopping", [task1, task2, task3])
+payment = Section("Payment", [task4])
+
+# Create diagram
+diagram = UserJourney(
+    title="Online Shopping Experience",
+    sections=[shopping, payment]
+)
+
+Mermaid(diagram)
+```
+
+## UserJourney Class
+
+### Constructor
+
+```python
+UserJourney(
+    title: str,
+    sections: list[Union[Section, Task]],
+    config: Optional[Config] = None
+)
+```
+
+### Parameters
+
+- **title** (str): The journey title
+- **sections** (list): Sections and tasks in the journey
+- **config** (Optional[Config]): Configuration settings
+
+## Section Class
+
+Represents a phase or stage in the user journey.
+
+### Constructor
+
+```python
+Section(name: str, tasks: list[Task])
+```
+
+### Parameters
+
+- **name** (str): The section name/phase
+- **tasks** (list[Task]): List of tasks in this section
+
+## Task Class
+
+Represents an action or interaction in the journey.
+
+### Constructor
+
+```python
+Task(
+    name: str,
+    score: int,
+    actors: Union[list[Actor], Actor]
+)
+```
+
+### Parameters
+
+- **name** (str): The task description
+- **score** (int): Satisfaction/engagement score (0-5 scale)
+- **actors** (Union[list[Actor], Actor]): Actors involved in the task
+
+## Actor Class
+
+Represents a participant in the user journey.
+
+### Constructor
+
+```python
+Actor(name: str)
+```
+
+### Parameters
+
+- **name** (str): The actor's name or role
+
+## Complete Example
+
+```python
+from mermaid import Mermaid
+from mermaid.userjourney import UserJourney, Section, Task, Actor
+
+# Create actors
+customer = Actor("Customer")
+support = Actor("Support Agent")
+system = Actor("System")
+
+# Section 1: Discovery
+discovery_tasks = [
+    Task("Search for products", 5, customer),
+    Task("View search results", 4, system),
+    Task("Read reviews", 4, customer)
+]
+
+# Section 2: Selection
+selection_tasks = [
+    Task("View product details", 5, customer),
+    Task("Check inventory", 5, system),
+    Task("Add to cart", 5, customer)
+]
+
+# Section 3: Checkout
+checkout_tasks = [
+    Task("Review cart", 4, customer),
+    Task("Enter shipping info", 3, customer),
+    Task("Process payment", 3, system)
+]
+
+# Section 4: Confirmation
+confirmation_tasks = [
+    Task("Order confirmation", 5, customer),
+    Task("Send confirmation email", 4, system),
+    Task("Track shipment", 3, customer)
+]
+
+# Section 5: Delivery & Support
+delivery_tasks = [
+    Task("Receive package", 5, customer),
+    Task("Unbox product", 4, customer),
+    Task("Contact support (if needed)", 2, [customer, support])
+]
+
+# Create sections
+sections = [
+    Section("Discovery", discovery_tasks),
+    Section("Selection", selection_tasks),
+    Section("Checkout", checkout_tasks),
+    Section("Confirmation", confirmation_tasks),
+    Section("Delivery", delivery_tasks)
+]
+
+# Create diagram
+diagram = UserJourney(
+    title="E-Commerce User Journey",
+    sections=sections
+)
+
+Mermaid(diagram)
+```
+
+## More Examples
+
+### SaaS Application Onboarding
+
+```python
+from mermaid import Mermaid
+from mermaid.userjourney import UserJourney, Section, Task, Actor
+
+user = Actor("New User")
+system = Actor("Platform")
+
+sections = [
+    Section("Signup", [
+        Task("Create account", 4, user),
+        Task("Verify email", 3, system),
+        Task("Set password", 4, user)
+    ]),
+    Section("Onboarding", [
+        Task("Complete profile", 3, user),
+        Task("Take tutorial", 4, system),
+        Task("Invite team member", 4, user)
+    ]),
+    Section("First Use", [
+        Task("Create first project", 5, user),
+        Task("Add collaborators", 4, user),
+        Task("Enable notifications", 3, user)
+    ]),
+    Section("Regular Usage", [
+        Task("Daily work", 5, user),
+        Task("Collaborate", 5, user)
+    ])
+]
+
+diagram = UserJourney(
+    title="SaaS Platform Onboarding",
+    sections=sections
+)
+```
+
+### Customer Support Journey
+
+```python
+from mermaid import Mermaid
+from mermaid.userjourney import UserJourney, Section, Task, Actor
+
+customer = Actor("Customer")
+support = Actor("Support Team")
+
+sections = [
+    Section("Problem Identification", [
+        Task("Encounter issue", 1, customer),
+        Task("Search FAQ", 2, customer)
+    ]),
+    Section("Contact Support", [
+        Task("Submit ticket", 3, customer),
+        Task("Receive confirmation", 3, support),
+        Task("Wait for response", 2, customer)
+    ]),
+    Section("Resolution", [
+        Task("Receive solution", 4, support),
+        Task("Apply fix", 4, customer),
+        Task("Confirm working", 5, customer)
+    ]),
+    Section("Closure", [
+        Task("Rate support", 4, customer),
+        Task("Close ticket", 5, support)
+    ])
+]
+
+diagram = UserJourney(
+    title="Customer Support Experience",
+    sections=sections
+)
+```
+
+## Score Interpretation
+
+The task score represents user satisfaction/engagement:
+
+- **5**: Maximum satisfaction/engagement
+- **4**: High satisfaction
+- **3**: Neutral/Acceptable
+- **2**: Low satisfaction
+- **1**: Poor/Frustrating
+- **0**: Very poor/Critical issue
+
+## Tips
+
+- Map out the complete user experience from start to finish
+- Use realistic satisfaction scores based on research
+- Include all major actors and touchpoints
+- Break journey into logical sections/phases
+- Keep task descriptions clear and concise
+- Consider pain points and friction areas
+- Focus on key moments of truth
+- Use journey maps to identify improvement opportunities
