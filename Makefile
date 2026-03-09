@@ -6,7 +6,7 @@ MERMAID_INK_CONTAINER	:= ghcr.io/jihchi/mermaid.ink
 
 .PHONY: install
 install:
-	uv sync
+	uv sync --all-groups
 
 .PHONY: update
 update:
@@ -47,11 +47,11 @@ bumpversion:
 
 .PHONY: build
 build:
-	$(UV_RUN) python -m build
+	uv build
 
 .PHONY: publish
 publish:
-	$(UV_RUN) twine upload dist/* --non-interactive
+	uv publish
 
 .PHONY: help
 help:

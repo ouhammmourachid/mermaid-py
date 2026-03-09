@@ -12,11 +12,6 @@ on:
           - minor
           - major
 
-permissions:
-  contents: write
-  pull-requests: write
-  id-token: write
-
 jobs:
   deploy:
 
