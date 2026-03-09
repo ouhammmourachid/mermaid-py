@@ -1,0 +1,377 @@
+# Entity Relationship Diagrams (ER Diagrams)
+
+Entity Relationship (ER) diagrams are used to visualize the structure of databases and the relationships between entities. The `ERDiagram` class allows you to create comprehensive ER diagrams with entities, attributes, and cardinality relationships.
+
+## Overview
+
+An ER diagram represents the logical structure of a database. It shows entities (tables), their attributes (columns), and the relationships between entities with cardinality constraints.
+
+## Basic Usage
+
+### Creating a Simple ER Diagram
+
+```python
+from mermaid import Mermaid
+from mermaid.erdiagram import ERDiagram, Entity, Link
+
+# Create entities
+user = Entity("USER", {
+    "user_id": "int",
+    "username": "string",
+    "email": "string"
+})
+
+post = Entity("POST", {
+    "post_id": "int",
+    "title": "string",
+    "content": "text",
+    "user_id": "int"
+})
+
+# Create relationship
+link = Link(user, post, "one-or-more", "zero-or-more", "creates")
+
+# Create diagram
+diagram = ERDiagram(
+    title="Blog Database",
+    entities=[user, post],
+    links=[link]
+)
+
+Mermaid(diagram)
+```
+
+## ERDiagram Class
+
+### Constructor Parameters
+
+- **title** (str): The title of the ER diagram
+- **entities** (Optional[list[Entity]]): List of entities in the diagram
+- **links** (Optional[list[Link]]): List of relationships between entities
+- **config** (Optional[Config]): Configuration settings for the diagram
+
+### Methods
+
+#### save(path: Optional[Union[Path, str]] = None) -> None
+
+Saves the ER diagram to a `.mmd` or `.mermaid` file.
+
+```python
+diagram.save("database_schema.mmd")
+```
+
+## Entity Class
+
+Entities represent tables or concepts in your database.
+
+### Constructor
+
+```python
+Entity(
+    name: str,
+    attributes: Optional[dict[str, Union[list[str], str]]] = None
+)
+```
+
+### Parameters
+
+- **name** (str): The entity name (typically a table name)
+- **attributes** (Optional[dict]): Dictionary of attribute names and their definitions
+
+### Methods
+
+#### add_attribute(name: str, type_: str, constraint: Optional[str] = None, comment: Optional[str] = None) -> None
+
+Add an attribute to the entity with optional constraints and comments.
+
+```python
+entity = Entity("USER")
+entity.add_attribute("user_id", "int", constraint="PK")
+entity.add_attribute("email", "string", constraint="UK")
+entity.add_attribute("created_at", "datetime", comment="Account creation date")
+```
+
+#### update_attributes(attributes: dict[str, str]) -> None
+
+Update multiple attributes at once.
+
+```python
+entity.update_attributes({
+    "username": "string",
+    "password": "string"
+})
+```
+
+### Attribute Constraints
+
+Constraints define special properties of attributes:
+
+- **PK**: Primary Key - Uniquely identifies each record
+- **FK**: Foreign Key - References another entity
+- **UK**: Unique Key - Values must be unique
+- No constraint: Regular attribute
+
+### Examples
+
+#### Simple Entity
+
+```python
+from mermaid.erdiagram import Entity
+
+user = Entity("USER", {
+    "id": "int",
+    "name": "string",
+    "email": "string"
+})
+```
+
+#### Entity with Constraints
+
+```python
+user = Entity("USER")
+user.add_attribute("user_id", "int", constraint="PK")
+user.add_attribute("email", "string", constraint="UK")
+user.add_attribute("username", "string")
+user.add_attribute("password", "string")
+user.add_attribute("created_at", "datetime")
+```
+
+#### Entity with Comments
+
+```python
+user = Entity("USER")
+user.add_attribute(
+    "email",
+    "string",
+    constraint="UK",
+    comment="User email address"
+)
+user.add_attribute(
+    "status",
+    "enum",
+    comment="active, inactive, suspended"
+)
+```
+
+## Link Class
+
+Links represent relationships between entities with cardinality constraints.
+
+### Constructor
+
+```python
+Link(
+    origin: Entity,
+    end: Entity,
+    origin_cardinality: str,
+    end_cardinality: str,
+    label: str = "",
+    dotted: bool = False
+)
+```
+
+### Parameters
+
+- **origin** (Entity): The starting entity of the relationship
+- **end** (Entity): The ending entity of the relationship
+- **origin_cardinality** (str): Cardinality at the origin entity
+- **end_cardinality** (str): Cardinality at the end entity
+- **label** (str): Relationship label/name
+- **dotted** (bool): Whether to draw a dotted line (for identifying relationships)
+
+### Cardinality Values
+
+Available cardinality types:
+
+| Cardinality | Code | Symbol | Meaning |
+|-------------|------|--------|---------|
+| Zero or One | `"zero-or-one"` | `\|o` `o\|` | 0 or 1 |
+| Exactly One | `"exactly-one"` | `\|\|` `\|\|` | Exactly 1 |
+| Zero or More | `"zero-or-more"` | `}o` `o{` | 0 or many |
+| One or More | `"one-or-more"` | `}\|` `\|{` | 1 or many |
+
+### Examples
+
+#### One-to-Many Relationship
+
+```python
+from mermaid.erdiagram import Link
+
+# One user can create many posts
+link = Link(
+    user,
+    post,
+    origin_cardinality="exactly-one",  # One user
+    end_cardinality="zero-or-more",    # Zero or many posts
+    label="creates"
+)
+```
+
+#### Many-to-Many Relationship
+
+```python
+student = Entity("STUDENT", {"student_id": ["int", "PK"]})
+course = Entity("COURSE", {"course_id": ["int", "PK"]})
+
+enrollment = Link(
+    student,
+    course,
+    origin_cardinality="one-or-more",
+    end_cardinality="one-or-more",
+    label="enrolls_in"
+)
+```
+
+#### Identifying Relationship
+
+```python
+# Use dotted=True for identifying relationships
+order_item = Link(
+    order,
+    product,
+    origin_cardinality="exactly-one",
+    end_cardinality="zero-or-more",
+    label="contains",
+    dotted=True
+)
+```
+
+## Complete Example
+
+```python
+from mermaid import Mermaid
+from mermaid.erdiagram import ERDiagram, Entity, Link
+
+# Create entities
+user = Entity("USER")
+user.add_attribute("user_id", "int", constraint="PK")
+user.add_attribute("username", "string", constraint="UK")
+user.add_attribute("email", "string", constraint="UK")
+user.add_attribute("password", "string")
+user.add_attribute("created_at", "datetime")
+
+post = Entity("POST")
+post.add_attribute("post_id", "int", constraint="PK")
+post.add_attribute("user_id", "int", constraint="FK")
+post.add_attribute("title", "string")
+post.add_attribute("content", "text")
+post.add_attribute("created_at", "datetime")
+post.add_attribute("updated_at", "datetime")
+
+comment = Entity("COMMENT")
+comment.add_attribute("comment_id", "int", constraint="PK")
+comment.add_attribute("post_id", "int", constraint="FK")
+comment.add_attribute("user_id", "int", constraint="FK")
+comment.add_attribute("content", "text")
+comment.add_attribute("created_at", "datetime")
+
+tag = Entity("TAG")
+tag.add_attribute("tag_id", "int", constraint="PK")
+tag.add_attribute("name", "string", constraint="UK")
+
+post_tag = Entity("POST_TAG")
+post_tag.add_attribute("post_id", "int", constraint="FK PK")
+post_tag.add_attribute("tag_id", "int", constraint="FK PK")
+
+# Create relationships
+user_posts = Link(
+    user,
+    post,
+    "exactly-one",
+    "zero-or-more",
+    "creates"
+)
+
+posts_comments = Link(
+    post,
+    comment,
+    "exactly-one",
+    "zero-or-more",
+    "has"
+)
+
+user_comments = Link(
+    user,
+    comment,
+    "exactly-one",
+    "zero-or-more",
+    "writes"
+)
+
+post_tags = Link(
+    post,
+    tag,
+    "one-or-more",
+    "one-or-more",
+    "tagged_with",
+    dotted=True
+)
+
+# Create diagram
+diagram = ERDiagram(
+    title="Blog Platform Database",
+    entities=[user, post, comment, tag, post_tag],
+    links=[user_posts, posts_comments, user_comments, post_tags]
+)
+
+diagram_visual = Mermaid(diagram)
+diagram_visual
+
+# Save diagram
+diagram.save("blog_schema.mmd")
+```
+
+## Database Design Patterns
+
+### One-to-One Relationship
+
+```python
+user = Entity("USER", {"user_id": ["int", "PK"]})
+profile = Entity("PROFILE", {"profile_id": ["int", "PK"], "user_id": ["int", "FK UK"]})
+
+link = Link(user, profile, "exactly-one", "exactly-one", "has")
+```
+
+### One-to-Many Relationship
+
+```python
+department = Entity("DEPARTMENT", {"dept_id": ["int", "PK"]})
+employee = Entity("EMPLOYEE", {"emp_id": ["int", "PK"], "dept_id": ["int", "FK"]})
+
+link = Link(department, employee, "exactly-one", "one-or-more", "employs")
+```
+
+### Many-to-Many Relationship
+
+```python
+student = Entity("STUDENT", {"student_id": ["int", "PK"]})
+course = Entity("COURSE", {"course_id": ["int", "PK"]})
+enrollment = Entity("ENROLLMENT", {
+    "student_id": ["int", "FK PK"],
+    "course_id": ["int", "FK PK"],
+    "grade": "char"
+})
+
+link1 = Link(student, enrollment, "exactly-one", "one-or-more", "")
+link2 = Link(course, enrollment, "exactly-one", "one-or-more", "")
+```
+
+## Normalization Notes
+
+When designing ER diagrams:
+
+1. **Entities**: Should represent distinct concepts or objects
+2. **Attributes**: Should belong to one entity (1NF)
+3. **Dependencies**: Non-key attributes should depend on the entire key (2NF)
+4. **Constraints**: No transitive dependencies (3NF)
+5. **Foreign Keys**: Should properly reference primary keys
+
+## Tips
+
+- Use PK and FK constraints to define key relationships
+- Use UK for attributes that must be unique
+- Use dotted lines for identifying relationships in weak entities
+- Keep entity names singular and in uppercase
+- Use consistent naming conventions for attributes
+- Document complex relationships with clear labels
+- Organize diagram layout for readability

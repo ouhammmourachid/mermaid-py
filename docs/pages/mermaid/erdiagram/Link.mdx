@@ -1,0 +1,281 @@
+# Link Class (ER Diagrams)
+
+The `Link` class represents a relationship or connection between two entities in an Entity Relationship (ER) diagram. Links define how entities relate to each other with specific cardinality constraints.
+
+## Overview
+
+A Link establishes a relationship between two entities and specifies the cardinality (how many records from each entity can be related). The cardinality defines the nature of the relationship, whether it's one-to-one, one-to-many, or many-to-many.
+
+## Constructor
+
+```python
+Link(
+    origin: Entity,
+    end: Entity,
+    origin_cardinality: str,
+    end_cardinality: str,
+    label: str = "",
+    dotted: bool = False
+)
+```
+
+## Parameters
+
+- **origin** (Entity): The starting entity of the relationship
+- **end** (Entity): The ending entity of the relationship  
+- **origin_cardinality** (str): Cardinality at the origin side. One of: `"zero-or-one"`, `"exactly-one"`, `"zero-or-more"`, `"one-or-more"`
+- **end_cardinality** (str): Cardinality at the end side. One of: `"zero-or-one"`, `"exactly-one"`, `"zero-or-more"`, `"one-or-more"`
+- **label** (str): The relationship name or description. Default: `""`
+- **dotted** (bool): Whether to draw a dotted line (used for identifying relationships). Default: `False`
+
+## Cardinality Types
+
+| Cardinality | Code | Symbols | Meaning | Example |
+|-------------|------|---------|---------|---------|
+| Zero or One | `"zero-or-one"` | `\|o` on origin, `o\|` on end | 0 or 1 record | User may have 0 or 1 profile |
+| Exactly One | `"exactly-one"` | `\|\|` on both sides | Exactly 1 record | Employee belongs to exactly 1 department |
+| Zero or More | `"zero-or-more"` | `}o` on origin, `o{` on end | 0 or many records | User may write 0 or many posts |
+| One or More | `"one-or-more"` | `}\|` on origin, `\|{` on end | 1 or many records | Department must have 1 or more employees |
+
+## Basic Examples
+
+### One-to-Many Relationship
+
+```python
+from mermaid.erdiagram import Entity, Link
+
+user = Entity("USER", {"user_id": ["int", "PK"]})
+post = Entity("POST", {"post_id": ["int", "PK"], "user_id": ["int", "FK"]})
+
+# One user creates many posts
+link = Link(
+    origin=user,
+    end=post,
+    origin_cardinality="exactly-one",    # One user
+    end_cardinality="zero-or-more",      # Creates 0 or many posts
+    label="creates"
+)
+```
+
+### One-to-One Relationship
+
+```python
+user = Entity("USER", {"user_id": ["int", "PK"]})
+profile = Entity("PROFILE", {"profile_id": ["int", "PK"], "user_id": ["int", "FK UK"]})
+
+# One user has one profile
+link = Link(
+    user,
+    profile,
+    "exactly-one",      # One user
+    "exactly-one",      # Has exactly one profile
+    label="has"
+)
+```
+
+### Many-to-Many Relationship
+
+```python
+student = Entity("STUDENT", {"student_id": ["int", "PK"]})
+course = Entity("COURSE", {"course_id": ["int", "PK"]})
+
+# Many students enroll in many courses
+link = Link(
+    student,
+    course,
+    "one-or-more",      # Student enrolls in 1 or more courses
+    "one-or-more",      # Course has 1 or more students
+    label="enrolls_in"
+)
+```
+
+### Optional Relationship (Identifying Relationship)
+
+```python
+order = Entity("ORDER", {"order_id": ["int", "PK"]})
+item = Entity("ORDER_ITEM", {"order_id": ["int", "FK PK"], "item_no": ["int", "PK"]})
+
+# Use dotted line for identifying relationships
+link = Link(
+    order,
+    item,
+    "exactly-one",
+    "one-or-more",
+    label="contains",
+    dotted=True  # Indicates a weak entity relationship
+)
+```
+
+## Reading Cardinality
+
+When interpreting a relationship:
+
+1. **Start from origin entity**: Read the cardinality at the origin side
+2. **Follow the relationship**: Read the relationship label 
+3. **End at end entity**: Read the cardinality at the end side
+
+**Example:**
+
+```
+USER ||--o{ POST : creates
+```
+
+Read as: "One USER creates zero or more POSTs"
+
+- `||` at USER: "One user"
+- `--`: "creates"
+- `o{` at POST: "zero or more posts"
+
+## Complete Example
+
+```python
+from mermaid import Mermaid
+from mermaid.erdiagram import ERDiagram, Entity, Link
+
+# Create entities
+customer = Entity("CUSTOMER")
+customer.add_attribute("cust_id", "int", constraint="PK")
+customer.add_attribute("name", "string")
+customer.add_attribute("email", "string", constraint="UK")
+
+order = Entity("ORDER")
+order.add_attribute("order_id", "int", constraint="PK")
+order.add_attribute("cust_id", "int", constraint="FK")
+order.add_attribute("order_date", "datetime")
+order.add_attribute("total", "decimal")
+
+product = Entity("PRODUCT")
+product.add_attribute("prod_id", "int", constraint="PK")
+product.add_attribute("name", "string")
+product.add_attribute("price", "decimal")
+
+order_item = Entity("ORDER_ITEM")
+order_item.add_attribute("order_id", "int", constraint="FK PK")
+order_item.add_attribute("prod_id", "int", constraint="FK PK")
+order_item.add_attribute("quantity", "int")
+order_item.add_attribute("unit_price", "decimal")
+
+# Create relationships
+customer_orders = Link(
+    customer,
+    order,
+    "exactly-one",      # One customer
+    "zero-or-more",     # Places zero or more orders
+    label="places"
+)
+
+order_items = Link(
+    order,
+    order_item,
+    "exactly-one",      # One order
+    "one-or-more",      # Contains one or more items
+    label="contains",
+    dotted=True         # Identifying relationship
+)
+
+product_items = Link(
+    product,
+    order_item,
+    "zero-or-more",     # Product appears in zero or more items
+    "many-to-many",     
+    label="sold_in"
+)
+
+# Create diagram
+diagram = ERDiagram(
+    title="E-Commerce Database",
+    entities=[customer, order, product, order_item],
+    links=[customer_orders, order_items, product_items]
+)
+
+Mermaid(diagram)
+```
+
+## Common Relationship Patterns
+
+### Master-Detail Pattern
+
+```python
+master = Entity("MASTER")
+master.add_attribute("master_id", "int", constraint="PK")
+
+detail = Entity("DETAIL")
+detail.add_attribute("detail_id", "int", constraint="PK")
+detail.add_attribute("master_id", "int", constraint="FK")
+
+link = Link(master, detail, "exactly-one", "zero-or-more", "has")
+```
+
+### Parent-Child Pattern
+
+```python
+parent = Entity("PARENT")
+parent.add_attribute("parent_id", "int", constraint="PK")
+
+child = Entity("CHILD")
+child.add_attribute("child_id", "int", constraint="PK")
+child.add_attribute("parent_id", "int", constraint="FK")
+
+link = Link(parent, child, "exactly-one", "zero-or-more", "has")
+```
+
+### Self-Referencing (Hierarchical)
+
+```python
+employee = Entity("EMPLOYEE")
+employee.add_attribute("emp_id", "int", constraint="PK")
+employee.add_attribute("manager_id", "int", constraint="FK")
+
+link = Link(employee, employee, "exactly-one", "zero-or-more", "supervises")
+```
+
+### Bridge Table (Many-to-Many)
+
+```python
+student = Entity("STUDENT")
+student.add_attribute("student_id", "int", constraint="PK")
+
+course = Entity("COURSE")
+course.add_attribute("course_id", "int", constraint="PK")
+
+enrollment = Entity("ENROLLMENT")
+enrollment.add_attribute("student_id", "int", constraint="FK PK")
+enrollment.add_attribute("course_id", "int", constraint="FK PK")
+enrollment.add_attribute("grade", "char")
+
+student_enrollment = Link(
+    student,
+    enrollment,
+    "exactly-one",
+    "one-or-more"
+)
+
+course_enrollment = Link(
+    course,
+    enrollment,
+    "exactly-one",
+    "one-or-more"
+)
+```
+
+## Dotted vs. Solid Lines
+
+- **Solid Line** (`dotted=False`): Regular relationship - the related entity can exist independently
+- **Dotted Line** (`dotted=True`): Identifying relationship - the related entity's existence depends on the parent entity (weak entity)
+
+```python
+# Strong entity relationship (solid line)
+customer_order = Link(customer, order, "exactly-one", "zero-or-more")
+
+# Weak entity relationship (dotted line)
+order_item = Link(order, item, "exactly-one", "one-or-more", dotted=True)
+```
+
+## Tips
+
+- **Use clear labels**: Make relationship names descriptive (e.g., "creates" not "rel1")
+- **Cardinality accuracy**: Ensure cardinality constraints match business rules
+- **Reading order**: Always read relationships consistently (origin to end)
+- **Weak entities**: Use dotted lines for relationships where the child depends on the parent
+- **Normalization**: Ensure relationships support proper database normalization
+- **Foreign keys**: Match relationships with foreign key definitions in entities

@@ -1,0 +1,278 @@
+# Node Class
+
+The `Node` class represents a single node or box in a flowchart diagram. Nodes serve as the building blocks of flowcharts, representing actions, decisions, or processes.
+
+## Overview
+
+A Node is a visual element in a flowchart that can have various shapes, styles, and properties. Nodes can contain text content, reference web links, and be nested as sub-nodes to create subgraphs.
+
+## Constructor
+
+```python
+Node(
+    id_: str,
+    content: str = "",
+    shape: str = "normal",
+    sub_nodes: Optional[list["Node"]] = None,
+    href: Optional[str] = None,
+    href_type: str = "blank",
+    styles: Optional[list[Style]] = None,
+    direction: Union[str, Direction] = "LR"
+)
+```
+
+## Parameters
+
+- **id_** (str): Unique identifier for the node. This is a required parameter. The ID is converted to snake_case internally.
+- **content** (str): The text displayed inside the node. If not provided, defaults to the `id_` value. Default: `""`
+- **shape** (str): The shape of the node. Default: `"normal"`. See available shapes below.
+- **sub_nodes** (Optional[list[Node]]): List of child nodes to create a subgraph. Default: `None`
+- **href** (Optional[str]): URL for hyperlink functionality. Default: `None`
+- **href_type** (str): The target type for the hyperlink. Default: `"blank"`. Accepts: `"blank"`, `"self"`, `"parent"`, `"top"`
+- **styles** (Optional[list[Style]]): List of Style objects to apply to the node. Default: `None`
+- **direction** (Union[str, Direction]): Direction of sub-nodes in a subgraph. Default: `"LR"`
+
+## Attributes
+
+After initialization, you can access these attributes:
+
+- **id_** (str): The node's unique identifier
+- **content** (str): The node's display content
+- **shape** (NodeShape): The node's shape configuration
+- **href** (str): The hyperlink URL
+- **href_type** (str): The hyperlink target type
+- **sub_nodes** (list[Node]): Child nodes for subgraphs
+- **styles** (list[Style]): Applied styles
+- **direction** (str): Direction for nested content
+
+## Node Shapes
+
+The `shape` parameter accepts the following values:
+
+| Shape | Value | Rendering |
+|-------|-------|-----------|
+| Normal | `"normal"` | `[text]` |
+| Round Edge | `"round-edge"` | `(text)` |
+| Stadium Shape | `"stadium-shape"` | `([text])` |
+| Subroutine | `"subroutine-shape"` | `[[text]]` |
+| Cylindrical | `"cylindrical"` | `[(text)]` |
+| Circle | `"circle"` | `((text))` |
+| Double Circle | `"double-circle"` | `(((text)))` |
+| Label | `"label-shape"` | `>text]` |
+| Rhombus | `"rhombus"` | `{text}` |
+| Hexagon | `"hexagon"` | `{{text}}` |
+| Parallelogram | `"parallelogram"` | `[/text/]` |
+| Parallelogram Alt | `"parallelogram-alt"` | `[\text\]` |
+| Trapezoid | `"trapezoid"` | `[/text\]` |
+| Trapezoid Alt | `"trapezoid-alt"` | `[\text/]` |
+
+## Basic Examples
+
+### Simple Node
+
+```python
+from mermaid.flowchart import Node
+
+# Create a simple node
+node = Node("task1", "Complete Task")
+print(node)  # Output: task1["Complete Task"]
+```
+
+### Node with Shape
+
+```python
+# Decision node (rhombus)
+decision = Node("check", "Is Valid?", shape="rhombus")
+
+# Start/End node (stadium)
+start = Node("start", "Start", shape="stadium-shape")
+end = Node("end", "End", shape="stadium-shape")
+
+# Process node (circle)
+process = Node("worker", "Background Process", shape="circle")
+```
+
+### Node with Hyperlink
+
+```python
+# Node with external link
+doc_node = Node(
+    "docs",
+    "View Documentation",
+    shape="normal",
+    href="https://mermaid.js.org/",
+    href_type="blank"
+)
+```
+
+### Node with Styling
+
+```python
+from mermaid.style import Style
+
+# Define custom style
+important_style = Style(
+    name="important",
+    fill="#ff9999",
+    color="white",
+    stroke="#ff0000",
+    stroke_width="2px"
+)
+
+# Apply style to node
+critical_node = Node(
+    "critical",
+    "Critical Step",
+    shape="normal",
+    styles=[important_style]
+)
+```
+
+### Multiple Styles
+
+```python
+style1 = Style(name="warning", fill="#fff44f", color="black")
+style2 = Style(name="highlight", stroke="#ff6600", stroke_width="3px")
+
+node = Node(
+    "alert",
+    "Warning",
+    styles=[style1, style2]
+)
+```
+
+## Subgraph (Sub-nodes)
+
+Create nested nodes to form subgraph sections within your flowchart:
+
+```python
+# Create child nodes
+child1 = Node("child1", "Step 1")
+child2 = Node("child2", "Step 2")
+
+# Create parent node with children
+parent = Node(
+    "process_group",
+    "Process Group",
+    sub_nodes=[child1, child2],
+    direction="LR"  # Child nodes flow left to right
+)
+```
+
+### Subgraph Directions
+
+The `direction` parameter controls how sub-nodes are arranged:
+
+- `"LR"` or `Direction.LEFT_TO_RIGHT`: Left to right (default)
+- `"RL"` or `Direction.RIGHT_TO_LEFT`: Right to left
+- `"TB"` or `Direction.TOP_TO_BOTTOM`: Top to bottom
+- `"BT"` or `Direction.BOTTOM_TO_TOP`: Bottom to top
+
+```python
+from mermaid import Direction
+
+# Vertical arrangement
+seq = Node(
+    "sequence",
+    "Sequential Steps",
+    sub_nodes=[step1, step2, step3],
+    direction=Direction.TOP_TO_BOTTOM
+)
+
+# Parallel arrangement
+parallel = Node(
+    "parallel",
+    "Parallel Tasks",
+    sub_nodes=[task_a, task_b, task_c],
+    direction=Direction.LEFT_TO_RIGHT
+)
+```
+
+## Advanced Examples
+
+### Complete Node Setup
+
+```python
+from mermaid.flowchart import Node
+from mermaid.style import Style
+from mermaid import Direction
+
+# Define custom styles
+success = Style(name="success", fill="#90ee90", color="black")
+error = Style(name="error", fill="#ffb6c6", color="black")
+
+# Create nodes with different characteristics
+input_node = Node(
+    "data_input",
+    "Receive Data",
+    shape="cylinder",
+    styles=[success]
+)
+
+process_node = Node(
+    "validate",
+    "Validate Format",
+    shape="normal"
+)
+
+decision_node = Node(
+    "is_valid",
+    "Valid Data?",
+    shape="rhombus"
+)
+
+error_node = Node(
+    "log_error",
+    "Log Error",
+    shape="normal",
+    href="https://logs.example.com",
+    styles=[error]
+)
+
+output_node = Node(
+    "store",
+    "Store Data",
+    shape="cylinder"
+)
+```
+
+### Nested SubGraphs
+
+```python
+# Create deep nesting
+detail1 = Node("d1", "Detail 1")
+detail2 = Node("d2", "Detail 2")
+
+section = Node(
+    "section",
+    "Section",
+    sub_nodes=[detail1, detail2],
+    direction=Direction.TOP_TO_BOTTOM
+)
+
+main = Node(
+    "main",
+    "Main Process",
+    sub_nodes=[section],
+    direction=Direction.LEFT_TO_RIGHT
+)
+```
+
+## ID Conversion
+
+Node IDs are automatically converted to snake_case:
+
+```python
+node1 = Node("Hello World", "Display")  # ID becomes "hello_world"
+node2 = Node("User-Settings", "Settings")  # ID becomes "user_settings"
+node3 = Node("API.Call.Function", "API")  # ID becomes "api_call_function"
+```
+
+## Tips
+
+- Use meaningful IDs as they appear in the generated diagram script
+- Choose shapes that correspond to the semantic meaning of nodes (rhombus for decisions, cylinder for storage, etc.)
+- Keep node content concise for better readability
+- Use styles to group related nodes visually
+- Limit nesting depth to maintain clarity
+- Use hyperlinks to cross-reference other documents or resources
