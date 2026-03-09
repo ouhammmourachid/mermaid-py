@@ -1,6 +1,6 @@
 [project]
 name = "mermaid-py"
-version = "0.8.3"
+version = "0.8.4"
 description = "Python Interface for the Popular mermaid-js Library, Simplified for Diagram Creation."
 readme = "README.md"
 license = "MIT"
@@ -58,7 +58,7 @@ build-backend = "setuptools.build_meta"
 
 
 [bumpver]
-current_version = "0.8.3"
+current_version = "0.8.4"
 version_pattern = "MAJOR.MINOR.PATCH"
 
 [bumpver.file_patterns]
