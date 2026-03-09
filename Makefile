@@ -12,13 +12,7 @@ install:
 update:
 	uv sync --upgrade
 
-.PHONY: build
-build:
-	$(UV_RUN) python -m build
 
-.PHONY: publish
-publish:
-	$(UV_RUN) python -m twine upload dist/*
 
 .PHONY: test
 test:
