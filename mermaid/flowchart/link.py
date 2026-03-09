@@ -97,13 +97,15 @@ class Link:
         Returns:
             str: A string representation of the link.
         """
-        return "".join([
-            self.origin.id_,
-            " ",
-            self.head_left,
-            self.shape,
-            self.head_right,
-            f"|\"{self.message}\"|" if self.message else "",
-            " ",
-            self.end.id_,
-        ])
+        return "".join(
+            [
+                self.origin.id_,
+                " ",
+                self.head_left,
+                self.shape,
+                self.head_right,
+                f'|"{self.message}"|' if self.message else "",
+                " ",
+                self.end.id_,
+            ]
+        )

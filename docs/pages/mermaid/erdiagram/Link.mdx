@@ -22,7 +22,7 @@ Link(
 ## Parameters
 
 - **origin** (Entity): The starting entity of the relationship
-- **end** (Entity): The ending entity of the relationship  
+- **end** (Entity): The ending entity of the relationship
 - **origin_cardinality** (str): Cardinality at the origin side. One of: `"zero-or-one"`, `"exactly-one"`, `"zero-or-more"`, `"one-or-more"`
 - **end_cardinality** (str): Cardinality at the end side. One of: `"zero-or-one"`, `"exactly-one"`, `"zero-or-more"`, `"one-or-more"`
 - **label** (str): The relationship name or description. Default: `""`
@@ -111,7 +111,7 @@ link = Link(
 When interpreting a relationship:
 
 1. **Start from origin entity**: Read the cardinality at the origin side
-2. **Follow the relationship**: Read the relationship label 
+2. **Follow the relationship**: Read the relationship label
 3. **End at end entity**: Read the cardinality at the end side
 
 **Example:**
@@ -177,7 +177,7 @@ product_items = Link(
     product,
     order_item,
     "zero-or-more",     # Product appears in zero or more items
-    "many-to-many",     
+    "many-to-many",
     label="sold_in"
 )
 

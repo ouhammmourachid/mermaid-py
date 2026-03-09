@@ -14,14 +14,14 @@ from .graph import Graph
 class MermaidError(Exception):
     """
     Custom exception for Mermaid API errors.
-    
+
     Parses error messages from the API response into a more readable form.
     """
-    
+
     def __init__(self, status_code: int, response_text: str, url: str):
         """
         Initialize MermaidError with parsed error information.
-        
+
         Parameters:
             status_code (int): The HTTP status code from the API response.
             response_text (str): The response body from the API.
@@ -30,26 +30,26 @@ class MermaidError(Exception):
         self.status_code = status_code
         self.response_text = response_text
         self.url = url
-        
+
         # Parse the error message
         readable_message = self._parse_error_message(status_code, response_text)
         super().__init__(readable_message)
-    
+
     @staticmethod
     def _parse_error_message(status_code: int, response_text: str) -> str:
         """
         Parse the error message from the API response into a readable form.
-        
+
         Parameters:
             status_code (int): The HTTP status code.
             response_text (str): The response body.
-            
+
         Returns:
             str: A formatted error message.
         """
         # Build base error message
         error_msg = f"Mermaid API Error [{status_code}]"
-        
+
         # Handle common status codes
         status_messages = {
             400: "Bad Request - Invalid diagram syntax or parameters",
@@ -61,18 +61,18 @@ class MermaidError(Exception):
             503: "Service Unavailable - Please try again later",
             504: "Gateway Timeout - Request took too long",
         }
-        
+
         if status_code in status_messages:
             error_msg += f": {status_messages[status_code]}"
         else:
             error_msg += f": HTTP {status_code} Error"
-        
+
         # Append response text if available and not too long
         if response_text and len(response_text) < 500:
             error_msg += f"\n\nDetails: {response_text}"
         elif response_text:
             error_msg += f"\n\nDetails: {response_text[:200]}..."
-        
+
         return error_msg
 
 
@@ -187,7 +187,7 @@ class Mermaid:
         """
         Make GET requests to the Mermaid SVG and IMG APIs using
         the base64 encoded string of the Mermaid diagram script.
-        
+
         Raises:
             MermaidError: If the API request fails.
         """
@@ -202,7 +202,7 @@ class Mermaid:
             + "?"
             + self._build_query_params()
         )
-        
+
         img_url = (
             mermaid_server_adress
             + "/img/"
@@ -210,21 +210,17 @@ class Mermaid:
             + "?"
             + self._build_query_params(image_format="png")
         )
-        
+
         self.svg_response: Response = requests.get(svg_url)
         if not self.svg_response.ok:
             raise MermaidError(
-                self.svg_response.status_code,
-                self.svg_response.text,
-                svg_url
+                self.svg_response.status_code, self.svg_response.text, svg_url
             )
-        
+
         self.img_response: Response = requests.get(img_url)
         if not self.img_response.ok:
             raise MermaidError(
-                self.img_response.status_code,
-                self.img_response.text,
-                img_url
+                self.img_response.status_code, self.img_response.text, img_url
             )
 
     def to_svg(self, path: Union[str, Path]) -> None:

@@ -13,7 +13,7 @@ Functions:
 
 from enum import Enum
 
-from .__main__ import Mermaid, Position, MermaidError
+from .__main__ import Mermaid, MermaidError, Position
 from .configuration import Config
 from .graph import Graph
 from .icon import Icon

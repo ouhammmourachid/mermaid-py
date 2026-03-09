@@ -92,7 +92,7 @@ section1_parent = Node(
 )
 
 section2_parent = Node(
-    "section2", 
+    "section2",
     "Section 2",
     sub_nodes=section2_nodes,
     direction=Direction.TOP_TO_BOTTOM
@@ -139,29 +139,29 @@ Create reusable diagram builders:
 ```python
 class WorkflowBuilder:
     """Builder for workflow diagrams"""
-    
+
     def __init__(self, title):
         self.title = title
         self.nodes = []
         self.links = []
-    
+
     def add_process_step(self, id_, label):
         """Add a process step"""
         self.nodes.append(Node(id_, label, shape="normal"))
         return self
-    
+
     def add_decision(self, id_, label):
         """Add a decision point"""
         self.nodes.append(Node(id_, label, shape="rhombus"))
         return self
-    
+
     def connect(self, from_id, to_id, message=""):
         """Connect two nodes"""
         from_node = next(n for n in self.nodes if n.id_ == from_id)
         to_node = next(n for n in self.nodes if n.id_ == to_id)
         self.links.append(Link(from_node, to_node, message=message))
         return self
-    
+
     def build(self):
         """Build the final diagram"""
         return FlowChart(
@@ -208,19 +208,19 @@ database = Participant("Database")
 messages = [
     Link(user, frontend, ArrowTypes.SOLID_ARROW, "Click Submit"),
     Link(frontend, backend, ArrowTypes.SOLID_ARROW, "POST /api/submit"),
-    
+
     # Database operations with loop
     Loop("For each item", [
         Link(backend, database, ArrowTypes.SOLID_ARROW, "INSERT"),
         Link(database, backend, ArrowTypes.DOTTED_ARROW, "OK")
     ]),
-    
+
     # Response with alt
     Alt({
         "Success": [Link(backend, frontend, ArrowTypes.SOLID_ARROW, "200 OK")],
         "Error": [Link(backend, frontend, ArrowTypes.SOLID_CROSS, "500 Error")]
     }),
-    
+
     Link(frontend, user, ArrowTypes.DOTTED_ARROW, "Display Result")
 ]
 
@@ -239,23 +239,23 @@ diagram = SequenceDiagram(
 def generate_flowchart_from_tasks(tasks):
     """Generate flowchart from a list of tasks"""
     from mermaid.flowchart import FlowChart, Node, Link
-    
+
     nodes = [Node("start", "Start", shape="stadium-shape")]
     links = []
-    
+
     for i, task in enumerate(tasks):
         node_id = f"task_{i}"
         node = Node(node_id, task["name"], shape="normal")
         nodes.append(node)
-        
+
         if i == 0:
             links.append(Link(nodes[0], node))
         else:
             links.append(Link(nodes[i], node))
-    
+
     nodes.append(Node("end", "End", shape="stadium-shape"))
     links.append(Link(nodes[-2], nodes[-1]))
-    
+
     return FlowChart(
         title="Generated Workflow",
         nodes=nodes,

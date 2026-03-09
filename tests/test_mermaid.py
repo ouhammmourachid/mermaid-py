@@ -208,7 +208,7 @@ class TestMermaidError(unittest.TestCase):
     def test_mermaid_error_message_formatting_long_response(self):
         """Test that MermaidError truncates long response messages."""
         long_error_text = "x" * 600  # Longer than 500 chars
-        
+
         with mock.patch("requests.get") as mock_get:
             mock_response = mock.Mock()
             mock_response.ok = False
