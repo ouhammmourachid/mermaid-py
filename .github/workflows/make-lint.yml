@@ -59,7 +59,7 @@ jobs:
       - name: generate coverage report
         run: make coverage
       - name: upload coverage reports to Codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v6
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
