@@ -41,7 +41,7 @@ stateDiagram-v2
     Moving --> Crash
     Crash --> [*]
 """)
-render # !! note this only works in the notebook that rendered the html.
+render  # !! note this only works in the notebook that rendered the html.
 ```
 
 <p align="center">
