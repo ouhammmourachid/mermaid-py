@@ -82,30 +82,34 @@ By default, the library uses the mermaid.ink service [github](https://github.com
 The `MERMAID_INK_SERVER` environment variable can be used to specify the server to use, for example.
 
 ## List of Diagrames
-- [x] [~~FlowChart~~](https://mermaid.js.org/syntax/flowchart.html)
-- [x] [~~Sequence Diagram~~](https://mermaid.js.org/syntax/sequenceDiagram.html)
+
+Supported in the current library:
+- [x] [FlowChart](https://mermaid.js.org/syntax/flowchart.html)
+- [x] [Sequence Diagram](https://mermaid.js.org/syntax/sequenceDiagram.html)
+- [x] [State Diagram](https://mermaid.js.org/syntax/stateDiagram.html)
+- [x] [Entity Relationship Diagram](https://mermaid.js.org/syntax/entityRelationshipDiagram.html)
+- [x] [User Journey](https://mermaid.js.org/syntax/userJourney.html)
+- [x] [Requirement Diagram](https://mermaid.js.org/syntax/requirementDiagram.html)
+- [x] [Mindmap](https://mermaid.js.org/syntax/mindmap.html)
+- [x] [Pie Chart](https://mermaid.js.org/syntax/pie.html)
+- [x] [Generic Graph](https://mermaid.js.org/syntax/flowchart.html)
+
+Not yet implemented in this package:
 - [ ] [Class Diagram](https://mermaid.js.org/syntax/classDiagram.html)
-- [x] [~~State Diagram~~](https://mermaid.js.org/syntax/stateDiagram.html)
-- [x] [~~Entity Relationship Diagram~~](https://mermaid.js.org/syntax/entityRelationshipDiagram.html)
-- [x] [~~User Journey~~](https://mermaid.js.org/syntax/userJourney.html)
 - [ ] [Gantt](https://mermaid.js.org/syntax/gantt.html)
-- [x] [~~Pie Chart~~](https://mermaid.js.org/syntax/pie.html)
-- [ ] [Quadrant Chart](https://mermaid.js.org/syntax/quadrantChart.html)
-- [x] [~~Requirement Diagram~~](https://mermaid.js.org/syntax/requirementDiagram.html)
 - [ ] [Gitgraph (Git) Diagram](https://mermaid.js.org/syntax/gitgraph.html)
-- [ ] [C4 Diagram 🦺⚠️](https://mermaid.js.org/syntax/c4.html)
-- [x] [~~Mindmaps~~](https://mermaid.js.org/syntax/mindmap.html)
+- [ ] [C4 Diagram](https://mermaid.js.org/syntax/c4.html)
 - [ ] [Timeline](https://mermaid.js.org/syntax/timeline.html)
 - [ ] [Zenuml](https://mermaid.js.org/syntax/zenuml.html)
-- [ ] [Sankey 🔥](https://mermaid.js.org/syntax/sankey.html)
-- [ ] [XYChart 🔥](https://mermaid.js.org/syntax/xyChart.html)
-- [ ] [Block Diagram 🔥](https://mermaid.js.org/syntax/block.html)
-- [ ] [Packet 🔥](https://mermaid.js.org/syntax/packet.html)
-- [ ] [Kanban 🔥](https://mermaid.js.org/syntax/kanban.html)
-- [ ] [Architecture 🔥](https://mermaid.js.org/syntax/architecture.html)
-- [ ] [Radar 🔥](https://mermaid.js.org/syntax/radar.html)
-- [ ] [Treemap 🔥](https://mermaid.js.org/syntax/treemap.html)
-- [ ] [Venn 🔥](https://mermaid.js.org/syntax/venn.html)
+- [ ] [Sankey](https://mermaid.js.org/syntax/sankey.html)
+- [ ] [XYChart](https://mermaid.js.org/syntax/xyChart.html)
+- [ ] [Block Diagram](https://mermaid.js.org/syntax/block.html)
+- [ ] [Packet](https://mermaid.js.org/syntax/packet.html)
+- [ ] [Kanban](https://mermaid.js.org/syntax/kanban.html)
+- [ ] [Architecture](https://mermaid.js.org/syntax/architecture.html)
+- [ ] [Radar](https://mermaid.js.org/syntax/radar.html)
+- [ ] [Treemap](https://mermaid.js.org/syntax/treemap.html)
+- [ ] [Venn](https://mermaid.js.org/syntax/venn.html)
 
 ## License
 
