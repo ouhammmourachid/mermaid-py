@@ -82,8 +82,6 @@ By default, the library uses the mermaid.ink service [github](https://github.com
 The `MERMAID_INK_SERVER` environment variable can be used to specify the server to use, for example.
 
 ## List of Diagrames
-
-Supported in the current library:
 - [x] [FlowChart](https://mermaid.js.org/syntax/flowchart.html)
 - [x] [Sequence Diagram](https://mermaid.js.org/syntax/sequenceDiagram.html)
 - [x] [State Diagram](https://mermaid.js.org/syntax/stateDiagram.html)
@@ -93,8 +91,6 @@ Supported in the current library:
 - [x] [Mindmap](https://mermaid.js.org/syntax/mindmap.html)
 - [x] [Pie Chart](https://mermaid.js.org/syntax/pie.html)
 - [x] [Generic Graph](https://mermaid.js.org/syntax/flowchart.html)
-
-Not yet implemented in this package:
 - [ ] [Class Diagram](https://mermaid.js.org/syntax/classDiagram.html)
 - [ ] [Gantt](https://mermaid.js.org/syntax/gantt.html)
 - [ ] [Gitgraph (Git) Diagram](https://mermaid.js.org/syntax/gitgraph.html)
