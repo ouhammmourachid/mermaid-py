@@ -67,6 +67,24 @@ class TestMermaid(unittest.TestCase):
 
         self.assertTrue(Path.exists(output_path))
 
+    def test_requests_use_env_configured_ssl_verification(self):
+        with mock.patch.dict(
+            os.environ, {"MERMAID_INK_SERVER_VERIFY_SSL": "false"}, clear=False
+        ):
+            with mock.patch("requests.get") as mock_get:
+                mock_response = mock.Mock()
+                mock_response.ok = True
+                mock_response.status_code = 200
+                mock_response.text = "<svg></svg>"
+                mock_response.content = b"png"
+                mock_get.return_value = mock_response
+
+                Mermaid(self.graph)
+
+                self.assertEqual(mock_get.call_count, 2)
+                self.assertEqual(mock_get.call_args_list[0].kwargs["verify"], False)
+                self.assertEqual(mock_get.call_args_list[1].kwargs["verify"], False)
+
     def test_repr_html_on_mermaid_with_default_position(self):
         self.assertEqual(
             self.mermaid_object._repr_html_(), self.mermaid_object.svg_response.text

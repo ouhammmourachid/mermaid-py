@@ -128,9 +128,21 @@ from mermaid import Mermaid
 # Set custom Mermaid server
 os.environ["MERMAID_INK_SERVER"] = "http://localhost:8080"
 
+# Disable SSL verification for internal/self-signed certificate setups
+os.environ["MERMAID_INK_SERVER_VERIFY_SSL"] = "false"
+
 # Now all diagrams will use the local server
 diagram = Mermaid(flowchart)
 ```
+
+You can also define these variables in your shell before starting your app:
+
+```bash
+export MERMAID_INK_SERVER="https://internal-mermaid.example.com"
+export MERMAID_INK_SERVER_VERIFY_SSL="false"
+```
+
+`MERMAID_INK_SERVER_VERIFY_SSL` defaults to `true`, which keeps certificate validation on unless you explicitly disable it for trusted internal environments.
 
 ## Advanced Pattern: Diagram Builders
 
