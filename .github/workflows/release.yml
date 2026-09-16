@@ -23,12 +23,13 @@ jobs:
     steps:
     - uses: actions/checkout@v7
       with:
+        persist-credentials: false
         fetch-depth: 0
     - name: bump version
       uses: ouhammmourachid/bumpversion-action@v1.1.0
       with:
         bump-type: ${{ github.event.inputs.bump-type }}
-        github-token: ${{ github.token }}
+        github-token: ${{ secrets.TOKEN_PAT }}
 
     - name: Build and Deploy to PyPI
       uses: ./.github/actions/build-deploy
