@@ -12,6 +12,9 @@ on:
           - minor
           - major
 
+permissions:
+  contents: write
+
 jobs:
   deploy:
 
@@ -20,13 +23,12 @@ jobs:
     steps:
     - uses: actions/checkout@v7
       with:
-        persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
-        fetch-depth: 0             # otherwise, you will fail to push refs to dest repo
+        fetch-depth: 0
     - name: bump version
       uses: ouhammmourachid/bumpversion-action@v1.1.0
       with:
         bump-type: ${{ github.event.inputs.bump-type }}
-        github-token: ${{ secrets.TOKEN_PAT}}
+        github-token: ${{ github.token }}
 
     - name: Build and Deploy to PyPI
       uses: ./.github/actions/build-deploy
