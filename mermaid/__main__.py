@@ -194,6 +194,9 @@ class Mermaid:
         mermaid_server_adress: str = os.getenv(
             "MERMAID_INK_SERVER", "https://mermaid.ink"
         )
+        verify_ssl: bool = os.getenv(
+            "MERMAID_INK_SERVER_VERIFY_SSL", "true"
+        ).strip().lower() in ("true", "1", "t", "yes", "y")
 
         svg_url = (
             mermaid_server_adress
@@ -211,13 +214,13 @@ class Mermaid:
             + self._build_query_params(image_format="png")
         )
 
-        self.svg_response: Response = requests.get(svg_url)
+        self.svg_response: Response = requests.get(svg_url, verify=verify_ssl)
         if not self.svg_response.ok:
             raise MermaidError(
                 self.svg_response.status_code, self.svg_response.text, svg_url
             )
 
-        self.img_response: Response = requests.get(img_url)
+        self.img_response: Response = requests.get(img_url, verify=verify_ssl)
         if not self.img_response.ok:
             raise MermaidError(
                 self.img_response.status_code, self.img_response.text, img_url

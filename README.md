@@ -79,7 +79,19 @@ diagram
 
 By default, the library uses the mermaid.ink service [github](https://github.com/jihchi/mermaid.ink) for generating diagrams. The service can be run locally using docker, following instructions [here](https://github.com/jihchi/mermaid.ink?tab=readme-ov-file#launch-a-container).
 
-The `MERMAID_INK_SERVER` environment variable can be used to specify the server to use, for example.
+The `MERMAID_INK_SERVER` environment variable can be used to specify the server to use. For example:
+
+```bash
+export MERMAID_INK_SERVER="http://localhost:8080"
+```
+
+When connecting to an internal or self-signed Mermaid Ink server, you can disable certificate verification with:
+
+```bash
+export MERMAID_INK_SERVER_VERIFY_SSL=false
+```
+
+The default is `true`, which keeps SSL certificate validation enabled for public HTTPS endpoints.
 
 ## List of Diagrames
 - [x] [FlowChart](https://mermaid.js.org/syntax/flowchart.html)
