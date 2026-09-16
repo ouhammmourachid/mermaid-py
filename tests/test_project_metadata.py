@@ -1,5 +1,6 @@
-import tomllib
 from pathlib import Path
+
+import tomllib
 
 
 def test_project_urls_are_defined_for_pypi_metadata():
@@ -14,6 +15,8 @@ def test_project_urls_are_defined_for_pypi_metadata():
     assert urls["Homepage"] == "https://github.com/ouhammmourachid/mermaid-py"
     assert urls["Repository"] == "https://github.com/ouhammmourachid/mermaid-py"
     assert urls["Issues"] == "https://github.com/ouhammmourachid/mermaid-py/issues"
-    assert urls["Documentation"] == "https://github.com/ouhammmourachid/mermaid-py#readme"
+    assert (
+        urls["Documentation"] == "https://github.com/ouhammmourachid/mermaid-py#readme"
+    )
     assert "Programming Language :: Python :: 3.9" in classifiers
     assert "Programming Language :: Python :: 3.12" in classifiers
