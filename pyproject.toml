@@ -9,9 +9,26 @@ authors = [
 ]
 requires-python = ">=3.9"
 
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3 :: Only",
+]
+
 dependencies = [
     "requests>=2.32.5",
 ]
+
+[project.urls]
+Homepage = "https://github.com/ouhammmourachid/mermaid-py"
+Repository = "https://github.com/ouhammmourachid/mermaid-py"
+Issues = "https://github.com/ouhammmourachid/mermaid-py/issues"
+Documentation = "https://github.com/ouhammmourachid/mermaid-py#readme"
 
 [dependency-groups]
 dev = [
